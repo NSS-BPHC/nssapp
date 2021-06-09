@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
               label: 'Profile',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.list),
+              icon: Icon(Icons.shopping_bag),
               label: 'Merchandise',
             ),
             BottomNavigationBarItem(

@@ -31,19 +31,24 @@ class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
+        title: Text(
+          'Rohith Kumar Gattu',
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 28, color: Colors.black),
+        ),
+        centerTitle: false,
       ),
-      body: Container(
-        margin: EdgeInsets.only(left: 30),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Rohith Kumar Gattu',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
-            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -56,13 +61,38 @@ class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
+                    Row(
+                      children: [
+                        Icon(Icons.phone),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text('9502986243')
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.calendar_today),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text('01-Sept 2019'),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text('-'),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text('present')
+                      ],
+                    ),
                   ],
                 ),
                 Container(
                   width: 80.0,
                   height: 80.0,
-                  margin: EdgeInsets.only(left: 80),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
                     border: Border.all(
@@ -78,32 +108,6 @@ class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {
                     ),
                   ),
                 ),
-              ],
-            ),
-            Row(
-              children: [
-                Icon(Icons.phone),
-                SizedBox(
-                  width: 5,
-                ),
-                Text('9502986243')
-              ],
-            ),
-            Row(
-              children: [
-                Icon(Icons.calendar_today),
-                SizedBox(
-                  width: 5,
-                ),
-                Text('01-Sept 2019'),
-                SizedBox(
-                  width: 5,
-                ),
-                Text('-'),
-                SizedBox(
-                  width: 5,
-                ),
-                Text('present')
               ],
             ),
             SizedBox(
