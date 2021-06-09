@@ -9,10 +9,10 @@ class VolunteerProfileScreen extends StatefulWidget {
 }
 
 final List<EventModel> items = [
-  EventModel(title: "Govt School Visit", date: "21-Sept-2021", score: 10),
-  EventModel(title: "Govt School Visit", date: "21-Sept-2021", score: 10),
-  EventModel(title: "Govt School Visit", date: "21-Sept-2021", score: 10),
-  EventModel(title: "Govt School Visit", date: "21-Sept-2021", score: 10),
+  EventModel(title: "Govt School Visit", date: "21-Sep-2021", score: 0),
+  EventModel(title: "Govt School Visit", date: "18-Sep-2021", score: 8),
+  EventModel(title: "Govt School Visit", date: "06-Aug-2021", score: 10),
+  EventModel(title: "Govt School Visit", date: "14-Jul-2021", score: 6),
 ];
 
 class EventModel {
@@ -31,15 +31,30 @@ class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
-        title: Text(
-          'Rohith Kumar Gattu',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 28, color: Colors.black),
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            Text(
+              'Rohith ',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 28,
+                  color: Colors.black),
+            ),
+            Text(
+              'Kumar Gattu',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+          ],
         ),
         centerTitle: false,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -53,13 +68,11 @@ class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {
                   children: [
                     Text(
                       'Core Team Member',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: TextStyle(fontSize: 18),
                     ),
                     Text(
                       '2019A7PS0049H',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: TextStyle(fontSize: 18),
                     ),
                     Row(
                       children: [
@@ -93,10 +106,8 @@ class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {
                   width: 80.0,
                   height: 80.0,
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Colors.black,
                       width: 2.0,
                     ),
                   ),
@@ -114,13 +125,11 @@ class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {
               height: 15,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Events Participated',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
-                SizedBox(
-                  width: 150,
                 ),
                 Text(
                   'View All',
