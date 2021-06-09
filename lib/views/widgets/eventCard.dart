@@ -21,30 +21,26 @@ class _EventCardState extends State<EventCard> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           border: Border.all(color: Colors.black),
-          //color: Colors.grey,
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
                     widget.eventModel.title,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                  SizedBox(
-                    height: 5,
                   ),
                   Text(
                     widget.eventModel.date,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ],
-              ),
-              SizedBox(
-                width: 100,
               ),
               Text(
                 widget.eventModel.score.toString(),
