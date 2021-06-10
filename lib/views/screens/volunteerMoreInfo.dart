@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/views/screens/volunteerDropSuggestions.dart';
 
 class VolunteerMoreInfoScreen extends StatefulWidget {
   const VolunteerMoreInfoScreen({Key? key}) : super(key: key);
@@ -12,6 +13,10 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
@@ -37,31 +42,40 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
               SizedBox(
                 height: 30,
               ),
-              Container(
-                width: 350.0,
-                height: 80.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Drop Suggestions',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 24),
-                      ),
-                      SizedBox(
-                        width: 60,
-                      ),
-                      Text(
-                        '>',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 24),
-                      ),
-                    ],
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              VolunteerDropSuggestionsScreen()));
+                },
+                child: Container(
+                  width: 350.0,
+                  height: 80.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Drop Suggestions',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 24),
+                        ),
+                        SizedBox(
+                          width: 60,
+                        ),
+                        Text(
+                          '>',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 24),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

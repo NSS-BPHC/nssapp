@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/views/widgets/eventCard.dart';
 
 class VolunteerProfileScreen extends StatefulWidget {
@@ -9,19 +10,38 @@ class VolunteerProfileScreen extends StatefulWidget {
 }
 
 final List<EventModel> items = [
-  EventModel(title: "Govt School Visit", date: "21-Sep-2021", score: 0),
-  EventModel(title: "Govt School Visit", date: "18-Sep-2021", score: 8),
-  EventModel(title: "Govt School Visit", date: "06-Aug-2021", score: 10),
-  EventModel(title: "Govt School Visit", date: "14-Jul-2021", score: 6),
+  EventModel(
+      title: "Govt School Visit",
+      date: DateTime.now(),
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      withDrawTime: DateTime.now(),
+      description:
+          "To visit to the government school nearby hi i am rohith i am fine and pink in health, sare ga ma pa finals sai ankit madhura gaanam padi 1 cr rupees sadhinchukunnaud, congratulations bvs ankit",
+      organiser: "John",
+      location: "Thimmaipalli",
+      noOfVolunteers: 10),
+  EventModel(
+      title: "Orphanage Visit",
+      date: DateTime.now(),
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      withDrawTime: DateTime.now(),
+      description: "To visit to the government school nearby",
+      organiser: "John",
+      location: "Thimmaipalli",
+      noOfVolunteers: 10),
+  EventModel(
+      title: "Week of Love",
+      date: DateTime.now(),
+      startTime: DateTime.now(),
+      endTime: DateTime.now(),
+      withDrawTime: DateTime.now(),
+      description: "To visit to the government school nearby",
+      organiser: "John",
+      location: "Thimmaipalli",
+      noOfVolunteers: 10),
 ];
-
-class EventModel {
-  final String title;
-  final String date;
-  final int score;
-
-  EventModel({required this.title, required this.date, required this.score});
-}
 
 class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {
   @override
