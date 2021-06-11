@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
+import 'package:nssapp/models/volunteerModel.dart';
 import 'package:nssapp/views/widgets/eventCard.dart';
 
 class VolunteerProfileScreen extends StatefulWidget {
@@ -11,36 +12,119 @@ class VolunteerProfileScreen extends StatefulWidget {
 
 final List<EventModel> items = [
   EventModel(
-      title: "Govt School Visit",
-      date: DateTime.now(),
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-      withDrawTime: DateTime.now(),
+      id: "60c339d6ee14fd461c0a30e1",
+      title: "Mysterious Island",
+      date: "21/10/2020",
+      startTime: "1:20:47",
+      endTime: "3:26:43",
+      withDrawTime: "12:49:08",
+      location: "Subrag",
       description:
-          "To visit to the government school nearby hi i am rohith i am fine and pink in health, sare ga ma pa finals sai ankit madhura gaanam padi 1 cr rupees sadhinchukunnaud, congratulations bvs ankit",
-      organiser: "John",
-      location: "Thimmaipalli",
-      noOfVolunteers: 10),
+          "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
+      organiser: "Hope",
+      noOfVolunteers: 31,
+      v: 0,
+      eventModelId: "60c339d6ee14fd461c0a30e1"),
   EventModel(
-      title: "Orphanage Visit",
-      date: DateTime.now(),
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-      withDrawTime: DateTime.now(),
-      description: "To visit to the government school nearby",
-      organiser: "John",
-      location: "Thimmaipalli",
-      noOfVolunteers: 10),
+      id: "60c339d6ee14fd461c0a30e1",
+      title: "Mysterious Island",
+      date: "21/10/2020",
+      startTime: "1:20:47",
+      endTime: "3:26:43",
+      withDrawTime: "12:49:08",
+      location: "Subrag",
+      description:
+          "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
+      organiser: "Hope",
+      noOfVolunteers: 31,
+      v: 0,
+      eventModelId: "60c339d6ee14fd461c0a30e1"),
   EventModel(
-      title: "Week of Love",
-      date: DateTime.now(),
-      startTime: DateTime.now(),
-      endTime: DateTime.now(),
-      withDrawTime: DateTime.now(),
-      description: "To visit to the government school nearby",
-      organiser: "John",
-      location: "Thimmaipalli",
-      noOfVolunteers: 10),
+      id: "60c339cdee14fd461c0a30e0",
+      title: "King of Comedy (Hei kek ji wong)",
+      date: "13/01/2021",
+      startTime: "21:03:50",
+      endTime: "11:37:15",
+      withDrawTime: "2:05:44",
+      location: "Tenggun Dajah",
+      description:
+          "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.",
+      organiser: "Penn",
+      noOfVolunteers: 27,
+      v: 0,
+      eventModelId: "60c339cdee14fd461c0a30e0"),
+];
+final List<VolunteerModel> panel = [
+  VolunteerModel(
+    name: "Gandhi Puttu",
+    phoneNumber: "9876543210",
+    dateOfJoining: "1-Sept-2018",
+    role: "President",
+    id: '2019A7PS0049H',
+  ),
+  VolunteerModel(
+    name: "Parvez Mushraff",
+    phoneNumber: "9876543210",
+    dateOfJoining: "1-Sept-2018",
+    role: "President",
+    id: '2019A7PS0049H',
+  ),
+  VolunteerModel(
+    name: "Chaitanya",
+    phoneNumber: "9876543210",
+    dateOfJoining: "1-Sept-2018",
+    role: "President",
+    id: '2019A7PS0049H',
+  ),
+  VolunteerModel(
+    name: "Gandhi Puttu",
+    phoneNumber: "9876543210",
+    dateOfJoining: "1-Sept-2018",
+    role: "President",
+    id: '2019A7PS0049H',
+  ),
+  VolunteerModel(
+    name: "Gandhi Puttu",
+    phoneNumber: "9876543210",
+    dateOfJoining: "1-Sept-2018",
+    role: "President",
+    id: '2019A7PS0049H',
+  ),
+  VolunteerModel(
+    name: "Gandhi Puttu",
+    phoneNumber: "9876543210",
+    dateOfJoining: "1-Sept-2018",
+    role: "President",
+    id: '2019A7PS0049H',
+  ),
+  VolunteerModel(
+    name: "Gandhi Puttu",
+    phoneNumber: "9876543210",
+    dateOfJoining: "1-Sept-2018",
+    role: "President",
+    id: '2019A7PS0049H',
+  ),
+  VolunteerModel(
+    name: "Gandhi Puttu",
+    phoneNumber: "9876543210",
+    dateOfJoining: "1-Sept-2018",
+    role: "President",
+    id: '2019A7PS0049H',
+  ),
+  VolunteerModel(
+    name: "Gandhi Puttu",
+    phoneNumber: "9876543210",
+    dateOfJoining: "1-Sept-2018",
+    role: "President",
+    id: '2019A7PS0049H',
+  ),
+  VolunteerModel(
+    name: "Gandhi Puttu",
+    phoneNumber: "9876543210",
+    dateOfJoining: "1-Sept-2018",
+    role: "President",
+    id: '2019A7PS0049H',
+  ),
 ];
 
 class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {

@@ -12,6 +12,7 @@ class _VolunteerDropSuggestionsScreenState
     extends State<VolunteerDropSuggestionsScreen> {
   final titleController = TextEditingController();
   final suggestionController = TextEditingController();
+  final maxLines = 10;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,18 +38,26 @@ class _VolunteerDropSuggestionsScreenState
         child: Column(
           children: [
             // methods and listeners are yet to be implemented in titleController, suggestionController
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Title',
+            Container(
+              margin: EdgeInsets.all(12),
+              child: TextField(
+                controller: titleController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Title',
+                ),
               ),
             ),
-            TextField(
-              controller: suggestionController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Suggestion',
+            Container(
+              height: maxLines * 24,
+              margin: EdgeInsets.all(12),
+              child: TextField(
+                maxLines: maxLines,
+                controller: suggestionController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Suggestion',
+                ),
               ),
             ),
             Padding(
