@@ -37,9 +37,8 @@ class _PanelCardState extends State<PanelCard> {
       Icon(Icons.phone),
     ];
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 14.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
       child: Container(
-        // width: 180.0,
         height: 80.0,
         decoration: BoxDecoration(
           color: Color(0xff00bcd4),

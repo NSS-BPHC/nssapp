@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/views/screens/volunteerDashBoard.dart';
+import 'package:nssapp/views/screens/volunteerEventsScreen.dart';
 import 'package:nssapp/views/screens/volunteerMerchandise.dart';
 import 'package:nssapp/views/screens/volunteerMoreInfo.dart';
 import 'package:nssapp/views/screens/volunteerProfile.dart';
@@ -16,9 +17,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int selectedIndex = 0;
   List<Widget> widgetOptions = <Widget>[
+    VolunteerEventsScreen(),
+    VolunteerMerchandiseScreen(),
     VolunteerDashBoardScreen(),
     VolunteerProfileScreen(),
-    VolunteerMerchandiseScreen(),
     VolunteerMoreInfoScreen(),
   ];
   void onTabTapped(int index) {
@@ -44,19 +46,23 @@ class _MyAppState extends State<MyApp> {
           currentIndex: selectedIndex,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'DashBoard',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
+              icon: Icon(Icons.movie),
+              label: 'Events',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.shopping_bag),
               label: 'Merchandise',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.dashboard),
+              label: 'Dashboard',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.more_horiz),
               label: 'More',
             ),
           ],

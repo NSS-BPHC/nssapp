@@ -20,6 +20,7 @@ class _EventCardState extends State<EventCard> {
         children: [
           Text(
             widget.eventModel.title,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
@@ -36,10 +37,10 @@ class _EventCardState extends State<EventCard> {
         ],
       ),
       Text(
-        'Not Yet Graded',
+        '10',
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 14,
+          fontSize: 30,
           color: Colors.white,
         ),
       )
