@@ -16,7 +16,7 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(18.0),
+      padding: const EdgeInsets.all(14.0),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -27,7 +27,7 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xffcaf7e3),
+            color: Color(0xffc2c2c2),
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           child: Padding(
@@ -49,16 +49,28 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.place),
-                        SizedBox(width: 5.0),
+                        Row(
+                          children: [
+                            Icon(Icons.place),
+                            SizedBox(width: 5.0),
+                            Text(
+                              widget.eventModel.location,
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                         Text(
-                          widget.eventModel.location,
+                          widget.eventModel.date.toString(),
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
+                              fontStyle: FontStyle.italic,
+                              fontSize: 14,
+                              color: Colors.black),
                         ),
                       ],
                     ),
@@ -69,9 +81,9 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                         Text(
                           "Organised by :",
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
                             fontSize: 14,
-                            color: Colors.deepOrangeAccent,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.black,
                           ),
                         ),
                         SizedBox(width: 5.0),
@@ -87,75 +99,57 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                     ),
                   ],
                 ),
-                Column(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.calendar_today),
-                        SizedBox(width: 5.0),
-                        Text(
-                          widget.eventModel.date.toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Colors.black),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.alarm),
-                        SizedBox(width: 5.0),
                         Text(
                           "10:00 am",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.italic,
                               fontSize: 14,
                               color: Colors.black),
                         ),
                         Text(
                           "-",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.italic,
                               fontSize: 18,
                               color: Colors.black),
                         ),
                         Text(
                           "05:00 pm",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.italic,
                               fontSize: 14,
                               color: Colors.black),
                         ),
                       ],
                     ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
                         decoration: BoxDecoration(
-                            color: Colors.green,
+                            color: Color(0xff5271ff),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
+                                BorderRadius.all(Radius.circular(10))),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Registrations Open",
+                            "Register",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Colors.black),
+                                fontSize: 18,
+                                color: Colors.white),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/models/announcementModel.dart';
 import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/models/volunteerModel.dart';
 import 'package:nssapp/views/widgets/eventCard.dart';
@@ -14,7 +15,7 @@ final List<EventModel> items = [
   EventModel(
       id: "60c339d6ee14fd461c0a30e1",
       title: "Mysterious Island",
-      date: "21/10/2020",
+      date: "03-Jun-2020",
       startTime: "1:20:47",
       endTime: "3:26:43",
       withDrawTime: "12:49:08",
@@ -28,7 +29,7 @@ final List<EventModel> items = [
   EventModel(
       id: "60c339d6ee14fd461c0a30e1",
       title: "Mysterious Island",
-      date: "21/10/2020",
+      date: "21-Aug-2020",
       startTime: "1:20:47",
       endTime: "3:26:43",
       withDrawTime: "12:49:08",
@@ -42,7 +43,7 @@ final List<EventModel> items = [
   EventModel(
       id: "60c339cdee14fd461c0a30e0",
       title: "King of Comedy (Hei kek ji wong)",
-      date: "13/01/2021",
+      date: "01-Sept-2021",
       startTime: "21:03:50",
       endTime: "11:37:15",
       withDrawTime: "2:05:44",
@@ -125,6 +126,21 @@ final List<VolunteerModel> panel = [
     role: "President",
     id: '2019A7PS0049H',
   ),
+];
+
+final List<AnnouncementModel> announcement = [
+  AnnouncementModel(
+      title: "Happy Independence Day!",
+      description: "Independence day special 2K run starts at SAC in 10 mins",
+      time: "15-Aug-2021 00:00"),
+  AnnouncementModel(
+      title: "All Volunteer Meet",
+      description: "All the volunteers should be here in F102 in 10 mins",
+      time: "15-Aug-2021 17:50"),
+  AnnouncementModel(
+      title: "All Volunteer Meet",
+      description: "All the volunteers should be here in F102 in 10 mins",
+      time: "15-Aug-2021 17:50"),
 ];
 
 class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {
