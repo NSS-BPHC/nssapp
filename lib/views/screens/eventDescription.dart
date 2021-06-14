@@ -58,14 +58,14 @@ class _EventDescriptionState extends State<EventDescription> {
                             Text(
                               widget.eventModel.location,
                               style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold,
                                 fontSize: 18,
                                 color: Colors.black,
                               ),
                             ),
                           ],
                         ),
+                        SizedBox(height: 30.0),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.baseline,
                           textBaseline: TextBaseline.alphabetic,
@@ -73,13 +73,12 @@ class _EventDescriptionState extends State<EventDescription> {
                             Text(
                               "Organised by :",
                               style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold,
                                 fontSize: 18,
-                                color: Colors.black,
+                                color: Color(0xff5271ff),
                               ),
                             ),
-                            SizedBox(width: 5.0),
+                            SizedBox(height: 30.0),
                             Text(
                               widget.eventModel.organiser,
                               style: TextStyle(
@@ -94,10 +93,12 @@ class _EventDescriptionState extends State<EventDescription> {
                     ),
                   ],
                 ),
+                SizedBox(height: 30.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
@@ -107,8 +108,7 @@ class _EventDescriptionState extends State<EventDescription> {
                             Text(
                               widget.eventModel.date.toString(),
                               style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                   color: Colors.black),
                             ),
@@ -121,23 +121,21 @@ class _EventDescriptionState extends State<EventDescription> {
                             Text(
                               "10:00 am",
                               style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                   color: Colors.black),
                             ),
                             Text(
                               "-",
                               style: TextStyle(
-                                  fontWeight: FontWeight.normal,
+                                  fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                   color: Colors.black),
                             ),
                             Text(
                               "05:00 pm",
                               style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                   color: Colors.black),
                             ),
@@ -176,8 +174,9 @@ class _EventDescriptionState extends State<EventDescription> {
                     )
                   ],
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                SizedBox(height: 30.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Description :',
@@ -186,34 +185,45 @@ class _EventDescriptionState extends State<EventDescription> {
                           fontSize: 18,
                           color: Colors.black),
                     ),
+                    Text(
+                      widget.eventModel.description,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
+                          color: Colors.black),
+                    ),
                   ],
                 ),
-                Text(
-                  widget.eventModel.description,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 18,
-                      color: Colors.black),
-                ),
+                SizedBox(height: 50.0),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: Color(0xff5271ff),
-                      borderRadius: BorderRadius.all(Radius.circular(15))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Allot Marks",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                        color: Colors.white,
+                SizedBox(),
+                Padding(
+                  padding: const EdgeInsets.all(100.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xff5271ff),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(
+                            "Allot Marks",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ],

@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int selectedIndex = 0;
+  int selectedIndex = 2;
   List<Widget> widgetOptions = <Widget>[
     VolunteerEventsScreen(),
     VolunteerMerchandiseScreen(),

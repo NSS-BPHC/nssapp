@@ -18,7 +18,7 @@ class _MerchandiseDescriptionScreenState
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Color(0xffC9F2E9),
+          backgroundColor: Colors.white,
           elevation: 0,
           centerTitle: false,
           leading: IconButton(
@@ -36,7 +36,7 @@ class _MerchandiseDescriptionScreenState
             Container(
               height: 450.0,
               decoration: BoxDecoration(
-                color: Color(0xffC9F2E9),
+                color: Colors.white,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(45.0),
                   bottomRight: Radius.circular(45.0),
