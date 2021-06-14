@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/views/screens/volunteerProfile.dart';
-import 'package:nssapp/views/widgets/dashboardEventCard.dart';
+import 'package:nssapp/views/widgets/allEventCard.dart';
 
 class VolunteerEventsScreen extends StatefulWidget {
   @override
@@ -26,7 +26,7 @@ class _VolunteerEventsScreenState extends State<VolunteerEventsScreen> {
           shrinkWrap: true,
           itemCount: items.length,
           itemBuilder: (context, index) {
-            return DashBoardEventCard(
+            return AllEventCard(
               eventModel: items[index],
             );
           },
