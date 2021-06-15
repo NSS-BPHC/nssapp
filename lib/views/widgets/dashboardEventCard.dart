@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
+import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/volunteerEventRegistraion.dart';
 
 class DashBoardEventCard extends StatefulWidget {
@@ -16,22 +17,24 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(14.0),
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: InkWell(
         onTap: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => VolunteerEventRegistrationScreen(
-                      eventModel: widget.eventModel)));
+            context,
+            MaterialPageRoute(
+              builder: (context) => VolunteerEventRegistrationScreen(
+                  eventModel: widget.eventModel),
+            ),
+          );
         },
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xffc2c2c2),
+            color: AppTheme.greyCardColor,
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(18.0),
+            padding: const EdgeInsets.all(22.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,14 +82,13 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                       textBaseline: TextBaseline.alphabetic,
                       children: [
                         Text(
-                          "Organised by :",
+                          "Organised by :  ",
                           style: TextStyle(
                             fontSize: 14,
                             fontStyle: FontStyle.italic,
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(width: 5.0),
                         Text(
                           widget.eventModel.organiser,
                           style: TextStyle(
@@ -130,22 +132,18 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Color(0xff5271ff),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Register",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.white),
-                          ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Color(0xff5271ff),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Register",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Colors.white),
                         ),
                       ),
                     ),

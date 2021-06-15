@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
+import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/eventDescription.dart';
 
 class AllEventCard extends StatefulWidget {
@@ -14,7 +15,7 @@ class _AllEventCardState extends State<AllEventCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(14.0),
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -25,7 +26,7 @@ class _AllEventCardState extends State<AllEventCard> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xffc2c2c2),
+            color: AppTheme.greyCardColor,
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           child: Padding(

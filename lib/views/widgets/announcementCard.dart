@@ -26,6 +26,7 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
+              Icon(Icons.notifications, color: Colors.white),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -65,7 +66,7 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
                           style: TextStyle(
                             color: Colors.white,
                             fontStyle: FontStyle.italic,
-                            fontSize: 12.0,
+                            fontSize: 10.0,
                           ),
                         )
                       ],
