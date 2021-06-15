@@ -27,16 +27,17 @@ class _VolunteerEventsScreenState extends State<VolunteerEventsScreen> {
         padding: AppTheme.screenPadding,
         child: GroupedListView<dynamic, String>(
           elements: items,
-          groupBy: (element) => element.location,
+          groupBy: (element) =>
+              element.date[3] + element.date[4] + element.date[5],
           groupComparator: (value1, value2) => value2.compareTo(value1),
-          itemComparator: (item1, item2) => item1.title.compareTo(item2.title),
+          itemComparator: (item1, item2) => (item1.date[0] + item1.date[1])
+              .compareTo((item2.date[0] + item2.date[1])),
           order: GroupedListOrder.DESC,
           useStickyGroupSeparators: true,
           groupSeparatorBuilder: (String value) => Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               value,
-              // textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
