@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/views/screens/volunteerAboutUs.dart';
 import 'package:nssapp/views/screens/volunteerContactUs.dart';
 import 'package:nssapp/views/screens/volunteerDropSuggestions.dart';
 
@@ -122,31 +123,39 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
               SizedBox(
                 height: 30,
               ),
-              Container(
-                width: 350.0,
-                height: 80.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        'About Us',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 24),
-                      ),
-                      SizedBox(
-                        width: 160,
-                      ),
-                      Text(
-                        '>',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 24),
-                      ),
-                    ],
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VolunteerAboutUsScreen()));
+                },
+                child: Container(
+                  width: 350.0,
+                  height: 80.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          'About Us',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 24),
+                        ),
+                        SizedBox(
+                          width: 160,
+                        ),
+                        Text(
+                          '>',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 24),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

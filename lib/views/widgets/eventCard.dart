@@ -24,14 +24,14 @@ class _EventCardState extends State<EventCard> {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
           Text(
             widget.eventModel.date.toString(),
             style: TextStyle(
               fontSize: 14,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
         ],
@@ -41,7 +41,7 @@ class _EventCardState extends State<EventCard> {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 30,
-          color: Colors.white,
+          color: Colors.black,
         ),
       )
     ];
@@ -51,7 +51,7 @@ class _EventCardState extends State<EventCard> {
         width: 80.0,
         height: 80.0,
         decoration: BoxDecoration(
-          color: Color(0xff5271ff),
+          color: Color(0xffc2c2c2),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Padding(
