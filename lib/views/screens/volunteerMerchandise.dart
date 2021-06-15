@@ -139,7 +139,6 @@ class _MerchandiseCardState extends State<MerchandiseCard> {
                     image: NetworkImage(
                         'https://images.unsplash.com/photo-1579572331145-5e53b299c64e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=656&q=80')),
                 borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                color: Colors.redAccent,
               ),
             ),
             Text(

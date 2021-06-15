@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
+import 'package:nssapp/utilities/styling.dart';
 
 class EventCard extends StatefulWidget {
   final EventModel eventModel;
@@ -46,12 +47,12 @@ class _EventCardState extends State<EventCard> {
       )
     ];
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
       child: Container(
         width: 80.0,
         height: 80.0,
         decoration: BoxDecoration(
-          color: Color(0xffc2c2c2),
+          color: AppTheme.greyCardColor,
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Padding(
