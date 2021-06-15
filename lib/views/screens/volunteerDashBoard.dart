@@ -32,9 +32,17 @@ class _VolunteerDashBoardScreenState extends State<VolunteerDashBoardScreen> {
                   fontSize: 24.0,
                 ),
               ),
-              Text(
-                'Welcome Back',
-                style: TextStyle(color: Colors.black, fontSize: 18.0),
+              Row(
+                children: [
+                  Text(
+                    'Welcome Back',
+                    style: TextStyle(color: Colors.black, fontSize: 18.0),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Icon(Icons.edit),
+                ],
               ),
               AnnouncementsComponent(),
               Expanded(child: UpcomingEventsComponent()),

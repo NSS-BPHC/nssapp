@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/views/screens/addEvents.dart';
 import 'package:nssapp/views/screens/volunteerProfile.dart';
 import 'package:nssapp/views/widgets/dashboardEventCard.dart';
 
@@ -24,7 +25,14 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
                   fontSize: 18.0,
                 ),
               ),
-              Icon(Icons.edit),
+              InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddEventsScreen()));
+                  },
+                  child: Icon(Icons.edit)),
             ],
           ),
         ),
