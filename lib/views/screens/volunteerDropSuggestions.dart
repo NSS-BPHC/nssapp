@@ -20,14 +20,7 @@ class _VolunteerDropSuggestionsScreenState
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.chevron_left,
-              color: Colors.black,
-            )),
+        iconTheme: IconThemeData(color: Colors.black),
         title: Text(
           'Drop Suggestions',
           style: TextStyle(
