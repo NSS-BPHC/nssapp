@@ -28,42 +28,41 @@ class _VolunteerDropSuggestionsScreenState
               fontWeight: FontWeight.bold, fontSize: 28, color: Colors.black),
         ),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            // methods and listeners are yet to be implemented in titleController, suggestionController
-            Container(
-              margin: EdgeInsets.all(12),
-              child: TextField(
-                controller: titleController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Title',
-                ),
+      body: ListView(
+        children: [
+          Container(
+            margin: EdgeInsets.all(12),
+            child: TextField(
+              controller: titleController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Title',
               ),
             ),
-            Container(
-              height: maxLines * 24,
-              margin: EdgeInsets.all(12),
-              child: TextField(
-                maxLines: maxLines,
-                controller: suggestionController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Suggestion',
-                ),
+          ),
+          Container(
+            height: maxLines * 24,
+            margin: EdgeInsets.all(12),
+            child: TextField(
+              maxLines: maxLines,
+              controller: suggestionController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Suggestion',
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: AppTheme.secondaryColor,
-                    borderRadius: BorderRadius.all(Radius.circular(15))),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(100.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: AppTheme.secondaryColor,
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
+              child: Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 30.0,
-                    vertical: 18.0,
+                    vertical: 20.0,
                   ),
                   child: Text(
                     "SUBMIT",
@@ -75,8 +74,8 @@ class _VolunteerDropSuggestionsScreenState
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
