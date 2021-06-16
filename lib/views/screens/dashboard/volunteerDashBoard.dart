@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/components/announcements.dart';
 import 'package:nssapp/views/components/upcomingEvents.dart';
-import 'package:nssapp/views/screens/changeGreetings.dart';
-import 'package:nssapp/views/screens/volunteerProfile.dart';
-import 'package:nssapp/views/widgets/announcementCard.dart';
-import 'package:nssapp/views/widgets/dashboardEventCard.dart';
+import 'package:nssapp/views/screens/dashboard/changeGreetings.dart';
 
 class VolunteerDashBoardScreen extends StatefulWidget {
   const VolunteerDashBoardScreen({Key? key}) : super(key: key);

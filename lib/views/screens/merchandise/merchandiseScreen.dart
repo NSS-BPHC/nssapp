@@ -1,18 +1,15 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:nssapp/views/screens/merchandiseDescription.dart';
+import 'package:nssapp/data/merchandise.dart';
+import 'package:nssapp/models/merchandise.dart';
 
-class VolunteerMerchandiseScreen extends StatefulWidget {
-  const VolunteerMerchandiseScreen({Key? key}) : super(key: key);
+import 'merchandiseDescription.dart';
 
+class MerchandiseScreen extends StatefulWidget {
   @override
-  _VolunteerMerchandiseScreenState createState() =>
-      _VolunteerMerchandiseScreenState();
+  _MerchandiseScreenState createState() => _MerchandiseScreenState();
 }
 
-class _VolunteerMerchandiseScreenState
-    extends State<VolunteerMerchandiseScreen> {
+class _MerchandiseScreenState extends State<MerchandiseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,60 +47,6 @@ class _VolunteerMerchandiseScreenState
     );
   }
 }
-
-class Merchandise {
-  final List<String> imgUrl;
-  final String title;
-  final int cost;
-  final String availableTypes;
-  final String merchType;
-
-  Merchandise({
-    required this.imgUrl,
-    required this.title,
-    required this.cost,
-    required this.availableTypes,
-    required this.merchType,
-  });
-}
-
-List<Merchandise> merchandiseData = [
-  Merchandise(
-    imgUrl: ['asads'],
-    cost: 123,
-    title: 'Hawa',
-    availableTypes: 'XL / L / S',
-    merchType: 'hoodie',
-  ),
-  Merchandise(
-    imgUrl: ['asads'],
-    cost: 12,
-    title: 'Hawa',
-    availableTypes: 'XL / L / S',
-    merchType: 'hoodie',
-  ),
-  Merchandise(
-    imgUrl: ['asads'],
-    cost: 122,
-    title: 'Hawaaaa',
-    availableTypes: 'XL / L / S',
-    merchType: 'hoodie',
-  ),
-  Merchandise(
-    imgUrl: ['asads'],
-    cost: 12,
-    title: 'Hawaaaa',
-    availableTypes: 'XL / L / S',
-    merchType: 'hoodie',
-  ),
-  Merchandise(
-    imgUrl: ['asads'],
-    cost: 12,
-    title: 'Hawaaaa',
-    availableTypes: 'XL / L / S',
-    merchType: 'hoodie',
-  ),
-];
 
 class MerchandiseCard extends StatefulWidget {
   final Merchandise merchandise;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/utilities/styling.dart';
-import 'package:nssapp/views/screens/volunteerEventRegistraion.dart';
+import 'package:nssapp/views/screens/events/volunteerEventRegistraion.dart';
 
 class DashBoardEventCard extends StatefulWidget {
   final EventModel eventModel;

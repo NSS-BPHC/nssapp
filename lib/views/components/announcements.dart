@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/data/announcements.dart';
 import 'package:nssapp/utilities/styling.dart';
-import 'package:nssapp/views/screens/addAnnouncement.dart';
-import 'package:nssapp/views/screens/volunteerProfile.dart';
+import 'package:nssapp/views/screens/dashboard/addAnnouncement.dart';
 import 'package:nssapp/views/widgets/announcementCard.dart';
 
 class AnnouncementsComponent extends StatefulWidget {
@@ -50,10 +50,10 @@ class _AnnouncementsComponentState extends State<AnnouncementsComponent> {
                                     builder: (context) =>
                                         AddAnnouncementScreen()));
                           },
-                          child: Icon(Icons.edit, color: Colors.white)),
+                          child: Icon(Icons.add, color: Colors.white)),
                     ],
                   ),
-                  announcement.length > 2
+                  announcementsData.length > 2
                       ? Container(
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.5),
@@ -78,10 +78,11 @@ class _AnnouncementsComponentState extends State<AnnouncementsComponent> {
               ),
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: announcement.length > 2 ? 2 : announcement.length,
+                itemCount:
+                    announcementsData.length > 2 ? 2 : announcementsData.length,
                 itemBuilder: (context, index) {
                   return AnnouncementCard(
-                    announcementModel: announcement[index],
+                    announcementModel: announcementsData[index],
                   );
                 },
               ),

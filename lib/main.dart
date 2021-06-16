@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nssapp/utilities/size_config.dart';
 import 'package:nssapp/utilities/styling.dart';
-import 'package:nssapp/views/screens/volunteerDashBoard.dart';
-import 'package:nssapp/views/screens/volunteerEventsScreen.dart';
-import 'package:nssapp/views/screens/volunteerMerchandise.dart';
-import 'package:nssapp/views/screens/volunteerMoreInfo.dart';
-import 'package:nssapp/views/screens/volunteerProfile.dart';
+import 'package:nssapp/views/screens/auth/authWrapper.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,66 +14,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int selectedIndex = 2;
-  int index = 0;
-  List<Widget> widgetOptions = <Widget>[
-    VolunteerEventsScreen(),
-    VolunteerMerchandiseScreen(),
-    VolunteerDashBoardScreen(),
-    VolunteerProfileScreen(),
-    VolunteerMoreInfoScreen(),
-  ];
-  void onTabTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        SizeConfig().init(constraints);
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          home: Scaffold(
-            body: widgetOptions.elementAt(selectedIndex),
-            bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: Colors.white,
-              unselectedItemColor: Colors.grey[400],
-              selectedItemColor: AppTheme.primaryColor,
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              elevation: 0,
-              onTap: onTabTapped,
-              currentIndex: selectedIndex,
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.movie),
-                  label: 'Events',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_bag),
-                  label: 'Merchandise',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.dashboard),
-                  label: 'Dashboard',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Profile',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.more_horiz),
-                  label: 'More',
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
     );
+    return LayoutBuilder(builder: (context, constraints) {
+      SizeConfig().init(constraints);
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightTheme,
+        home: AuthWrapper(),
+      );
+    });
   }
 }

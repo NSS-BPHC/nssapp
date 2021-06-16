@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nssapp/views/screens/volunteerAboutUs.dart';
-import 'package:nssapp/views/screens/volunteerContactUs.dart';
-import 'package:nssapp/views/screens/volunteerDropSuggestions.dart';
+import 'package:nssapp/views/screens/more/volunteerAboutUs.dart';
+import 'package:nssapp/views/screens/more/volunteerContactUs.dart';
+import 'package:nssapp/views/screens/more/volunteerDropSuggestions.dart';
 
 class VolunteerMoreInfoScreen extends StatefulWidget {
   const VolunteerMoreInfoScreen({Key? key}) : super(key: key);

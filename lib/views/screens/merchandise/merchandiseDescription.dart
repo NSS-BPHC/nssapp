@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nssapp/views/screens/volunteerMerchandise.dart';
+import 'package:nssapp/models/merchandise.dart';
 
 class MerchandiseDescriptionScreen extends StatefulWidget {
   final Merchandise merchandise;
@@ -149,7 +149,6 @@ class _CardsListState extends State<CardsList> {
   final PageController _pageController = PageController(initialPage: 0);
   @override
   void dispose() {
-    // TODO: implement dispose
     _pageController.dispose();
     super.dispose();
   }

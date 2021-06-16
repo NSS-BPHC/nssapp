@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/utilities/styling.dart';
-import 'package:nssapp/views/screens/eventDescription.dart';
+import 'package:nssapp/views/screens/events/eventDescription.dart';
 
 class AllEventCard extends StatefulWidget {
   final EventModel eventModel;

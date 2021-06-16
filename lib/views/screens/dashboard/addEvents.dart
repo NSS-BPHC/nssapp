@@ -12,7 +12,29 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
   final locationController = TextEditingController();
   final organiserController = TextEditingController();
   final descriptionController = TextEditingController();
+  late DateTime firstDate;
+  void selectFirstDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: firstDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null && picked != firstDate) {
+      setState(() {
+        firstDate = picked;
+      });
+    }
+  }
+
   final maxLines = 10;
+  @override
+  void initState() {
+    firstDate = DateTime.now();
+    // secondDate = DateTime.now();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,13 +76,15 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.all(12),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Date',
+                InkWell(
+                  onTap: () => selectFirstDate(context),
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Text(
+                        '${firstDate.day} ${months[firstDate.month - 1]} ${firstDate.year}',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
                     ),
                   ),
                 ),
@@ -129,7 +153,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                 Container(
                   width: 100,
                   decoration: BoxDecoration(
-                      color: Color(0xff5271ff),
+                      color: Colors.red,
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -168,3 +192,18 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
     );
   }
 }
+
+List<String> months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+];

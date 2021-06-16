@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nssapp/views/screens/addEvents.dart';
-import 'package:nssapp/views/screens/volunteerProfile.dart';
+import 'package:nssapp/data/eventsData.dart';
+import 'package:nssapp/views/screens/dashboard/addEvents.dart';
 import 'package:nssapp/views/widgets/dashboardEventCard.dart';
 
 class UpcomingEventsComponent extends StatefulWidget {
@@ -32,17 +32,17 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
                         MaterialPageRoute(
                             builder: (context) => AddEventsScreen()));
                   },
-                  child: Icon(Icons.edit)),
+                  child: Icon(Icons.add)),
             ],
           ),
         ),
         Expanded(
           child: ListView.builder(
             shrinkWrap: true,
-            itemCount: items.length,
+            itemCount: eventsData.length,
             itemBuilder: (context, index) {
               return DashBoardEventCard(
-                eventModel: items[index],
+                eventModel: eventsData[index],
               );
             },
           ),

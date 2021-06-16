@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:nssapp/data/eventsData.dart';
 import 'package:nssapp/utilities/styling.dart';
-import 'package:nssapp/views/screens/volunteerProfile.dart';
 import 'package:nssapp/views/widgets/allEventCard.dart';
 
-class VolunteerEventsScreen extends StatefulWidget {
+class AllEventsScreen extends StatefulWidget {
   @override
-  _VolunteerEventsScreenState createState() => _VolunteerEventsScreenState();
+  _AllEventsScreenState createState() => _AllEventsScreenState();
 }
 
-class _VolunteerEventsScreenState extends State<VolunteerEventsScreen> {
+class _AllEventsScreenState extends State<AllEventsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +26,7 @@ class _VolunteerEventsScreenState extends State<VolunteerEventsScreen> {
       body: Padding(
         padding: AppTheme.screenPadding,
         child: GroupedListView<dynamic, String>(
-          elements: items,
+          elements: eventsData,
           groupBy: (element) =>
               element.date[3] + element.date[4] + element.date[5],
           groupComparator: (value1, value2) => value2.compareTo(value1),

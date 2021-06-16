@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nssapp/views/screens/volunteerProfile.dart';
+import 'package:nssapp/data/volunteerData.dart';
 import 'package:nssapp/views/widgets/panelCard.dart';
 
 class VolunteerContactUs extends StatefulWidget {
@@ -31,18 +31,17 @@ class _VolunteerContactUsState extends State<VolunteerContactUs> {
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 28, color: Colors.black),
         ),
-      
       ),
       body: Container(
         child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: panel.length,
-              itemBuilder: (context, index) {
-                return PanelCard(
-                   volunteerModel: panel[index],
-                );
-              },
-            ),
+          shrinkWrap: true,
+          itemCount: volunteersData.length,
+          itemBuilder: (context, index) {
+            return PanelCard(
+              volunteerModel: volunteersData[index],
+            );
+          },
+        ),
       ),
     );
   }
