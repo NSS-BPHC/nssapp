@@ -71,10 +71,10 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
                         SizedBox(
                           width: 60,
                         ),
-                        Text(
-                          '>',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24),
+                        Icon(
+                          Icons.chevron_right_rounded,
+                          color: Colors.black,
+                          size: 40.0,
                         ),
                       ],
                     ),
@@ -110,10 +110,10 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
                         SizedBox(
                           width: 140,
                         ),
-                        Text(
-                          '>',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24),
+                        Icon(
+                          Icons.chevron_right_rounded,
+                          color: Colors.black,
+                          size: 40.0,
                         ),
                       ],
                     ),
@@ -149,10 +149,10 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
                         SizedBox(
                           width: 160,
                         ),
-                        Text(
-                          '>',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24),
+                        Icon(
+                          Icons.chevron_right_rounded,
+                          color: Colors.black,
+                          size: 40.0,
                         ),
                       ],
                     ),

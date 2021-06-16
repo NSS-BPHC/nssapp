@@ -1,10 +1,6 @@
 name: nssapp
 description: A new Flutter project.
-
-
 publish_to: 'none'
-
-
 version: 1.0.0+1
 
 environment:
@@ -13,9 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.2
   grouped_list: ^4.0.0
+  flutter_svg:
 
 dev_dependencies:
   flutter_test:
@@ -23,18 +19,7 @@ dev_dependencies:
 
 
 flutter:
-
-
   uses-material-design: true
-
   assets:
-    - assets/images/NSS-symbol.png
-
-
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-
+    - assets/images/
+    - assets/icons/

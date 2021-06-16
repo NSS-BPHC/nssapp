@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class VolunteerAboutUsScreen extends StatefulWidget {
   const VolunteerAboutUsScreen({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class _VolunteerAboutUsScreenState extends State<VolunteerAboutUsScreen> {
             icon: Icon(
               Icons.chevron_left,
               color: Colors.black,
+              size: 40.0,
             )),
         title: Text(
           'About NSS BPHC',
@@ -48,7 +50,9 @@ class _VolunteerAboutUsScreenState extends State<VolunteerAboutUsScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'The NSS BITS Pilani Hyderabad Campus chapter was sanctioned in March 2009. Since its inception, the NSS BPHC has been galvanising student enthusiasm and commitment to society and channelling it into concrete programs targeting rural citizens, economically disadvantaged school children, orphans and medical patients among others. It has now around 150 volunteers working for the social uplift of the down-trodden masses of our nation. We are an organisation through which students get an opportunity to understand the community they work in and their relationship with it.',
-                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16),
+                style: TextStyle(
+                    fontWeight: FontWeight.normal, fontSize: 16, height: 1.25),
+                textAlign: TextAlign.justify,
               ),
             ),
             Padding(
@@ -56,10 +60,11 @@ class _VolunteerAboutUsScreenState extends State<VolunteerAboutUsScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Icon(Icons.mail),
-                  Icon(Icons.mail),
-                  Icon(Icons.mail),
-                  Icon(Icons.mail)
+                  SvgPicture.asset('assets/icons/facebook.svg'),
+                  SvgPicture.asset('assets/icons/instagram.svg'),
+                  SvgPicture.asset('assets/icons/linkedin.svg'),
+                  SvgPicture.asset('assets/icons/youtube.svg'),
+                  SvgPicture.asset('assets/icons/github.svg'),
                 ],
               ),
             ),
@@ -67,7 +72,11 @@ class _VolunteerAboutUsScreenState extends State<VolunteerAboutUsScreen> {
               padding: const EdgeInsets.all(14.0),
               child: Text(
                 'Know More About Us on our website',
-                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16),
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16,
+                  letterSpacing: 1.5,
+                ),
               ),
             ),
             Text(

@@ -19,13 +19,15 @@ class _VolunteerContactUsState extends State<VolunteerContactUs> {
         elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.chevron_left,
-              color: Colors.black,
-            )),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.chevron_left,
+            color: Colors.black,
+            size: 40.0,
+          ),
+        ),
         title: Text(
           'Contact Us',
           style: TextStyle(

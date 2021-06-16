@@ -12,30 +12,6 @@ class PanelCard extends StatefulWidget {
 class _PanelCardState extends State<PanelCard> {
   @override
   Widget build(BuildContext context) {
-    var children2 = [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            widget.volunteerModel.name,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-              color: Colors.white,
-            ),
-          ),
-          Text(
-            widget.volunteerModel.role,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-      Icon(Icons.phone),
-    ];
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
       child: Container(
@@ -68,7 +44,30 @@ class _PanelCardState extends State<PanelCard> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: children2,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          widget.volunteerModel.name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          widget.volunteerModel.role,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Icon(Icons.phone),
+                  ],
                 ),
               ),
             ],
