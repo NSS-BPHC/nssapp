@@ -27,7 +27,7 @@ class _AddAnnouncementScreenState extends State<AddAnnouncementScreen> {
         centerTitle: true,
       ),
       body: Container(
-        child: Column(
+        child: ListView(
           children: [
             Container(
               margin: EdgeInsets.all(12),
