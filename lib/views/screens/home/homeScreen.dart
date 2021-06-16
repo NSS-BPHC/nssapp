@@ -36,18 +36,18 @@ class _HomeScreenState extends State<HomeScreen> {
         unselectedItemColor: Colors.grey[400],
         selectedItemColor: AppTheme.secondaryColor,
         showSelectedLabels: true,
-        showUnselectedLabels: true,
+        showUnselectedLabels: false,
         elevation: 0,
         onTap: onTabTapped,
         currentIndex: selectedIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
+            icon: Icon(Icons.event),
             label: 'Events',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag),
-            label: 'Merchandise',
+            label: 'Merch',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.more_horiz),
+            icon: Icon(Icons.menu),
             label: 'More',
           ),
         ],

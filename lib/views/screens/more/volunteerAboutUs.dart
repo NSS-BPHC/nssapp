@@ -39,8 +39,8 @@ class _VolunteerAboutUsScreenState extends State<VolunteerAboutUsScreen> {
           children: [
             Center(
               child: Container(
-                height: 250,
-                width: 250,
+                height: 150,
+                width: 150,
                 child: Image(
                   image: AssetImage('assets/images/NSS-symbol.png'),
                 ),
