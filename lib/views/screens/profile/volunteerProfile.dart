@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/data/eventsData.dart';
+import 'package:nssapp/views/screens/profile/allVolunteerScreen.dart';
 import 'package:nssapp/views/widgets/eventCard.dart';
 
 class VolunteerProfileScreen extends StatefulWidget {
@@ -165,10 +166,18 @@ class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {
                     fontSize: 14,
                   ),
                 ),
-                Text(
-                  'View All',
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AllVolunteerScreen()));
+                  },
+                  child: Text(
+                    'View All',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
               ],
