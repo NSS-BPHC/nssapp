@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/utilities/styling.dart';
 
 class AddEventsScreen extends StatefulWidget {
   const AddEventsScreen({Key? key}) : super(key: key);
@@ -12,7 +13,10 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
   final locationController = TextEditingController();
   final organiserController = TextEditingController();
   final descriptionController = TextEditingController();
+
   late DateTime firstDate;
+  late TimeOfDay eventTime = TimeOfDay(hour: 9, minute: 0);
+
   void selectFirstDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -27,11 +31,31 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
     }
   }
 
+  String? getText() {
+    if (eventTime == null) {
+      return 'SelectTime';
+    } else {
+      return '${eventTime.hour}:${eventTime.minute}';
+    }
+  }
+
+  Future pickEventTime(BuildContext context) async {
+    final newTime = await showTimePicker(
+      context: context,
+      initialTime: eventTime,
+    );
+    if (newTime == null) return;
+    setState(() {
+      eventTime = newTime;
+    });
+  }
+
   final maxLines = 10;
+
   @override
   void initState() {
     firstDate = DateTime.now();
-    // secondDate = DateTime.now();
+
     super.initState();
   }
 
@@ -50,94 +74,111 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        child: Column(
+      body: Padding(
+        padding: AppTheme.screenPadding,
+        child: ListView(
           children: [
-            Container(
-              margin: EdgeInsets.all(12),
-              child: TextField(
-                controller: titleController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Title',
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Container(
+                child: TextField(
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Title',
+                  ),
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.all(12),
-              child: TextField(
-                controller: locationController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Location',
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Container(
+                child: TextField(
+                  controller: locationController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Location',
+                  ),
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () => selectFirstDate(context),
-                  child: Container(
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Text(
-                        '${firstDate.day} ${months[firstDate.month - 1]} ${firstDate.year}',
-                        style: Theme.of(context).textTheme.headline4,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Event Details'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () => selectFirstDate(context),
+                          child: Container(
+                            decoration: BoxDecoration(border: Border.all()),
+                            child: Padding(
+                              padding: EdgeInsets.all(20),
+                              child: Text(
+                                '${firstDate.day} ${months[firstDate.month - 1]} ${firstDate.year}',
+                                style: Theme.of(context).textTheme.headline4,
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => pickEventTime(context),
+                          child: Container(
+                            decoration: BoxDecoration(border: Border.all()),
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Container(
+                                width: 100,
+                                child: Text(
+                                  getText().toString(),
+                                  style: Theme.of(context).textTheme.headline4,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Container(
+                child: TextField(
+                  controller: organiserController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Organiser',
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 100,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Slots',
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.all(12),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Time',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.all(12),
-              child: TextField(
-                controller: organiserController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Organiser',
-                ),
+                ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.all(12),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Slots',
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.all(12),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'CloseTime',
-                    ),
-                  ),
-                ),
-              ],
             ),
             Container(
               height: maxLines * 24,
-              margin: EdgeInsets.all(12),
               child: TextField(
                 maxLines: maxLines,
                 controller: descriptionController,
@@ -153,27 +194,10 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                 Container(
                   width: 100,
                   decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Cancel",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  decoration: BoxDecoration(
                       color: Color(0xff5271ff),
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: Text(
                       "Add",
                       style: TextStyle(

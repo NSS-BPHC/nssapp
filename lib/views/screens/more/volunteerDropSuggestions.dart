@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/utilities/styling.dart';
 
 class VolunteerDropSuggestionsScreen extends StatefulWidget {
   const VolunteerDropSuggestionsScreen({Key? key}) : super(key: key);
@@ -54,13 +55,16 @@ class _VolunteerDropSuggestionsScreenState
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(20.0),
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.purple,
+                    color: AppTheme.secondaryColor,
                     borderRadius: BorderRadius.all(Radius.circular(15))),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 30.0,
+                    vertical: 18.0,
+                  ),
                   child: Text(
                     "SUBMIT",
                     style: TextStyle(

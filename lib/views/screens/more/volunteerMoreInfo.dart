@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/more/volunteerAboutUs.dart';
 import 'package:nssapp/views/screens/more/volunteerContactUs.dart';
 import 'package:nssapp/views/screens/more/volunteerDropSuggestions.dart';
@@ -15,114 +16,93 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 20.0),
+          padding: AppTheme.screenPadding,
           child: Column(
             children: [
-              Center(
-                child: Container(
-                  height: 300,
-                  width: 300,
-                  child: Image(
-                    image: AssetImage('assets/images/NSS-symbol.png'),
+              SizedBox(height: 60.0),
+              Column(
+                children: [
+                  Center(
+                    child: Container(
+                      height: 250,
+                      width: 250,
+                      child: Image(
+                        image: AssetImage('assets/images/NSS-symbol.png'),
+                      ),
+                    ),
                   ),
-                ),
+                  Text(
+                    'NOT ME BUT YOU!',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                'NOT ME BUT YOU!',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 40.0),
               InkWell(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              VolunteerDropSuggestionsScreen()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VolunteerDropSuggestionsScreen(),
+                    ),
+                  );
                 },
                 child: Container(
-                  width: 350.0,
-                  height: 80.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(color: Colors.black),
-                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Drop Suggestions',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 24),
                         ),
-                        SizedBox(
-                          width: 60,
-                        ),
                         Icon(
                           Icons.chevron_right_rounded,
                           color: Colors.black,
-                          size: 40.0,
+                          size: 30.0,
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 20.0),
               InkWell(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => VolunteerContactUs()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VolunteerContactUs(),
+                    ),
+                  );
                 },
                 child: Container(
-                  width: 350.0,
-                  height: 80.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(color: Colors.black),
-                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Contact Us',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 24),
                         ),
-                        SizedBox(
-                          width: 140,
-                        ),
                         Icon(
                           Icons.chevron_right_rounded,
                           color: Colors.black,
-                          size: 40.0,
+                          size: 30.0,
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 20.0),
               InkWell(
                 onTap: () {
                   Navigator.push(
@@ -131,15 +111,10 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
                           builder: (context) => VolunteerAboutUsScreen()));
                 },
                 child: Container(
-                  width: 350.0,
-                  height: 80.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(color: Colors.black),
-                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'About Us',
@@ -152,7 +127,7 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
                         Icon(
                           Icons.chevron_right_rounded,
                           color: Colors.black,
-                          size: 40.0,
+                          size: 30.0,
                         ),
                       ],
                     ),

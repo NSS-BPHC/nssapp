@@ -30,7 +30,7 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: AppTheme.greyCardColor,
+            color: AppTheme.tertiaryColor,
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           child: Padding(

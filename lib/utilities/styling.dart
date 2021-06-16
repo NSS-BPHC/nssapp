@@ -9,7 +9,10 @@ class AppTheme {
   static const Color textWhiteColor = Colors.white;
   static const Color textGreyColor = Color(0xffa4aaa5);
   static const Color primaryColor = Color(0xff5271ff);
+  static const Color secondaryColor = Color(0xffFE5F55);
+  static const Color tertiaryColor = Color(0xffedf2fb);
   static const Color greyCardColor = Color(0xffEEEDED);
+  static const Color greyColor = Color(0xff495867);
 
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: AppTheme.appBackgroundColor,

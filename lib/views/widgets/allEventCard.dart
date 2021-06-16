@@ -19,14 +19,16 @@ class _AllEventCardState extends State<AllEventCard> {
       child: InkWell(
         onTap: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      EventDescription(eventModel: widget.eventModel)));
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  EventDescription(eventModel: widget.eventModel),
+            ),
+          );
         },
         child: Container(
           decoration: BoxDecoration(
-            color: AppTheme.greyCardColor,
+            color: AppTheme.tertiaryColor,
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           child: Padding(
