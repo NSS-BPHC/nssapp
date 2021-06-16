@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
-class AddEventsScreen extends StatefulWidget {
-  const AddEventsScreen({Key? key}) : super(key: key);
+class AddAnnouncementScreen extends StatefulWidget {
+  const AddAnnouncementScreen({Key? key}) : super(key: key);
 
   @override
-  _AddEventsScreenState createState() => _AddEventsScreenState();
+  _AddAnnouncementScreenState createState() => _AddAnnouncementScreenState();
 }
 
-class _AddEventsScreenState extends State<AddEventsScreen> {
+class _AddAnnouncementScreenState extends State<AddAnnouncementScreen> {
   final titleController = TextEditingController();
-  final locationController = TextEditingController();
-  final organiserController = TextEditingController();
   final descriptionController = TextEditingController();
   final maxLines = 10;
   @override
@@ -22,7 +20,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
         title: Text(
-          'Add Event',
+          'Add Announcement',
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 28, color: Colors.black),
         ),
@@ -40,76 +38,6 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                   hintText: 'Title',
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.all(12),
-              child: TextField(
-                controller: locationController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Location',
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.all(12),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Date',
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.all(12),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Time',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.all(12),
-              child: TextField(
-                controller: organiserController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Organiser',
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.all(12),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Slots',
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  margin: EdgeInsets.all(12),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'CloseTime',
-                    ),
-                  ),
-                ),
-              ],
             ),
             Container(
               height: maxLines * 24,

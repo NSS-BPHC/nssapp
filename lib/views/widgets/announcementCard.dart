@@ -56,6 +56,7 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.white,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                     Row(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/components/announcements.dart';
 import 'package:nssapp/views/components/upcomingEvents.dart';
+import 'package:nssapp/views/screens/changeGreetings.dart';
 import 'package:nssapp/views/screens/volunteerProfile.dart';
 import 'package:nssapp/views/widgets/announcementCard.dart';
 import 'package:nssapp/views/widgets/dashboardEventCard.dart';
@@ -41,7 +42,14 @@ class _VolunteerDashBoardScreenState extends State<VolunteerDashBoardScreen> {
                   SizedBox(
                     width: 5,
                   ),
-                  Icon(Icons.edit),
+                  InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChangeGreetingsScreen()));
+                      },
+                      child: Icon(Icons.edit)),
                 ],
               ),
               AnnouncementsComponent(),

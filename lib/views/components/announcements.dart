@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/utilities/styling.dart';
+import 'package:nssapp/views/screens/addAnnouncement.dart';
 import 'package:nssapp/views/screens/volunteerProfile.dart';
 import 'package:nssapp/views/widgets/announcementCard.dart';
 
@@ -41,7 +42,15 @@ class _AnnouncementsComponentState extends State<AnnouncementsComponent> {
                       SizedBox(
                         width: 5,
                       ),
-                      Icon(Icons.edit, color: Colors.white),
+                      InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        AddAnnouncementScreen()));
+                          },
+                          child: Icon(Icons.edit, color: Colors.white)),
                     ],
                   ),
                   announcement.length > 2
