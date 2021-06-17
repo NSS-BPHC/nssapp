@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
+import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/events/giveFeedBack.dart';
 
 class EventDescription extends StatefulWidget {
@@ -76,7 +77,7 @@ class _EventDescriptionState extends State<EventDescription> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
-                                color: Color(0xff5271ff),
+                                color: AppTheme.secondaryColor,
                               ),
                             ),
                             SizedBox(height: 30.0),
@@ -148,7 +149,7 @@ class _EventDescriptionState extends State<EventDescription> {
                       height: 50.0,
                       width: 120.0,
                       decoration: BoxDecoration(
-                        color: Color(0xff5271ff),
+                        color: AppTheme.secondaryColor,
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: Padding(
@@ -204,19 +205,19 @@ class _EventDescriptionState extends State<EventDescription> {
                 SizedBox(),
                 InkWell(
                   onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => GiveFeedBackScreen()));
-                },
-                                  child: Padding(
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GiveFeedBackScreen()));
+                  },
+                  child: Padding(
                     padding: const EdgeInsets.all(80.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            color: Color(0xff5271ff),
+                            color: AppTheme.secondaryColor,
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
                           child: Padding(

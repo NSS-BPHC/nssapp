@@ -30,15 +30,15 @@ class _MerchandiseScreenState extends State<MerchandiseScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
+        child: ListView.builder(
             shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              childAspectRatio: MediaQuery.of(context).size.width /
-                  (MediaQuery.of(context).size.height / 1.25),
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
-            ),
+            // gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            //   maxCrossAxisExtent: 200,
+            //   childAspectRatio: MediaQuery.of(context).size.width /
+            //       (MediaQuery.of(context).size.height / 1.25),
+            //   crossAxisSpacing: 20,
+            //   mainAxisSpacing: 20,
+            // ),
             itemCount: merchandiseData.length,
             itemBuilder: (BuildContext ctx, index) {
               return MerchandiseCard(merchandise: merchandiseData[index]);
@@ -74,8 +74,7 @@ class _MerchandiseCardState extends State<MerchandiseCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 200.0,
-              height: 250.0,
+              height: 280.0,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,
@@ -83,18 +82,26 @@ class _MerchandiseCardState extends State<MerchandiseCard> {
                 borderRadius: BorderRadius.all(Radius.circular(12.0)),
               ),
             ),
-            Text(
-              widget.merchandise.title,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-              ),
-            ),
-            Text(
-              '₹ ' + widget.merchandise.cost.toString(),
-              style: TextStyle(
-                fontSize: 14.0,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.merchandise.title,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  Text(
+                    '₹ ' + widget.merchandise.cost.toString(),
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

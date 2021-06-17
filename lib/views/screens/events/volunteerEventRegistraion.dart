@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
+import 'package:nssapp/utilities/styling.dart';
+import 'package:nssapp/views/screens/events/successRegistration.dart';
 
 class VolunteerEventRegistrationScreen extends StatefulWidget {
   final EventModel eventModel;
@@ -78,7 +80,7 @@ class _VolunteerEventRegistrationScreenState
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
-                                color: Colors.deepOrangeAccent,
+                                color: AppTheme.secondaryColor,
                               ),
                             ),
                             SizedBox(width: 5.0),
@@ -150,7 +152,7 @@ class _VolunteerEventRegistrationScreenState
                       height: 50.0,
                       width: 120.0,
                       decoration: BoxDecoration(
-                        color: Colors.deepOrangeAccent,
+                        color: AppTheme.secondaryColor,
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: Padding(
@@ -227,19 +229,27 @@ class _VolunteerEventRegistrationScreenState
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Register for Event",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                              color: Colors.black,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SuccessRegistration()));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: AppTheme.secondaryColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              "Register for Event",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),

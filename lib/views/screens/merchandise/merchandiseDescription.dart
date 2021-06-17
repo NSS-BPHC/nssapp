@@ -47,7 +47,7 @@ class _MerchandiseDescriptionScreenState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  CardsList(),
+                  CardsList(merchandise: widget.merchandise),
                   SizedBox(
                     height: 50,
                   ),
@@ -59,6 +59,7 @@ class _MerchandiseDescriptionScreenState
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               widget.merchandise.title,
@@ -83,10 +84,9 @@ class _MerchandiseDescriptionScreenState
                                   fontSize: 18.0, fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              'Available in  : ' +
+                              'Description : ' +
                                   widget.merchandise.availableTypes,
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 18.0),
                             ),
                           ],
                         ),
@@ -133,17 +133,14 @@ class _MerchandiseDescriptionScreenState
 }
 
 class CardsList extends StatefulWidget {
+  final Merchandise merchandise;
+
+  const CardsList({Key? key, required this.merchandise}) : super(key: key);
   @override
   _CardsListState createState() => _CardsListState();
 }
 
 class _CardsListState extends State<CardsList> {
-  List cardList = [
-    CreditCard(),
-    CreditCard(),
-    CreditCard(),
-  ];
-
   int _currentCard = 0;
 
   final PageController _pageController = PageController(initialPage: 0);
@@ -167,11 +164,12 @@ class _CardsListState extends State<CardsList> {
           Container(
             height: 400.0,
             child: PageView.builder(
-              itemCount: cardList.length,
+              itemCount: widget.merchandise.imgUrl.length,
               scrollDirection: Axis.horizontal,
               controller: _pageController,
               onPageChanged: _onPageChanged,
-              itemBuilder: (context, index) => CreditCard(),
+              itemBuilder: (context, index) =>
+                  CreditCard(imgURL: widget.merchandise.imgUrl[index]),
             ),
           ),
           Padding(
@@ -179,7 +177,7 @@ class _CardsListState extends State<CardsList> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < cardList.length; i++)
+                for (int i = 0; i < widget.merchandise.imgUrl.length; i++)
                   if (_currentCard == i)
                     DotIndicator(true)
                   else
@@ -218,6 +216,9 @@ class _DotIndicatorState extends State<DotIndicator> {
 }
 
 class CreditCard extends StatefulWidget {
+  final String imgURL;
+
+  const CreditCard({Key? key, required this.imgURL}) : super(key: key);
   @override
   _CreditCardState createState() => _CreditCardState();
 }
@@ -231,9 +232,9 @@ class _CreditCardState extends State<CreditCard> {
         height: 300.0,
         decoration: BoxDecoration(
           image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                  'https://images.unsplash.com/photo-1579572331145-5e53b299c64e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=656&q=80')),
+            fit: BoxFit.cover,
+            image: AssetImage(widget.imgURL),
+          ),
           borderRadius: BorderRadius.all(Radius.circular(24.0)),
           color: Colors.redAccent,
         ),
