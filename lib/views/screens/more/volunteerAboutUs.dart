@@ -29,12 +29,12 @@ class _VolunteerAboutUsScreenState extends State<VolunteerAboutUsScreen> {
             )),
         centerTitle: false,
         title: Text(
-          'About US',
+          'About Us',
           style: TextStyle(color: Colors.black),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 80.0),
+        padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 60.0),
         child: Column(
           children: [
             Center(
