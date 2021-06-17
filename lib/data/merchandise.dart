@@ -2,7 +2,7 @@ import 'package:nssapp/models/merchandise.dart';
 
 List<Merchandise> merchandiseData = [
   Merchandise(
-    imgUrl: ['assets/images/nssgb.png'],
+    imgUrl: ['assets/images/nss-gb.png'],
     cost: 350,
     title: 'Drop-Cut White T-shirt',
     availableTypes: 'Customizable with Name and ID',

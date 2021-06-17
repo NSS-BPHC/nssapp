@@ -79,7 +79,7 @@ class _MerchandiseCardState extends State<MerchandiseCard> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage('assets/images/nss-gb.png')),
+                    image: AssetImage(widget.merchandise.imgUrl[0])),
                 borderRadius: BorderRadius.all(Radius.circular(12.0)),
               ),
             ),
