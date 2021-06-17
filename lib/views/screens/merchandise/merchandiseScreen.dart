@@ -19,14 +19,14 @@ class _MerchandiseScreenState extends State<MerchandiseScreen> {
         elevation: 0,
         title: Text('Merchandise', style: TextStyle(color: Colors.black)),
         centerTitle: false,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.add,
-                color: Colors.black,
-              )),
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {},
+        //       icon: Icon(
+        //         Icons.add,
+        //         color: Colors.black,
+        //       )),
+        // ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -79,13 +79,13 @@ class _MerchandiseCardState extends State<MerchandiseCard> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(
-                        'https://images.unsplash.com/photo-1579572331145-5e53b299c64e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=656&q=80')),
+                    image: AssetImage('assets/images/nss-gb.png')),
                 borderRadius: BorderRadius.all(Radius.circular(12.0)),
               ),
             ),
             Text(
               widget.merchandise.title,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
