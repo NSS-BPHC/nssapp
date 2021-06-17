@@ -25,14 +25,19 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
                   fontSize: 18.0,
                 ),
               ),
-              InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AddEventsScreen()));
-                  },
-                  child: Icon(Icons.add)),
+              (1 == 2)
+                  ? InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddEventsScreen(),
+                          ),
+                        );
+                      },
+                      child: Icon(Icons.add),
+                    )
+                  : Container(),
             ],
           ),
         ),

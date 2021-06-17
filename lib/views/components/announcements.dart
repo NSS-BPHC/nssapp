@@ -42,15 +42,23 @@ class _AnnouncementsComponentState extends State<AnnouncementsComponent> {
                       SizedBox(
                         width: 5,
                       ),
-                      InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
+                      (1 == 2)
+                          ? InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
                                     builder: (context) =>
-                                        AddAnnouncementScreen()));
-                          },
-                          child: Icon(Icons.add, color: Colors.white)),
+                                        AddAnnouncementScreen(),
+                                  ),
+                                );
+                              },
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ),
+                            )
+                          : Container(),
                     ],
                   ),
                   announcementsData.length > 2

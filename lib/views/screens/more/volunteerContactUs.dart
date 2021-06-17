@@ -15,7 +15,7 @@ class _VolunteerContactUsState extends State<VolunteerContactUs> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        centerTitle: true,
+        centerTitle: false,
         elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -25,13 +25,12 @@ class _VolunteerContactUsState extends State<VolunteerContactUs> {
           icon: Icon(
             Icons.chevron_left,
             color: Colors.black,
-            size: 40.0,
+            size: 35.0,
           ),
         ),
         title: Text(
           'Contact Us',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 28, color: Colors.black),
+          style: TextStyle(color: Colors.black),
         ),
       ),
       body: Container(

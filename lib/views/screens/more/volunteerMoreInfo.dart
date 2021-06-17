@@ -44,11 +44,9 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
               InkWell(
                 onTap: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => VolunteerDropSuggestionsScreen(),
-                    ),
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VolunteerAboutUsScreen()));
                 },
                 child: Container(
                   child: Padding(
@@ -57,9 +55,12 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Drop Suggestions',
+                          'About Us',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24),
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                        SizedBox(
+                          width: 160,
                         ),
                         Icon(
                           Icons.chevron_right_rounded,
@@ -90,7 +91,7 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
                         Text(
                           'Contact Us',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24),
+                              fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         Icon(
                           Icons.chevron_right_rounded,
@@ -106,9 +107,11 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
               InkWell(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => VolunteerAboutUsScreen()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VolunteerDropSuggestionsScreen(),
+                    ),
+                  );
                 },
                 child: Container(
                   child: Padding(
@@ -117,12 +120,9 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'About Us',
+                          'Drop Suggestions',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24),
-                        ),
-                        SizedBox(
-                          width: 160,
+                              fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         Icon(
                           Icons.chevron_right_rounded,
@@ -134,6 +134,7 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
                   ),
                 ),
               ),
+              SizedBox(height: 20.0),
             ],
           ),
         ),

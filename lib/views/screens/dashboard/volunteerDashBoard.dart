@@ -39,14 +39,19 @@ class _VolunteerDashBoardScreenState extends State<VolunteerDashBoardScreen> {
                   SizedBox(
                     width: 5,
                   ),
-                  InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChangeGreetingsScreen()));
-                      },
-                      child: Icon(Icons.edit)),
+                  (1 == 2)
+                      ? InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChangeGreetingsScreen(),
+                              ),
+                            );
+                          },
+                          child: Icon(Icons.edit),
+                        )
+                      : Container(),
                 ],
               ),
               AnnouncementsComponent(),

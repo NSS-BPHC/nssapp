@@ -20,12 +20,12 @@ class _VolunteerDropSuggestionsScreenState
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
+        centerTitle: false,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
         title: Text(
           'Drop Suggestions',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 28, color: Colors.black),
+          style: TextStyle(color: Colors.black),
         ),
       ),
       body: ListView(
