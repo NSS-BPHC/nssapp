@@ -4,7 +4,7 @@ final List<EventModel> eventsData = [
   EventModel(
       id: "60c339d6ee14fd461c0a30e1",
       title: "Mysterious Island",
-      date: "03-Jun-2020",
+      date: "03-09-2020",
       startTime: "1:20:47",
       endTime: "3:26:43",
       withDrawTime: "12:49:08",
@@ -18,7 +18,7 @@ final List<EventModel> eventsData = [
   EventModel(
       id: "60c339d6ee14fd461c0a30e1",
       title: "Mysterious Island",
-      date: "21-Aug-2020",
+      date: "21-08-2020",
       startTime: "1:20:47",
       endTime: "3:26:43",
       withDrawTime: "12:49:08",
@@ -32,7 +32,7 @@ final List<EventModel> eventsData = [
   EventModel(
       id: "60c339cdee14fd461c0a30e0",
       title: "King of Comedy (Hei kek ji wong)",
-      date: "01-Sept-2021",
+      date: "01-09-2021",
       startTime: "21:03:50",
       endTime: "11:37:15",
       withDrawTime: "2:05:44",
@@ -46,7 +46,7 @@ final List<EventModel> eventsData = [
   EventModel(
       id: "60c339cdee14fd461c0a30e0",
       title: "King of Comedy (Hei kek ji wong)",
-      date: "01-Sept-2021",
+      date: "01-07-2021",
       startTime: "21:03:50",
       endTime: "11:37:15",
       withDrawTime: "2:05:44",
@@ -60,7 +60,7 @@ final List<EventModel> eventsData = [
   EventModel(
       id: "60c339cdee14fd461c0a30e0",
       title: "King of Comedy (Hei kek ji wong)",
-      date: "01-Sept-2021",
+      date: "01-09-2021",
       startTime: "21:03:50",
       endTime: "11:37:15",
       withDrawTime: "2:05:44",
@@ -74,7 +74,7 @@ final List<EventModel> eventsData = [
   EventModel(
       id: "60c339cdee14fd461c0a30e0",
       title: "King of Comedy (Hei kek ji wong)",
-      date: "01-Sept-2021",
+      date: "01-09-2021",
       startTime: "21:03:50",
       endTime: "11:37:15",
       withDrawTime: "2:05:44",
@@ -88,7 +88,7 @@ final List<EventModel> eventsData = [
   EventModel(
       id: "60c339cdee14fd461c0a30e0",
       title: "King of Comedy (Hei kek ji wong)",
-      date: "01-Sept-2021",
+      date: "01-09-2021",
       startTime: "21:03:50",
       endTime: "11:37:15",
       withDrawTime: "2:05:44",
