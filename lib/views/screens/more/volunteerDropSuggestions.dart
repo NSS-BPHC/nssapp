@@ -35,6 +35,7 @@ class _VolunteerDropSuggestionsScreenState
             margin: EdgeInsets.all(12),
             child: TextField(
               controller: titleController,
+              style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Title',
@@ -47,6 +48,7 @@ class _VolunteerDropSuggestionsScreenState
             child: TextField(
               maxLines: maxLines,
               controller: suggestionController,
+              style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Suggestion',

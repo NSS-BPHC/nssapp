@@ -96,7 +96,6 @@ class _VolunteerEventRegistrationScreenState
                         ),
                       ],
                     ),
-                    Icon(Icons.app_registration, color: Colors.grey),
                   ],
                 ),
                 Row(
@@ -202,14 +201,15 @@ class _VolunteerEventRegistrationScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Registrations close at 05 Sept 2021 at 9:00 am',
+                      'Registrations close at 01 July 2021 at 9:00 am',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
                           color: Colors.black),
                     ),
+                    SizedBox(height: 10.0),
                     Text(
-                      'Withdrawls close at 05 Sept 2021 at 8:00 am',
+                      'Withdrawls close at 01 July 2021 at 8:00 am',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,

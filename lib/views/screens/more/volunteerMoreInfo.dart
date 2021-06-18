@@ -22,25 +22,26 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
           padding: AppTheme.screenPadding,
           child: Column(
             children: [
-              SizedBox(height: 60.0),
+              SizedBox(height: 80.0),
               Column(
                 children: [
                   Center(
                     child: Container(
-                      height: 250,
-                      width: 250,
+                      height: 150,
+                      width: 150,
                       child: Image(
                         image: AssetImage('assets/images/NSS-symbol.png'),
                       ),
                     ),
                   ),
+                  SizedBox(height: 20.0),
                   Text(
                     'NOT ME BUT YOU!',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ],
               ),
-              SizedBox(height: 40.0),
+              SizedBox(height: 80.0),
               InkWell(
                 onTap: () {
                   Navigator.push(

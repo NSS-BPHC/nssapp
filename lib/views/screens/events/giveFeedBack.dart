@@ -35,6 +35,7 @@ class _GiveFeedBackScreenState extends State<GiveFeedBackScreen> {
             child: TextField(
               maxLines: maxLines,
               controller: suggestionController,
+              style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'FeedBack',

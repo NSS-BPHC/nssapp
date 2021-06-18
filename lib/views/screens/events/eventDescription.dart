@@ -83,9 +83,10 @@ class _EventDescriptionState extends State<EventDescription> {
                             SizedBox(height: 30.0),
                             Text(
                               widget.eventModel.organiser,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 24,
+                                fontSize: 18,
                                 color: Colors.black,
                               ),
                             ),
