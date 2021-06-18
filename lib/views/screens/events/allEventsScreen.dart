@@ -37,7 +37,7 @@ class _AllEventsScreenState extends State<AllEventsScreen> {
           groupSeparatorBuilder: (String value) => Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              months[int.parse(value)],
+              months[int.parse(value)-1],
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),

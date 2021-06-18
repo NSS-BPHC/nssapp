@@ -7,3 +7,6 @@ class AnnouncementModel {
   AnnouncementModel(
       {required this.time, required this.title, required this.description});
 }
+
+
+

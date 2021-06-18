@@ -50,7 +50,18 @@ class _VolunteerAboutUsScreenState extends State<VolunteerAboutUsScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'The NSS BITS Pilani Hyderabad Campus chapter was sanctioned in March 2009. Since its inception, the NSS BPHC has been galvanising student enthusiasm and commitment to society and channelling it into concrete programs targeting rural citizens, economically disadvantaged school children, orphans and medical patients among others. It has now around 150 volunteers working for the social uplift of the down-trodden masses of our nation. We are an organisation through which students get an opportunity to understand the community they work in and their relationship with it.',
+                'The NSS BITS Pilani Hyderabad Campus chapter was sanctioned in March 2009. Since its inception, the NSS BPHC has been galvanising student enthusiasm and commitment to society and channelling it into concrete programs targeting rural citizens, economically disadvantaged school children, orphans and medical patients among others',
+                style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 15.5,
+                    height: 1.25),
+                textAlign: TextAlign.justify,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'It has now around 150 volunteers working for the social uplift of the down-trodden masses of our nation. We are an organisation through which students get an opportunity to understand the community they work in and their relationship with it.',
                 style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 15.5,
