@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/data/eventsData.dart';
+import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/profile/allVolunteerScreen.dart';
 import 'package:nssapp/views/widgets/eventCard.dart';
 
@@ -129,18 +130,25 @@ class _VolunteerProfileScreenState extends State<VolunteerProfileScreen> {
                           height: 80.0,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 2.0,
-                              color: Colors.white,
-                            ),
                           ),
                           child: Center(
-                            child: Text(
-                              '100',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 38,
-                                  color: Colors.white),
+                            child: Column(
+                              children: [
+                                Text(
+                                  '100',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 38,
+                                      color: Colors.white),
+                                ),
+                                Text(
+                                  'Score',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white),
+                                ),
+                              ],
                             ),
                           ),
                         ),

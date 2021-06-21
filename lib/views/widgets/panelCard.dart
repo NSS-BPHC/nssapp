@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/volunteerModel.dart';
+import 'package:nssapp/utilities/styling.dart';
 
 class PanelCard extends StatefulWidget {
   final VolunteerModel volunteerModel;
@@ -13,11 +14,11 @@ class _PanelCardState extends State<PanelCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
       child: Container(
         height: 80.0,
         decoration: BoxDecoration(
-          color: Color(0xff00bcd4),
+          color: AppTheme.primaryColor,
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Padding(
@@ -66,7 +67,7 @@ class _PanelCardState extends State<PanelCard> {
                         ),
                       ],
                     ),
-                    Icon(Icons.phone),
+                    Icon(Icons.phone, color: Colors.white),
                   ],
                 ),
               ),

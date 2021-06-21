@@ -52,25 +52,35 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(40.0),
                   child: Container(
-                    width: 300.0,
+                    width: 150.0,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       color: AppTheme.tertiaryColor,
-                      border: Border.all(color: AppTheme.textBlackColor),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppTheme.tertiaryColor,
+                          offset: const Offset(3.0, 3.0),
+                          blurRadius: 2.0,
+                          spreadRadius: 3.0,
+                        ),
+                      ],
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Row(
+                        mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset('assets/images/google.svg'),
-                          SizedBox(width: 10.0),
+                          SizedBox(
+                            height: 20.0,
+                            child: SvgPicture.asset('assets/images/google.svg'),
+                          ),
                           Text(
-                            'Sign in with Google',
+                            'Sign in',
                             style: TextStyle(
                               color: AppTheme.textBlackColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: 18.0,
+                              fontSize: 14.0,
                             ),
                           ),
                         ],

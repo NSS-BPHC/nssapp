@@ -65,20 +65,21 @@ class _VolunteerDropSuggestionsScreenState
                         builder: (context) => SuccessSuggestionScreen()));
               },
               child: Container(
+                width: 100,
                 decoration: BoxDecoration(
                     color: AppTheme.secondaryColor,
                     borderRadius: BorderRadius.all(Radius.circular(15))),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 30.0,
+                      horizontal: 10.0,
                       vertical: 20.0,
                     ),
                     child: Text(
                       "SUBMIT",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 24,
+                          fontSize: 18,
                           color: Colors.white),
                     ),
                   ),
