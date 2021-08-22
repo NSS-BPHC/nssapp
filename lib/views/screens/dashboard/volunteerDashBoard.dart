@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/models/loginManager.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/components/announcements.dart';
 import 'package:nssapp/views/components/upcomingEvents.dart';
 import 'package:nssapp/views/screens/dashboard/changeGreetings.dart';
+import 'package:provider/provider.dart';
 
 class VolunteerDashBoardScreen extends StatefulWidget {
   const VolunteerDashBoardScreen({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class VolunteerDashBoardScreen extends StatefulWidget {
 class _VolunteerDashBoardScreenState extends State<VolunteerDashBoardScreen> {
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<LoginManager>().user;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -24,7 +27,7 @@ class _VolunteerDashBoardScreenState extends State<VolunteerDashBoardScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hello Rohith!',
+                'Hello ${user.name}!',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24.0,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nssapp/models/loginManager.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/home/homeScreen.dart';
+import 'package:provider/provider.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   @override
@@ -45,9 +47,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                  _handleSubmit(context);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(40.0),
@@ -94,5 +94,13 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         ),
       ),
     );
+  }
+
+  void _handleSubmit(BuildContext context) {
+    Provider.of<LoginManager>(context, listen: false)
+        .login(email: "nssbphctech@gmail.com", password: 'nsstech@2021');
+    // Navigator.pop(context);
+    // Navigator.push(context,
+    //     MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 }

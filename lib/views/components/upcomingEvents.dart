@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/data/eventsData.dart';
+import 'package:nssapp/models/loginManager.dart';
+import 'package:nssapp/models/userModel.dart';
 import 'package:nssapp/views/screens/dashboard/addEvents.dart';
 import 'package:nssapp/views/widgets/dashboardEventCard.dart';
+import 'package:provider/provider.dart';
 
 class UpcomingEventsComponent extends StatefulWidget {
   @override
@@ -12,6 +15,9 @@ class UpcomingEventsComponent extends StatefulWidget {
 class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
   @override
   Widget build(BuildContext context) {
+    final bool isAdmin =
+        context.watch<LoginManager>().userRole == UserRole.Admin;
+    print(context.read<LoginManager>().user.email);
     return Column(
       children: [
         Padding(
@@ -25,7 +31,7 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
                   fontSize: 18.0,
                 ),
               ),
-              (1 == 2)
+              (isAdmin)
                   ? InkWell(
                       onTap: () {
                         Navigator.push(
@@ -43,6 +49,7 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
         ),
         Expanded(
           child: ListView.builder(
+            physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             itemCount: eventsData.length,
             itemBuilder: (context, index) {

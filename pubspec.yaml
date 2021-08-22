@@ -1,6 +1,6 @@
 name: nssapp
 description: A new Flutter project.
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -13,12 +13,13 @@ dependencies:
   grouped_list: ^4.0.0
   flutter_svg:
   intl:
-
+  provider: ^6.0.0
+  shared_preferences: ^2.0.6
+  flutter_secure_storage: ^4.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 flutter:
   uses-material-design: true
