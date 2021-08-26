@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/services/postApi.dart';
 
 class AddAnnouncementScreen extends StatefulWidget {
   const AddAnnouncementScreen({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class _AddAnnouncementScreenState extends State<AddAnnouncementScreen> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final maxLines = 10;
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,42 +56,64 @@ class _AddAnnouncementScreenState extends State<AddAnnouncementScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  width: 100,
-                  decoration: BoxDecoration(
-                      color: Color(0xff5271ff),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Cancel",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white),
-                      textAlign: TextAlign.center,
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context, false);
+                  },
+                  child: Container(
+                    width: 100,
+                    decoration: BoxDecoration(
+                        color: Color(0xff5271ff),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Cancel",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
-                Container(
-                  width: 100,
-                  decoration: BoxDecoration(
-                      color: Color(0xff5271ff),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Add",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white),
-                      textAlign: TextAlign.center,
+                InkWell(
+                  onTap: () async {
+                    if (!isLoading) {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await createAnnouncement(
+                        title: titleController.text,
+                        description: descriptionController.text,
+                      );
+                      // isLoading = false;
+                      Navigator.pop(context, true);
+                    }
+                    // Navigator.pop(context);
+                  },
+                  child: Container(
+                    width: 100,
+                    decoration: BoxDecoration(
+                        color: Color(0xff5271ff),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Add",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
+            if (isLoading) Center(child: CircularProgressIndicator()),
           ],
         ),
       ),

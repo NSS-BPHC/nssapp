@@ -13,9 +13,13 @@ dependencies:
   grouped_list: ^4.0.0
   flutter_svg:
   intl:
+  http: ^0.13.3
   provider: ^6.0.0
   shared_preferences: ^2.0.6
   flutter_secure_storage: ^4.2.1
+  jwt_decoder: ^2.0.1
+  # flutter_cache_manager: ^3.1.2
+  url_launcher: ^6.0.9
 
 dev_dependencies:
   flutter_test:

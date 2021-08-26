@@ -3,6 +3,8 @@
 //     final eventModel = eventModelFromJson(jsonString);
 
 import 'dart:convert';
+import 'package:nssapp/services/api.dart';
+import 'package:nssapp/utilities/utilityFunctions.dart';
 
 EventModel eventModelFromJson(String str) =>
     EventModel.fromJson(json.decode(str));
@@ -10,6 +12,7 @@ EventModel eventModelGetFromJson(Map<String, dynamic> str) =>
     EventModel.fromJson(str);
 
 String eventModelToJson(EventModel data) => json.encode(data.toJson());
+const List<String> d = [];
 
 class EventModel {
   EventModel({
@@ -22,7 +25,9 @@ class EventModel {
     required this.location,
     required this.description,
     required this.organiser,
+    this.users = d,
     required this.noOfVolunteers,
+    required this.score,
     required this.v,
     required this.eventModelId,
   });
@@ -36,8 +41,10 @@ class EventModel {
   final String location;
   final String description;
   final String organiser;
+  final List<dynamic> users;
   final int noOfVolunteers;
   final int v;
+  final int score;
   final String eventModelId;
 
   factory EventModel.fromJson(Map<String, dynamic> json) => EventModel(
@@ -49,10 +56,12 @@ class EventModel {
         withDrawTime: json["withDrawTime"],
         location: json["location"],
         description: json["description"],
-        organiser: json["organiser"],
-        noOfVolunteers: json["noOfVolunteers"],
-        v: json["__v"],
-        eventModelId: json["id"],
+        organiser: json["organiser"] ?? "NSS",
+        users: json["users"],
+        noOfVolunteers: int.tryParse('${json["noOfVolunteers"]}') ?? 30,
+        score: int.parse(json["score"]?.toString() ?? "10"),
+        v: json["__v"] ?? 0,
+        eventModelId: json["id"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -66,7 +75,20 @@ class EventModel {
         "description": description,
         "organiser": organiser,
         "noOfVolunteers": noOfVolunteers,
+        "score": score,
+        "users": users,
         "__v": v,
         "id": eventModelId,
       };
+  bool get isInTheFuture => !this.date.isBeforeRightNow();
+
+  bool hasRegistered(String userID) => this.users.contains(userID);
+
+  bool get canWithdraw =>
+      this.withDrawTime.toDateTime().isAfter(DateTime.now());
+
+  Future<bool> get canBeRegisteredFor async {
+    final users = await getEventUsers(this.id);
+    return ((users?.length ?? 0) < noOfVolunteers);
+  }
 }

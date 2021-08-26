@@ -75,6 +75,7 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
                   ],
                 ),
               ),
+              Icon(Icons.delete, color: Colors.red),
             ],
           ),
         ),

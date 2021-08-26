@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:nssapp/models/userModel.dart';
+import 'package:nssapp/services/api.dart' as api;
 import 'package:shared_preferences/shared_preferences.dart';
 
 //TODO Delete later
@@ -19,18 +22,47 @@ const userData = {
 /// Handles login, logout and user role
 class LoginManager with ChangeNotifier {
   bool isLoggedIn = false;
+  bool failedLogIn = false;
+  bool isLoading = false;
+  String? jwt;
+  String error = "";
   UserRole userRole = UserRole.Visitor;
   late User user;
 
+  bool get isAdmin => this.userRole == UserRole.Admin;
+
   /// Checks if user has already logged in previously
+  /// Loads the user data in `user`
   Future<void> init() async {
+    print("init");
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('user') != null) {}
+    if (prefs.containsKey('user')) {
+      this.setUser(prefs.getString('user'));
+      this.isLoggedIn = true;
+      notifyListeners();
+      final storage = new FlutterSecureStorage();
+      this.jwt = await storage.read(key: 'jwt');
+
+      determineRole(this.jwt ?? "as", notify: true);
+      return;
+    }
+    final storage = new FlutterSecureStorage();
+    final jwt = await storage.read(key: 'jwt');
+    if (jwt != null) {
+      print("jwt exists");
+
+      final userData = await api.getAndStoreUserData(jwt: jwt);
+      print("userData");
+      print(userData);
+      this.setUser(userData);
+      successfulLogin();
+    }
   }
 
   /// Allows access to unregistered users outside NSS
   void anonymousLogin() {
     this.userRole = UserRole.Visitor;
+    this.isLoggedIn = true;
     notifyListeners();
   }
 
@@ -40,36 +72,73 @@ class LoginManager with ChangeNotifier {
       {required String email,
       required String password,
       bool alreadyLoggedIn = false}) async {
-    late final String data;
+    this.isLoading = true;
+    notifyListeners();
+    late final String? data;
     if (!alreadyLoggedIn) {
-      180; //dummy statement placeholder for no reason whatsoever
-      //TODO: Else API call for login and
-      // set 'data' to the response
-      // and store in sharedPreferences(decoded jwt) and secure storage(jwt)
+      print("logging in manager");
+      final api.ApiResponse response =
+          await api.login(email: email, password: password);
+      // data =
+      print("apiError=${response.apiError}");
+      if (response.apiError != null) {
+        // this.failedLogIn = true;
+        // this.error = response.apiError ?? "Login failed";
+        // notifyListeners();
+        this.loginFailed(response.apiError ?? "Login failed");
+        return;
+      }
+      data = response.data;
+      this.init();
     }
+    determineRole(data ?? "sa");
+  }
 
-    //TODO Delete this dummy data assignment
-    data = jsonEncode(userData);
+  /// Set userModel
+  void setUser(String? data) {
+    if (data != null) this.user = User.fromJson(jsonDecode(data));
+  }
 
-    setUser(data);
-    determineRole();
-    this.isLoggedIn = true;
+  /// Set the current user's role
+  /// using JWT `data`
+  void determineRole(String data, {bool notify = false}) {
+    try {
+      final d = JwtDecoder.decode(data);
+      if (d["isAdmin"]) {
+        this.userRole = UserRole.Admin;
+      } else {
+        this.userRole = UserRole.Volunteer;
+      }
+      if (notify) notifyListeners();
+    } on Exception catch (e) {
+      this.loginFailed("Invalid email or password");
+    }
+  }
+
+  /// Deletes JWT and user stored
+  Future<void> logOut() async {
+    final storage = new FlutterSecureStorage();
+    await storage.delete(key: 'jwt');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('user');
+    this.isLoggedIn = false;
     notifyListeners();
   }
 
-  void setUser(String data) async {
-    this.user = User.fromJson(jsonDecode(data));
-    //TODO securedStorage store jwt above
+  /// Handle UI update
+  void successfulLogin() {
+    this.isLoggedIn = true;
+    this.failedLogIn = false;
+    this.isLoading = false;
+    notifyListeners();
   }
 
-  void determineRole() {
-    // this.userRole = user.role;
-    if (this.user.email == "nssbphctech@gmail.com") {
-      this.userRole = UserRole.Admin;
-    } else {
-      this.userRole = UserRole.Volunteer;
-    }
-    //TODO Delete this later
-    this.userRole = UserRole.Admin;
+  /// Handle UI update
+  void loginFailed(String err) {
+    this.error = err;
+    this.failedLogIn = true;
+    this.isLoggedIn = false;
+    this.isLoading = false;
+    notifyListeners();
   }
 }

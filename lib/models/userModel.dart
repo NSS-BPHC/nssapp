@@ -54,12 +54,22 @@ class User {
   String get phoneNumber => _phoneNumber ?? "No number provided";
 
   // set email(String email) => _email = email;
-  factory User.fromJson(Map<String, dynamic> json) => User(
-      id: json["id"],
-      email: json['email'],
-      name: json['name'],
-      memberSinceDate: json['memberSinceDate'],
-      role: json['role']);
+  factory User.fromJson(Map<String, dynamic> json) {
+    if (json['user'] == null)
+      return User(
+          id: json["_id"],
+          email: json['email'],
+          name: json['name'],
+          memberSinceDate: json['memberSinceDate'] ?? "2020",
+          role: json['role'] ?? "Volunteer");
+    else
+      return User(
+          id: json['user']["_id"],
+          email: json['user']['email'],
+          name: json['user']['name'],
+          memberSinceDate: json['user']['memberSinceDate'] ?? "2020",
+          role: json['user']['role'] ?? "Volunteer");
+  }
   Map<String, dynamic> toJson() => {
         "_id": _id,
         "name": _name,

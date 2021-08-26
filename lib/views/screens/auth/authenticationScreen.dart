@@ -11,6 +11,9 @@ class AuthenticationScreen extends StatefulWidget {
 }
 
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
+  final emailTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,6 +46,31 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 20),
+                  FractionallySizedBox(
+                    widthFactor: 0.7,
+                    child: TextField(
+                      controller: emailTextController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter your email',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  FractionallySizedBox(
+                    widthFactor: 0.7,
+                    child: TextField(
+                      obscureText: true,
+                      keyboardType: TextInputType.visiblePassword,
+                      controller: passwordTextController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter your password',
+                      ),
+                    ),
+                  ),
                 ],
               ),
               InkWell(
@@ -50,7 +78,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   _handleSubmit(context);
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(40.0),
+                  padding: const EdgeInsets.all(0.0),
                   child: Container(
                     width: 150.0,
                     decoration: BoxDecoration(
@@ -71,18 +99,20 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            height: 20.0,
-                            child: SvgPicture.asset('assets/images/google.svg'),
-                          ),
-                          Text(
-                            'Sign in',
-                            style: TextStyle(
-                              color: AppTheme.textBlackColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.0,
-                            ),
-                          ),
+                          // SizedBox(
+                          //   height: 20.0,
+                          //   child: SvgPicture.asset('assets/images/google.svg'),
+                          // ),
+                          (context.watch<LoginManager>().isLoading)
+                              ? CircularProgressIndicator()
+                              : Text(
+                                  'Log in',
+                                  style: TextStyle(
+                                    color: AppTheme.textBlackColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.0,
+                                  ),
+                                ),
                         ],
                       ),
                     ),
@@ -98,7 +128,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
 
   void _handleSubmit(BuildContext context) {
     Provider.of<LoginManager>(context, listen: false)
-        .login(email: "nssbphctech@gmail.com", password: 'nsstech@2021');
+        .login(email: "test@test.com", password: "123456");
+    // .login(email: "nssbphctech@gmail.com", password: 'nsstech@2021');
     // Navigator.pop(context);
     // Navigator.push(context,
     //     MaterialPageRoute(builder: (context) => HomeScreen()));

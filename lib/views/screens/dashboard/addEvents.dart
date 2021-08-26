@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:nssapp/services/postApi.dart' as api;
 import 'package:nssapp/utilities/styling.dart';
 
 class AddEventsScreen extends StatefulWidget {
@@ -13,9 +15,18 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
   final locationController = TextEditingController();
   final organiserController = TextEditingController();
   final descriptionController = TextEditingController();
+  final durationController = TextEditingController();
+  final numberController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  bool submitLoading = false;
 
   late DateTime firstDate;
-  late TimeOfDay eventTime = TimeOfDay(hour: 9, minute: 0);
+  // @saiankit
+  // Akshat has no clue why "late" was used with assignment like so: hence he has changed to a nullable type instead
+  // late TimeOfDay eventTime = TimeOfDay(hour: 9, minute: 0);
+  TimeOfDay? eventTime; //= TimeOfDay(hour: 9, minute: 0);
 
   void selectFirstDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -35,14 +46,14 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
     if (eventTime == null) {
       return 'SelectTime';
     } else {
-      return '${eventTime.hour}:${eventTime.minute}';
+      return '${eventTime?.hour}:${eventTime?.minute}';
     }
   }
 
   Future pickEventTime(BuildContext context) async {
     final newTime = await showTimePicker(
       context: context,
-      initialTime: eventTime,
+      initialTime: eventTime ?? TimeOfDay.now(),
     );
     if (newTime == null) return;
     setState(() {
@@ -50,7 +61,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
     });
   }
 
-  final maxLines = 10;
+  static const maxLines = 10;
 
   @override
   void initState() {
@@ -62,159 +73,237 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        title: Text(
-          'Add Event',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 28, color: Colors.black),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Text(
+            'Add Event',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 28, color: Colors.black),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: AppTheme.screenPadding,
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Container(
-                child: TextField(
-                  controller: titleController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Title',
+        body: Form(
+          key: _formKey,
+          child: Padding(
+            padding: AppTheme.screenPadding,
+            child: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Container(
+                    child: _defaultField(
+                      textEditingController: titleController,
+                      hintText: "Title",
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Container(
-                child: TextField(
-                  controller: locationController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Location',
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Container(
+                    child: _defaultField(
+                      textEditingController: locationController,
+                      hintText: "Location",
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Event Details'),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () => selectFirstDate(context),
-                          child: Container(
-                            decoration: BoxDecoration(border: Border.all()),
-                            child: Padding(
-                              padding: EdgeInsets.all(20),
-                              child: Text(
-                                '${firstDate.day} ${months[firstDate.month - 1]} ${firstDate.year}',
-                                style: Theme.of(context).textTheme.headline4,
-                              ),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () => pickEventTime(context),
-                          child: Container(
-                            decoration: BoxDecoration(border: Border.all()),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Event Details'),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () => selectFirstDate(context),
                               child: Container(
-                                width: 100,
-                                child: Text(
-                                  getText().toString(),
-                                  style: Theme.of(context).textTheme.headline4,
+                                decoration: BoxDecoration(border: Border.all()),
+                                child: Padding(
+                                  padding: EdgeInsets.all(20),
+                                  child: Text(
+                                    '${firstDate.day} ${months[firstDate.month - 1]} ${firstDate.year}',
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                            InkWell(
+                              onTap: () => pickEventTime(context),
+                              child: Container(
+                                decoration: BoxDecoration(border: Border.all()),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Container(
+                                    width: 100,
+                                    child: Text(
+                                      getText().toString(),
+                                      style:
+                                          Theme.of(context).textTheme.headline4,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Container(
-                child: TextField(
-                  controller: organiserController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Organiser',
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 100,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Slots',
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Container(
-              height: maxLines * 24,
-              child: TextField(
-                maxLines: maxLines,
-                controller: descriptionController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Description',
                 ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  width: 100,
-                  decoration: BoxDecoration(
-                      color: Color(0xff5271ff),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      "Add",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white),
-                      textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Container(
+                    child: _defaultField(
+                      textEditingController: organiserController,
+                      hintText: "Organiser",
                     ),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                          width: 250,
+                          child: _defaultField(
+                              textEditingController: durationController,
+                              hintText: "Duration of event(min)",
+                              textInputType: TextInputType.number)
+                          // child: TextField(
+                          //   keyboardType: TextInputType.number,
+                          //   decoration: InputDecoration(
+                          //     border: OutlineInputBorder(),
+                          //     hintText: 'Duration of event',
+                          //   ),
+                          // ),
+                          ),
+                    ],
+                  ),
+                ),
+                Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    width: 150,
+                    child: _defaultField(
+                        textEditingController: numberController,
+                        hintText: "Max number of volunteers",
+                        textInputType: TextInputType.number)
+                    // child: TextField(
+                    //   keyboardType: TextInputType.number,
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(),
+                    //     hintText: 'Duration of event',
+                    //   ),
+                    // ),
+                    ),
+                Container(
+                  height: maxLines * 24,
+                  child: TextField(
+                    maxLines: maxLines,
+                    controller: descriptionController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Description',
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap: _handleSubmit,
+                      child: submitLoading
+                          ? SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator())
+                          : Container(
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  color: Color(0xff5271ff),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  "Add",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
+
+  Future<void> _handleSubmit() async {
+    if (!_formKey.currentState!.validate() || eventTime == null) {
+      // If the form is valid, display a snackbar. In the real world,
+      // you'd often call a server or save the information in a database.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Invalid input(s)')),
+      );
+      return;
+    }
+
+    setState(() {
+      submitLoading = true;
+    });
+    final toAdd = addDuration(durationController.text);
+    final endTimeHours = eventTime!.hour + (toAdd["hours"] ?? 0);
+    final endTimeMinutes = eventTime!.minute + (toAdd["minutes"] ?? 0);
+    final withdrawHours = eventTime!.hour - (toAdd["hours"] ?? 0);
+    final withdrawMinutes = eventTime!.minute - (toAdd["minutes"] ?? 0);
+    bool created = await api.createEvent({
+      "title": titleController.text,
+      "description": descriptionController.text,
+      "location": locationController.text,
+      "organiser": organiserController.text,
+      "date":
+          "${firstDate.day}/${firstDate.month.toString().padLeft(2, "0")}/${firstDate.year}",
+      "score": 10,
+      "startTime":
+          this.eventTime?.format(context).replaceAll(RegExp(r"[AP]M"), '') ??
+              TimeOfDay.now().format(context),
+      "withDrawTime": "${withdrawHours % 24}:${withdrawMinutes % 60}",
+      "endTime": "${endTimeHours % 24}:${endTimeMinutes % 60}",
+      "noOfVolunteers": int.parse(numberController.text)
+    });
+
+    setState(() {
+      submitLoading = false;
+    });
+    if (!created) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Failed to create event"),
+      ));
+    }
+    Navigator.pop(context);
+  }
+}
+
+Map<String, int> addDuration(String duration) {
+  final durationNum = int.parse(duration);
+  return {
+    "minutes": durationNum % 60,
+    "hour":
+        durationNum ~/ 60, // this is the Truncating integer division operator
+  };
 }
 
 List<String> months = [
@@ -231,3 +320,26 @@ List<String> months = [
   'Nov',
   'Dec'
 ];
+
+TextFormField _defaultField(
+    {String? hintText,
+    required TextEditingController textEditingController,
+    TextInputType? textInputType,
+    String? Function(String?)? validator}) {
+  return TextFormField(
+    validator: validator ??
+        (value) {
+          if (value == null || value.isEmpty) {
+            return 'Cannot be empty';
+          }
+          return null;
+        },
+    controller: textEditingController,
+    keyboardType: textInputType,
+    style: TextStyle(color: Colors.black87),
+    decoration: InputDecoration(
+      border: OutlineInputBorder(),
+      hintText: hintText,
+    ),
+  );
+}

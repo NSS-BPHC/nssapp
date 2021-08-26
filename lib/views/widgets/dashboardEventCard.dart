@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
+import 'package:nssapp/models/loginManager.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/events/volunteerEventRegistraion.dart';
+import 'package:provider/provider.dart';
 
 class DashBoardEventCard extends StatefulWidget {
   final EventModel eventModel;
@@ -16,17 +18,20 @@ class DashBoardEventCard extends StatefulWidget {
 class _DashBoardEventCardState extends State<DashBoardEventCard> {
   @override
   Widget build(BuildContext context) {
+    final userID = context.read<LoginManager>().user.id;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => VolunteerEventRegistrationScreen(
-                  eventModel: widget.eventModel),
-            ),
-          );
+          final id = context.read<LoginManager>().user.id;
+          if (widget.eventModel.isInTheFuture)
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => VolunteerEventRegistrationScreen(
+                    eventModel: widget.eventModel, userId: id),
+              ),
+            );
         },
         child: Container(
           decoration: BoxDecoration(
@@ -107,7 +112,7 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                     Row(
                       children: [
                         Text(
-                          "10:00 am",
+                          widget.eventModel.startTime,
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontStyle: FontStyle.italic,
@@ -123,7 +128,7 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                               color: Colors.black),
                         ),
                         Text(
-                          "05:00 pm",
+                          widget.eventModel.endTime,
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontStyle: FontStyle.italic,
@@ -134,14 +139,22 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                          color: Color(0xff5271ff),
+                          color: widget.eventModel.hasRegistered(userID)
+                              ? Colors.green
+                              : widget.eventModel.isInTheFuture
+                                  ? Color(0xff5271ff)
+                                  : Colors.blueGrey,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Register",
+                          widget.eventModel.hasRegistered(userID)
+                              ? "Registered"
+                              : widget.eventModel.isInTheFuture
+                                  ? "Register"
+                                  : "Completed",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w500,
                               fontSize: 18,
                               color: Colors.white),
                         ),

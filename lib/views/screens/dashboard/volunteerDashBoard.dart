@@ -17,6 +17,7 @@ class VolunteerDashBoardScreen extends StatefulWidget {
 class _VolunteerDashBoardScreenState extends State<VolunteerDashBoardScreen> {
   @override
   Widget build(BuildContext context) {
+    /// The current user
     final user = context.watch<LoginManager>().user;
     return Scaffold(
       backgroundColor: Colors.white,

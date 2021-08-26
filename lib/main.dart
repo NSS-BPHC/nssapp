@@ -8,9 +8,14 @@ import 'package:provider/provider.dart';
 import 'models/loginManager.dart';
 
 void main() async {
+  // App starts here
   WidgetsFlutterBinding.ensureInitialized();
 
+  // LoginManager handles login and logout
+  // by the Provider package
   LoginManager loginManager = new LoginManager();
+  // Checks if user had logged in previously (to avoid log in every time
+  // the app is opened)
   await loginManager.init();
   runApp(MyApp(loginManager));
 }
