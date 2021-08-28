@@ -40,6 +40,21 @@ Future<bool> createAnnouncement(
   return response.statusCode == 201;
 }
 
+Future<bool> deleteAnnouncement(String id) async {
+  final url = "$BASE_URL/announcements/$id";
+  final response = await _makeAuthorizedRequestTo(
+    url,
+    delete: true,
+  );
+  return response.statusCode == 201;
+}
+
+Future<bool> closeEvent(String eventId) async {
+  final url = "$BASE_URL/score/$eventId";
+  final response = await _makeAuthorizedRequestTo(url, patch: true);
+  return response.statusCode == 201;
+}
+
 Future<http.Response> _makeAuthorizedRequestTo(String url,
     {Map<String, dynamic>? data,
     bool getRequest = false,

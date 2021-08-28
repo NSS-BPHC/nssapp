@@ -27,6 +27,15 @@ class User {
         this._score = score,
         this._phoneNumber = phoneNumber;
 
+  factory User.anonymousUser() {
+    return User(
+        id: "id",
+        email: "email",
+        name: "Guest",
+        role: "Guest",
+        memberSinceDate: "memberSinceDate");
+  }
+
   /// The BITS ID string
   String get id => _id;
 

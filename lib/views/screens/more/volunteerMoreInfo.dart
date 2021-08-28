@@ -161,6 +161,7 @@ class _LogOutButtonState extends State<LogOutButton> {
   bool loading = false;
   @override
   Widget build(BuildContext context) {
+    final isVisitor = context.watch<LoginManager>().isVisitor;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
@@ -182,7 +183,11 @@ class _LogOutButtonState extends State<LogOutButton> {
                 padding: const EdgeInsets.symmetric(
                     vertical: 10.0, horizontal: 12.0),
                 child: Text(
-                  loading ? "Logging out..." : "Log Out",
+                  loading
+                      ? "Loading..."
+                      : isVisitor
+                          ? "Log in"
+                          : "Log Out",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 19,

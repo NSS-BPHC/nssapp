@@ -71,6 +71,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 15),
+                  GestureDetector(
+                      onTap: () {
+                        _handleGuest(context);
+                      },
+                      child: Text("Log in as guest instead"))
                 ],
               ),
               InkWell(
@@ -124,6 +130,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         ),
       ),
     );
+  }
+
+  void _handleGuest(BuildContext context) {
+    context.read<LoginManager>().anonymousLogin();
   }
 
   void _handleSubmit(BuildContext context) {

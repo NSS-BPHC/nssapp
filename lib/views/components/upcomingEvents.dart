@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/data/eventsData.dart';
+import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/utilities/utilityFunctions.dart';
 import 'package:nssapp/models/loginManager.dart';
 import 'package:nssapp/models/userModel.dart';
@@ -24,8 +25,8 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
     final events1 = context.watch<GetAPIProvider>().eventsData ?? [];
     events1.sort(
         (a, b) => a.date.toDateTime().isBefore(b.date.toDateTime()) ? 1 : 0);
-    final events = events1;
-    // events.removeWhere((element) => !element.isInTheFuture);
+    final events = List<EventModel>.from(events1);
+    events.removeWhere((element) => !element.isInTheFuture);
     return Column(
       children: [
         Padding(
@@ -75,9 +76,13 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
                       // if (events)
                       //   return Container();
                       // else
-                      return DashBoardEventCard(
-                        eventModel: events[index],
-                      );
+                      try {
+                        return DashBoardEventCard(
+                          eventModel: events[index],
+                        );
+                      } catch (e) {
+                        return SizedBox();
+                      }
                     },
                   ),
                 ),

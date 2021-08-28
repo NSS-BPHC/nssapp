@@ -67,25 +67,36 @@ class GetAPIProvider with ChangeNotifier {
     }
   }
 
+  void loadAnnouncementsUI() {
+    this.announcementsLoading = true;
+    notifyListeners();
+  }
+
+  void loadEventsUI({bool isLoading = true}) {
+    this.eventsLoading = isLoading;
+    notifyListeners();
+  }
+
   Future<void> getAnnouncements({bool wasPulledToRefresh = false}) async {
     announcements = [];
     announcementsLoading = !wasPulledToRefresh;
     notifyListeners();
     try {
       final response = await http.get(Uri.parse("$BASE_URL/announcements"));
-      print("The response is");
-      print(response.body);
       // print(json.decode(response.body));
       // getHttpJson("$BASE_URL/events");
       if (response.statusCode == 200) {
         // final decodedRes = json.decode(response.body);
         for (var event in json.decode(response.body)["announcements"]) {
-          print(event);
           try {
-            announcements?.add(AnnouncementModel(
+            announcements?.add(
+              AnnouncementModel(
                 time: event["date"],
                 title: event["title"],
-                description: event["description"]));
+                description: event["description"],
+                id: event["_id"],
+              ),
+            );
           } catch (e) {
             print(e);
           }

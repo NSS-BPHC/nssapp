@@ -30,6 +30,7 @@ class LoginManager with ChangeNotifier {
   late User user;
 
   bool get isAdmin => this.userRole == UserRole.Admin;
+  bool get isVisitor => this.userRole == UserRole.Visitor;
 
   /// Checks if user has already logged in previously
   /// Loads the user data in `user`
@@ -62,6 +63,7 @@ class LoginManager with ChangeNotifier {
   /// Allows access to unregistered users outside NSS
   void anonymousLogin() {
     this.userRole = UserRole.Visitor;
+    this.user = User.anonymousUser();
     this.isLoggedIn = true;
     notifyListeners();
   }

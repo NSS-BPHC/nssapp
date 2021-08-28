@@ -101,3 +101,12 @@ Future<String?> getOneEvent(String id) async {
     return response.body;
   }
 }
+
+/// Beware, the API response has the array within users object
+Future<String?> getAllUsers() async {
+  final response = await http.get(Uri.parse("$BASE_URL/users"));
+  print(response.statusCode);
+  print(response.body);
+  if (response.statusCode == 200 || response.statusCode == 201)
+    return response.body;
+}

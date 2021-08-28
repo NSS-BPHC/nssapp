@@ -17,6 +17,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
   final descriptionController = TextEditingController();
   final durationController = TextEditingController();
   final numberController = TextEditingController();
+  final scoreController = TextEditingController(text: "10");
 
   final _formKey = GlobalKey<FormState>();
 
@@ -172,10 +173,10 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                          width: 250,
+                          width: 200,
                           child: _defaultField(
                               textEditingController: durationController,
-                              hintText: "Duration of event(min)",
+                              hintText: "Duration(min)",
                               textInputType: TextInputType.number)
                           // child: TextField(
                           //   keyboardType: TextInputType.number,
@@ -185,6 +186,13 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                           //   ),
                           // ),
                           ),
+                      SizedBox(
+                        width: 150,
+                        child: _defaultField(
+                            textEditingController: scoreController,
+                            hintText: "Score",
+                            textInputType: TextInputType.number),
+                      )
                     ],
                   ),
                 ),
@@ -252,6 +260,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
   }
 
   Future<void> _handleSubmit() async {
+    if (submitLoading) return;
     if (!_formKey.currentState!.validate() || eventTime == null) {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
