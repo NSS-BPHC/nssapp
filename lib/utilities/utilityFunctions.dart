@@ -4,7 +4,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 extension EventModelString on String {
   bool isBeforeRightNow() {
-    final other = DateTime.now(); // DateTime.parse("$otherDate 00:00:00Z");
+    final now = DateTime.now(); // DateTime.parse("$otherDate 00:00:00Z");
+
+    final other = DateTime(now.year, now.month, now.day)
+        .subtract(const Duration(days: 1));
     final thisDate = this.toDateTime();
     return thisDate.isBefore(other);
   }

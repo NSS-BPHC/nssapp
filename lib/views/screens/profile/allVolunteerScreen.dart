@@ -95,30 +95,38 @@ class _ListOfVolunteersState extends State<ListOfVolunteers> {
                 (volunteers == null || (volunteers?.isEmpty ?? true)))
               Center(child: Text("No volunteers found")),
             if (!isLoading && !(volunteers?.isEmpty ?? true))
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: volunteers?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(
-                          volunteers?[index].name ?? "User $index",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          volunteers?[index].id ?? "ID",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal),
-                        ),
-                      );
-                    },
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        volunteers = null;
+                        await this._getUsers();
+                      },
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: volunteers?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(
+                              volunteers?[index].name ?? "User $index",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(
+                              volunteers?[index].id ?? "ID",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 ),
               ),

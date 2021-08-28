@@ -87,7 +87,8 @@ class EventModel with ChangeNotifier {
         "id": eventModelId,
         "closed": closed,
       };
-  bool get isInTheFuture => !this.date.isBeforeRightNow();
+  bool get isInTheFuture =>
+      (!this.date.isBeforeRightNow() && !this.startTime.isBeforeRightNow());
 
   bool hasRegistered(String userID) => this.users.contains(userID);
 

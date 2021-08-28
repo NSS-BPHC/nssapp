@@ -34,10 +34,11 @@ class LoginManager with ChangeNotifier {
 
   /// Checks if user has already logged in previously
   /// Loads the user data in `user`
-  Future<void> init() async {
+  Future<void> init({bool hardRefresh = false}) async {
     print("init");
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey('user')) {
+    if (!hardRefresh && prefs.containsKey('user')) {
       this.setUser(prefs.getString('user'));
       this.isLoggedIn = true;
       notifyListeners();
@@ -50,11 +51,12 @@ class LoginManager with ChangeNotifier {
     final storage = new FlutterSecureStorage();
     final jwt = await storage.read(key: 'jwt');
     if (jwt != null) {
-      print("jwt exists");
+      // print("jwt exists");
 
-      final userData = await api.getAndStoreUserData(jwt: jwt);
-      print("userData");
-      print(userData);
+      final userData =
+          await api.getAndStoreUserData(jwt: jwt, forceNewFetch: hardRefresh);
+      // print("userData");
+      // print(userData);
       this.setUser(userData);
       successfulLogin();
     }
@@ -70,7 +72,7 @@ class LoginManager with ChangeNotifier {
 
   /// Login with provided email and password
   /// Set `alreadyLoggedIn` to `true` to avoid another API call
-  Future<dynamic> login(
+  Future<bool> login(
       {required String email,
       required String password,
       bool alreadyLoggedIn = false}) async {
@@ -88,12 +90,13 @@ class LoginManager with ChangeNotifier {
         // this.error = response.apiError ?? "Login failed";
         // notifyListeners();
         this.loginFailed(response.apiError ?? "Login failed");
-        return;
+        return false;
       }
       data = response.data;
       this.init();
     }
     determineRole(data ?? "sa");
+    return true;
   }
 
   /// Set userModel

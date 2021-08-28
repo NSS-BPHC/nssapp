@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/data/eventsData.dart';
+import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/models/loginManager.dart';
 import 'package:nssapp/models/userModel.dart';
+import 'package:nssapp/services/getApi.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/profile/allVolunteerScreen.dart';
 import 'package:nssapp/views/widgets/eventCard.dart';
@@ -47,6 +49,8 @@ class VolunteerProfileDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(user.events);
+    final events = context.watch<LoginManager>().user.events;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -100,7 +104,7 @@ class VolunteerProfileDetails extends StatelessWidget {
                                   TextStyle(fontSize: 18, color: Colors.white),
                             ),
                             Text(
-                              user.id,
+                              user.BitsId,
                               style:
                                   TextStyle(fontSize: 18, color: Colors.white),
                             ),
@@ -114,7 +118,7 @@ class VolunteerProfileDetails extends StatelessWidget {
                                   width: 5,
                                 ),
                                 Text(
-                                  '9502986243',
+                                  user.phoneNumber,
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.white),
                                 )
@@ -130,7 +134,7 @@ class VolunteerProfileDetails extends StatelessWidget {
                                   width: 5,
                                 ),
                                 Text(
-                                  '01-Sept 2019',
+                                  user.memberSinceDate,
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.white),
                                 ),
@@ -164,7 +168,7 @@ class VolunteerProfileDetails extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  '100',
+                                  user.score,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 38,
@@ -204,20 +208,21 @@ class VolunteerProfileDetails extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AllVolunteerScreen()));
-                },
-                child: Text(
-                  'View All',
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
+
+              // InkWell(
+              //   onTap: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => AllVolunteerScreen()));
+              //   },
+              //   child: Text(
+              //     'View All',
+              //     style: TextStyle(
+              //       decoration: TextDecoration.underline,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -225,14 +230,20 @@ class VolunteerProfileDetails extends StatelessWidget {
           height: 15,
         ),
         Expanded(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: eventsData.length,
-            itemBuilder: (context, index) {
-              return EventCard(
-                eventModel: eventsData[index],
-              );
+          child: RefreshIndicator(
+            onRefresh: () async {
+              await context.read<LoginManager>().init(hardRefresh: true);
             },
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: context.watch<LoginManager>().user.events?.length ?? 0,
+              itemBuilder: (context, index) {
+                if (events?[index] != null)
+                  return EventCard(
+                      eventModel: EventModel.fromJson(events![index]));
+                return SizedBox();
+              },
+            ),
           ),
         ),
       ],

@@ -69,11 +69,12 @@ Future<String> getAndStoreUserData(
     // print(decoded);
     // Check if user exists on device
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey('user') &&
-        !forceNewFetch &&
+    if (!forceNewFetch &&
+        prefs.containsKey('user') &&
         prefs.getString('user') != null) {
       return prefs.getString('user') ?? "";
     } else {
+      print("fetching new data");
       // Get the USER data
       final url = Uri.parse("$BASE_URL/users/${decoded['id']}");
       final response = await http.get(url);

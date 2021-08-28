@@ -36,7 +36,11 @@ Future<bool> createAnnouncement(
       "${currentDate.day}/${currentDate.month.toString().padLeft(2, "0")}/${currentDate.year}";
   final response = await _makeAuthorizedRequestTo("$BASE_URL/announcements",
       post: true,
-      data: {"date": date, "title": title, "description": description});
+      data: {
+        "date": currentDate.toString(),
+        "title": title,
+        "description": description
+      });
   return response.statusCode == 201;
 }
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 enum UserRole { Volunteer, Admin, Visitor }
 
 class User {
@@ -8,7 +10,9 @@ class User {
   String? _phoneNumber;
   String _id;
   String _role;
-  int? _score;
+  int _score;
+  List<dynamic>? events;
+  final String? BITS_ID;
   User(
       {required String id,
       required String email,
@@ -16,15 +20,19 @@ class User {
       required String role,
       required String memberSinceDate,
       String? phoneNumber,
+      String? BITS_ID,
+      required List<dynamic> events,
       // required String lastLogin,
-      int? score})
+      required int score})
       : this._id = id,
         this._email = email,
         this._name = name,
         this._role = role,
         // this._lastLogin = lastLogin,
+        this.BITS_ID = BITS_ID,
         this._memberSinceDate = memberSinceDate,
         this._score = score,
+        this.events = events,
         this._phoneNumber = phoneNumber;
 
   factory User.anonymousUser() {
@@ -33,14 +41,20 @@ class User {
         email: "email",
         name: "Guest",
         role: "Guest",
+        events: [],
+        score: 0,
         memberSinceDate: "memberSinceDate");
   }
 
-  /// The BITS ID string
+  /// The user Id as in the database
   String get id => _id;
 
-  String get name => _name;
+  /// The BITS ID string
+  String get BitsId => BITS_ID ?? "2020QWE1234H";
 
+  String get name => _name;
+  String get memberSinceDate => _memberSinceDate ?? "1 Jan 2020";
+  String get score => _score.toString();
   // String get lastLogin => _lastLogin;
 
   // set lastLogin(String lastLogin) => _lastLogin = lastLogin;
@@ -49,6 +63,8 @@ class User {
 
   /// UserRole for displaying in UI
   String get roleString => _role;
+
+  String get phoneNumber => _phoneNumber ?? "No number provided";
 
   /// UserRole to use in managing role based views
   UserRole get role {
@@ -60,24 +76,31 @@ class User {
     }
   }
 
-  String get phoneNumber => _phoneNumber ?? "No number provided";
-
   // set email(String email) => _email = email;
   factory User.fromJson(Map<String, dynamic> json) {
+    print(jsonEncode(json["user"]?["events"]));
     if (json['user'] == null)
       return User(
-          id: json["_id"],
-          email: json['email'],
-          name: json['name'],
-          memberSinceDate: json['memberSinceDate'] ?? "2020",
-          role: json['role'] ?? "Volunteer");
+        id: json["_id"],
+        email: json['email'],
+        name: json['name'],
+        memberSinceDate: json['memberSinceDate'] ?? "2020",
+        role: json['role'] ?? "Volunteer",
+        BITS_ID: json["BITS_ID"] ?? "2020QWE1234H",
+        events: json["events"] ?? [],
+        score: json["events"] ?? 10,
+      );
     else
       return User(
-          id: json['user']["_id"],
-          email: json['user']['email'],
-          name: json['user']['name'],
-          memberSinceDate: json['user']['memberSinceDate'] ?? "2020",
-          role: json['user']['role'] ?? "Volunteer");
+        id: json['user']["_id"],
+        email: json['user']['email'],
+        name: json['user']['name'],
+        memberSinceDate: json['user']['memberSinceDate'] ?? "2020",
+        role: json['user']['role'] ?? "Volunteer",
+        BITS_ID: json['user']["BITS_ID"] ?? "2020QWE1234H",
+        events: (json['user']?["events"] ?? []),
+        score: json["user"]?["score"] ?? 0,
+      );
   }
   Map<String, dynamic> toJson() => {
         "_id": _id,
@@ -86,6 +109,7 @@ class User {
         "role": _role,
         "phoneNumber": _phoneNumber,
         "score": _score,
+        "BITS_ID": BITS_ID,
       };
   //  {
   //   _userId = json['userId'];

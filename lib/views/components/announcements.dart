@@ -123,7 +123,7 @@ class _AnnouncementsComponentState extends State<AnnouncementsComponent> {
                     },
                   ),
                 ),
-              if (announcements == null)
+              if (announcements == null || announcements.isEmpty && !loading)
                 Center(
                   child: Text("No announcements yet"),
                 )

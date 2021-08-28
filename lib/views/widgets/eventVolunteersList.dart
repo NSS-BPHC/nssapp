@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/utilities/styling.dart';
+import 'package:nssapp/utilities/uiFunctions.dart';
 
 class EventVolunteerList extends StatefulWidget {
   final EventModel eventModel;
@@ -47,7 +48,21 @@ class _EventVolunteerListState extends State<EventVolunteerList> {
             ? CircularProgressIndicator()
             : Column(
                 children: [
-                  ...users,
+                  ...(users.map((e) => Row(
+                        children: [
+                          e,
+                          SizedBox(width: 5),
+                          IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                showConfirmDialog(context,
+                                    title: "Withdraw participant?",
+                                    content:
+                                        "Removes this participant from this event.",
+                                    onConfirm: () {});
+                              }),
+                        ],
+                      ))),
                   if (users.isEmpty)
                     Text(
                       "No participants yet",

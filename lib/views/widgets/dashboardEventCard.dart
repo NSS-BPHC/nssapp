@@ -134,11 +134,15 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                     if (!Provider.of<LoginManager>(context).isVisitor)
                       Container(
                         decoration: BoxDecoration(
-                            color: widget.eventModel.hasRegistered(userID)
-                                ? Colors.green
-                                : widget.eventModel.isInTheFuture
-                                    ? Color(0xff5271ff)
-                                    : Colors.blueGrey,
+                            color: widget.eventModel.closed ||
+                                    widget.eventModel.noOfVolunteers <=
+                                        widget.eventModel.users.length
+                                ? Colors.red
+                                : widget.eventModel.hasRegistered(userID)
+                                    ? Colors.green
+                                    : widget.eventModel.isInTheFuture
+                                        ? Color(0xff5271ff)
+                                        : Colors.blueGrey,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         child: Padding(
@@ -146,7 +150,9 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                           child: Text(
                             widget.eventModel.hasRegistered(userID) && !isAdmin
                                 ? "Registered"
-                                : widget.eventModel.closed
+                                : widget.eventModel.closed ||
+                                        widget.eventModel.noOfVolunteers <=
+                                            widget.eventModel.users.length
                                     ? "Closed"
                                     : isAdmin
                                         ? "Close Event"
@@ -171,7 +177,8 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
   }
 
   Future<void> _handleEventClick() async {
-    if (context.read<LoginManager>().isVisitor) return;
+    if (context.read<LoginManager>().isVisitor || widget.eventModel.closed)
+      return;
     // final isAdmin = context.read<LoginManager>().userRole == UserRole.Admin;
     _registerForEvent();
     // if (isAdmin) {

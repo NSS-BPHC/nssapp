@@ -262,8 +262,6 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
   Future<void> _handleSubmit() async {
     if (submitLoading) return;
     if (!_formKey.currentState!.validate() || eventTime == null) {
-      // If the form is valid, display a snackbar. In the real world,
-      // you'd often call a server or save the information in a database.
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Invalid input(s)')),
       );
@@ -285,7 +283,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
       "organiser": organiserController.text,
       "date":
           "${firstDate.day}/${firstDate.month.toString().padLeft(2, "0")}/${firstDate.year}",
-      "score": 10,
+      "score": int.tryParse(scoreController.text) ?? 10,
       "startTime":
           this.eventTime?.format(context).replaceAll(RegExp(r"[AP]M"), '') ??
               TimeOfDay.now().format(context),

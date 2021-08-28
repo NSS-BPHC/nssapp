@@ -42,13 +42,14 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
               ),
               (isAdmin)
                   ? InkWell(
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async {
+                        await Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => AddEventsScreen(),
                           ),
                         );
+                        Provider.of<GetAPIProvider>(context).getEvents();
                       },
                       child: Icon(Icons.add),
                     )
@@ -66,25 +67,29 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
                         .read<GetAPIProvider>()
                         .getEvents(wasPulledToRefresh: true);
                   },
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount:
-                        (eventsLength <= 3) ? eventsLength + 1 : eventsLength,
-                    itemBuilder: (context, index) {
-                      if (index >= eventsLength) return SizedBox(height: 100);
-                      // if (events)
-                      //   return Container();
-                      // else
-                      try {
-                        return DashBoardEventCard(
-                          eventModel: events[index],
-                        );
-                      } catch (e) {
-                        return SizedBox();
-                      }
-                    },
-                  ),
+                  child: eventsLength == 0
+                      ? Center(child: Text("No events"))
+                      : ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: (eventsLength <= 3)
+                              ? eventsLength + 1
+                              : eventsLength,
+                          itemBuilder: (context, index) {
+                            if (index >= eventsLength)
+                              return SizedBox(height: 100);
+                            // if (events)
+                            //   return Container();
+                            // else
+                            try {
+                              return DashBoardEventCard(
+                                eventModel: events[index],
+                              );
+                            } catch (e) {
+                              return SizedBox();
+                            }
+                          },
+                        ),
                 ),
         ),
       ],

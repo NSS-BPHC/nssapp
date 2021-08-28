@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart';
 import 'package:nssapp/models/loginManager.dart';
+import 'package:nssapp/services/routes.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/home/homeScreen.dart';
 import 'package:provider/provider.dart';
+
+enum LoadState { done, loading, nothing }
 
 class AuthenticationScreen extends StatefulWidget {
   @override
@@ -13,7 +17,8 @@ class AuthenticationScreen extends StatefulWidget {
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
-
+  LoadState sentEmail = LoadState.nothing;
+  String? message;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -71,17 +76,53 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  if (message != null)
+                    Text(message ?? "Error",
+                        style: const TextStyle(color: Colors.red)),
+                  const SizedBox(height: 25),
                   GestureDetector(
-                      onTap: () {
-                        _handleGuest(context);
-                      },
-                      child: Text("Log in as guest instead"))
+                    onTap: () {
+                      _handleForgotPassword(
+                        context,
+                        emailTextController.text,
+                      );
+                    },
+                    child: Text(
+                      sentEmail == LoadState.done
+                          ? "Check your inbox for the reset link"
+                          : sentEmail == LoadState.loading
+                              ? "Sending email..."
+                              : "Forgot password",
+                      style: TextStyle(
+                          fontSize: 16,
+                          decoration: TextDecoration.underline,
+                          color: sentEmail == LoadState.done
+                              ? Colors.green
+                              : Colors.black87),
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  GestureDetector(
+                    onTap: () {
+                      _handleGuest(context);
+                    },
+                    child: Text(
+                      "Log in as guest instead",
+                      style: const TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               InkWell(
                 onTap: () {
-                  _handleSubmit(context);
+                  _handleSubmit(
+                    context,
+                    email: emailTextController.text,
+                    password: passwordTextController.text,
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(0.0),
@@ -100,7 +141,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                       ],
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.only(
+                        bottom: 10.0,
+                        right: 12,
+                        left: 12,
+                        top: 12,
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +162,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                   style: TextStyle(
                                     color: AppTheme.textBlackColor,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 14.0,
+                                    fontSize: 17.0,
                                   ),
                                 ),
                         ],
@@ -132,13 +178,80 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
     );
   }
 
+  Future<void> _handleForgotPassword(
+      BuildContext context, String? email) async {
+    if ((email ?? "").isEmpty) {
+      setState(() {
+        message = "Enter your email";
+      });
+      return;
+    }
+    if (sentEmail == LoadState.loading) return;
+    setState(() {
+      sentEmail = LoadState.loading;
+      message = null;
+    });
+    final response =
+        await post(Uri.parse("$BASE_URL/users/forgot-password"), body: {
+      email: email,
+    });
+    print(response.body);
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      setState(() {
+        sentEmail = LoadState.done;
+        message = null;
+      });
+    } else {
+      setState(() {
+        sentEmail = LoadState.nothing;
+        message = "Invalid email";
+      });
+    }
+  }
+
   void _handleGuest(BuildContext context) {
     context.read<LoginManager>().anonymousLogin();
   }
 
-  void _handleSubmit(BuildContext context) {
+  void _handleSubmit(BuildContext context, {String? email, String? password}) {
+    setState(() {
+      message = null;
+    });
+    if (context.read<LoginManager>().isLoading) {
+      print("Wait");
+      return;
+    }
+    // print("Asd");
+    // return;
+    final regex = RegExp(
+        r"(f20[12]\d{5}@hyderabad.bits-pilani.ac.in)|(test@test\.com)|(nsstech@gmail.com)");
+    if ((email ?? '').isEmpty ||
+        (password ?? '').isEmpty ||
+        !regex.hasMatch(email ?? "a")) {
+      print("here");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Enter valid email and password")),
+      );
+      setState(() {
+        message = "Enter valid email and password";
+      });
+      return;
+    }
+
     Provider.of<LoginManager>(context, listen: false)
-        .login(email: "test@test.com", password: "123456");
+        .login(email: email ?? 'a', password: password ?? 'a')
+        .then((value) {
+      if (!value) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Incorrect email or password")));
+        setState(() {
+          message = "Incorrect email or password";
+        });
+      } else
+        setState(() {
+          message = null;
+        });
+    });
     // .login(email: "nssbphctech@gmail.com", password: 'nsstech@2021');
     // Navigator.pop(context);
     // Navigator.push(context,
