@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/announcementModel.dart';
+import 'package:nssapp/models/loginManager.dart';
+import 'package:nssapp/services/getApi.dart';
+import 'package:nssapp/utilities/uiFunctions.dart';
+import 'package:provider/provider.dart';
 
 class AnnouncementCard extends StatefulWidget {
   final AnnouncementModel announcementModel;
@@ -75,6 +79,30 @@ class _AnnouncementCardState extends State<AnnouncementCard> {
                   ],
                 ),
               ),
+              if (Provider.of<LoginManager>(context).isAdmin)
+                InkWell(
+                  onTap: () {
+                    showConfirmDialog(context,
+                        title: "Heads up, Admin",
+                        content:
+                            "Do you want to delete announcement ${widget.announcementModel.title}?",
+                        onConfirm: () {
+                      context.read<GetAPIProvider>().loadAnnouncementsUI();
+                      widget.announcementModel.delete().then((value) {
+                        if (!value) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Failed to delete")));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Deleted announcement!")));
+
+                          context.read<GetAPIProvider>().getAnnouncements();
+                        }
+                      });
+                    });
+                  },
+                  child: Icon(Icons.delete, color: Colors.red),
+                )
             ],
           ),
         ),

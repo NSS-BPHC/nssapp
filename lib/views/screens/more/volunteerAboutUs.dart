@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nssapp/utilities/utilityFunctions.dart';
 
 class VolunteerAboutUsScreen extends StatefulWidget {
   const VolunteerAboutUsScreen({Key? key}) : super(key: key);
@@ -38,11 +39,14 @@ class _VolunteerAboutUsScreenState extends State<VolunteerAboutUsScreen> {
         child: Column(
           children: [
             Center(
-              child: Container(
-                height: 150,
-                width: 150,
-                child: Image(
-                  image: AssetImage('assets/images/NSS-symbol.png'),
+              child: Hero(
+                tag: "logo",
+                child: Container(
+                  height: 150,
+                  width: 150,
+                  child: Image(
+                    image: AssetImage('assets/images/NSS-symbol.png'),
+                  ),
                 ),
               ),
             ),
@@ -75,11 +79,23 @@ class _VolunteerAboutUsScreenState extends State<VolunteerAboutUsScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SvgPicture.asset('assets/icons/facebook.svg'),
-                  SvgPicture.asset('assets/icons/instagram.svg'),
-                  SvgPicture.asset('assets/icons/linkedin.svg'),
-                  SvgPicture.asset('assets/icons/youtube.svg'),
-                  SvgPicture.asset('assets/icons/github.svg'),
+                  SvgPicLink(
+                    picPath: "assets/icons/facebook.svg",
+                    url: "https://www.facebook.com/nss.bphc",
+                  ),
+                  SvgPicLink(
+                      picPath: 'assets/icons/instagram.svg',
+                      url: "https://instagram.com/nss_bphc"),
+                  SvgPicLink(
+                      url: "http://nssbphc.com",
+                      picPath: 'assets/icons/linkedin.svg'),
+                  SvgPicLink(
+                      url:
+                          "https://youtube.com/channel/UCxBWFFLKQvZrwhPCa0K1n8Q",
+                      picPath: 'assets/icons/youtube.svg'),
+                  SvgPicLink(
+                      url: "https://github.com/NSS-BPHC",
+                      picPath: 'assets/icons/github.svg'),
                 ],
               ),
             ),
@@ -95,13 +111,37 @@ class _VolunteerAboutUsScreenState extends State<VolunteerAboutUsScreen> {
                 ),
               ),
             ),
-            Text(
-              'www.nssbphc.com',
-              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16),
+            GestureDetector(
+              onTap: () {
+                launchUrl("http://nssbphc.com");
+              },
+              child: Text(
+                'www.nssbphc.com',
+                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16),
+              ),
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+class SvgPicLink extends StatelessWidget {
+  final String picPath;
+  final String url;
+  const SvgPicLink({
+    Key? key,
+    required this.picPath,
+    required this.url,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          launchUrl(url);
+        },
+        child: SvgPicture.asset(picPath));
   }
 }

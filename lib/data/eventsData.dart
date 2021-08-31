@@ -13,6 +13,7 @@ final List<EventModel> eventsData = [
         "To tackle this issue of bias prevailing in various forms and versions in our campus, we, NSS BPHC are initiating a change under the banner of Break the Bias. The first problem we are addressing is - Gender bias. We would like to hear your opinions regarding the same in areas like- placements, sports, administration, clubs and departments, interactions with seniors, etc.",
     organiser: "Jahnavi Dharwadkar",
     noOfVolunteers: 31,
+    score: 10,
     v: 0,
     eventModelId: "60c339d6ee14fd461c0a30e1",
   ),
@@ -28,6 +29,7 @@ final List<EventModel> eventsData = [
           "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
       organiser: "Chaitanya",
       noOfVolunteers: 31,
+      score: 10,
       v: 0,
       eventModelId: "60c339d6ee14fd461c0a30e1"),
   EventModel(
@@ -42,6 +44,7 @@ final List<EventModel> eventsData = [
           "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.",
       organiser: "Gandhi Puttu",
       noOfVolunteers: 27,
+      score: 10,
       v: 0,
       eventModelId: "60c339cdee14fd461c0a30e0"),
   EventModel(
@@ -56,6 +59,7 @@ final List<EventModel> eventsData = [
           "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.",
       organiser: "Samyuktha Kolluru",
       noOfVolunteers: 27,
+      score: 10,
       v: 0,
       eventModelId: "60c339cdee14fd461c0a30e0"),
   EventModel(
@@ -70,6 +74,7 @@ final List<EventModel> eventsData = [
           "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.",
       organiser: "Parvez Mushraff",
       noOfVolunteers: 27,
+      score: 10,
       v: 0,
       eventModelId: "60c339cdee14fd461c0a30e0"),
 ];

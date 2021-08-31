@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nssapp/models/loginManager.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/more/volunteerAboutUs.dart';
 import 'package:nssapp/views/screens/more/volunteerContactUs.dart';
 import 'package:nssapp/views/screens/more/volunteerDropSuggestions.dart';
+import 'package:provider/provider.dart';
 
 class VolunteerMoreInfoScreen extends StatefulWidget {
   const VolunteerMoreInfoScreen({Key? key}) : super(key: key);
@@ -26,11 +28,14 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
               Column(
                 children: [
                   Center(
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      child: Image(
-                        image: AssetImage('assets/images/NSS-symbol.png'),
+                    child: Hero(
+                      tag: "logo",
+                      child: Container(
+                        height: 150,
+                        width: 150,
+                        child: Image(
+                          image: AssetImage('assets/images/NSS-symbol.png'),
+                        ),
                       ),
                     ),
                   ),
@@ -136,9 +141,63 @@ class _VolunteerMoreInfoScreenState extends State<VolunteerMoreInfoScreen> {
                 ),
               ),
               SizedBox(height: 20.0),
+              LogOutButton(),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class LogOutButton extends StatefulWidget {
+  const LogOutButton({Key? key}) : super(key: key);
+
+  @override
+  _LogOutButtonState createState() => _LogOutButtonState();
+}
+
+class _LogOutButtonState extends State<LogOutButton> {
+  bool loading = false;
+  @override
+  Widget build(BuildContext context) {
+    final isVisitor = context.watch<LoginManager>().isVisitor;
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          InkWell(
+            onTap: () {
+              setState(() {
+                this.loading = true;
+              });
+              Provider.of<LoginManager>(context, listen: false).logOut();
+              print("logging out");
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  color: AppTheme.secondaryColor,
+                  borderRadius: BorderRadius.all(Radius.circular(12))),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 10.0, horizontal: 12.0),
+                child: Text(
+                  loading
+                      ? "Loading..."
+                      : isVisitor
+                          ? "Log in"
+                          : "Log Out",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 19,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

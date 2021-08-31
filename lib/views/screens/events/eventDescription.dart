@@ -122,22 +122,9 @@ class _EventDescriptionState extends State<EventDescription> {
                             Icon(Icons.alarm),
                             SizedBox(width: 5.0),
                             Text(
-                              "10:00 am",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: Colors.black),
-                            ),
-                            Text(
-                              "-",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  color: Colors.black),
-                            ),
-                            Text(
-                              "05:00 pm",
-                              style: TextStyle(
+                              //TODO Uhh I should do a better job of rounding off times instead of removing the seconds part with a regexp
+                              "${widget.eventModel.startTime.replaceFirst(RegExp(r":\d+$"), "")} - ${widget.eventModel.endTime.replaceFirst(RegExp(r":\d+$"), "")}",
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                   color: Colors.black),
@@ -163,8 +150,7 @@ class _EventDescriptionState extends State<EventDescription> {
                               color: Colors.white,
                             ),
                             Text(
-                              widget.eventModel.noOfVolunteers.toString() +
-                                  ' / 40',
+                              widget.eventModel.users.length.toString(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.0,
@@ -204,39 +190,41 @@ class _EventDescriptionState extends State<EventDescription> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => GiveFeedBackScreen()));
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(80.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: AppTheme.secondaryColor,
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Text(
-                              "Give FeedBack",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                if (false)
+                  InkWell(
+                    onTap: () {
+                      //   Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => GiveFeedBackScreen()));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(80.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Container(
+                          //   decoration: BoxDecoration(
+                          //     color: AppTheme.secondaryColor,
+                          //     borderRadius: BorderRadius.all(Radius.circular(15)),
+                          //   ),
+
+                          //   child: Padding(
+                          //     padding: const EdgeInsets.all(12.0),
+                          //     child: Text(
+                          //       "Give FeedBack",
+                          //       style: TextStyle(
+                          //         fontWeight: FontWeight.bold,
+                          //         fontSize: 24,
+                          //         color: Colors.white,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ],

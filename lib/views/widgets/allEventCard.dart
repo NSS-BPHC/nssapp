@@ -67,7 +67,7 @@ class _AllEventCardState extends State<AllEventCard> {
                           ],
                         ),
                         Text(
-                          widget.eventModel.date.toString(),
+                          widget.eventModel.date.split(" ")[0],
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 14,
