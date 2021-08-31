@@ -49,7 +49,6 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
                             builder: (context) => AddEventsScreen(),
                           ),
                         );
-                        Provider.of<GetAPIProvider>(context).getEvents();
                       },
                       child: Icon(Icons.add),
                     )

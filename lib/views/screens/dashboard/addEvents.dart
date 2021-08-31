@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nssapp/services/getApi.dart';
 import 'package:nssapp/services/postApi.dart' as api;
 import 'package:nssapp/utilities/styling.dart';
+import 'package:provider/provider.dart';
 
 class AddEventsScreen extends StatefulWidget {
   const AddEventsScreen({Key? key}) : super(key: key);
@@ -213,7 +217,13 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
                     ),
                 Container(
                   height: maxLines * 24,
-                  child: TextField(
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Description cannot be empty';
+                      }
+                      return null;
+                    },
                     maxLines: maxLines,
                     controller: descriptionController,
                     decoration: InputDecoration(
@@ -272,10 +282,20 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
       submitLoading = true;
     });
     final toAdd = addDuration(durationController.text);
+    print(json.encode(toAdd));
     final endTimeHours = eventTime!.hour + (toAdd["hours"] ?? 0);
     final endTimeMinutes = eventTime!.minute + (toAdd["minutes"] ?? 0);
-    final withdrawHours = eventTime!.hour - (toAdd["hours"] ?? 0);
-    final withdrawMinutes = eventTime!.minute - (toAdd["minutes"] ?? 0);
+    int withdrawHours = eventTime!.hour; //- (toAdd["hours"] ?? 0);
+    int withdrawMinutes = eventTime!.minute - (30);
+    if (withdrawMinutes < 0) {
+      withdrawMinutes += 60;
+      if (withdrawHours == 1)
+        withdrawHours = 12;
+      else
+        withdrawHours -= 1;
+    }
+    print(withdrawHours);
+    // return;
     bool created = await api.createEvent({
       "title": titleController.text,
       "description": descriptionController.text,
@@ -284,9 +304,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
       "date":
           "${firstDate.day}/${firstDate.month.toString().padLeft(2, "0")}/${firstDate.year}",
       "score": int.tryParse(scoreController.text) ?? 10,
-      "startTime":
-          this.eventTime?.format(context).replaceAll(RegExp(r"[AP]M"), '') ??
-              TimeOfDay.now().format(context),
+      "startTime": _getStartTime(eventTime),
       "withDrawTime": "${withdrawHours % 24}:${withdrawMinutes % 60}",
       "endTime": "${endTimeHours % 24}:${endTimeMinutes % 60}",
       "noOfVolunteers": int.parse(numberController.text)
@@ -300,8 +318,18 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
         content: Text("Failed to create event"),
       ));
     }
+    context.read<GetAPIProvider>().getEvents(wasPulledToRefresh: true);
     Navigator.pop(context);
   }
+}
+
+String _getStartTime(TimeOfDay? timeOfDay) {
+  if (timeOfDay == null) timeOfDay = TimeOfDay.now();
+  // this.eventTime?.format(context).replaceAll(RegExp(r"[AP]M"), '') ??
+
+  final hours = timeOfDay.hour;
+  final min = timeOfDay.minute;
+  return "${hours.toString().padLeft(2, "0")}:${min.toString().padLeft(2, "0")}";
 }
 
 Map<String, int> addDuration(String duration) {

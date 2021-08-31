@@ -38,7 +38,7 @@ class _EventCardState extends State<EventCard> {
         ],
       ),
       Text(
-        '10',
+        widget.eventModel.score.toString(),
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 30,

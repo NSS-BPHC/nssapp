@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
+import 'package:nssapp/services/postApi.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/utilities/uiFunctions.dart';
 
@@ -17,13 +18,13 @@ class _EventVolunteerListState extends State<EventVolunteerList> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      isLoading = true;
-    });
     _fetch();
   }
 
-  void _fetch() async {
+  Future<void> _fetch() async {
+    setState(() {
+      isLoading = true;
+    });
     await widget.eventModel.updateThisWithUserDetails();
     setState(() {
       isLoading = false;
@@ -32,12 +33,12 @@ class _EventVolunteerListState extends State<EventVolunteerList> {
 
   @override
   Widget build(BuildContext context) {
-    final users = widget.eventModel.usersWithNames?.map((element) {
-          return Text(element["name"] ?? "",
-              style:
-                  const TextStyle(fontSize: 17, fontWeight: FontWeight.w300));
-        }) ??
-        [];
+    final users = widget.eventModel.usersWithNames; //?.map((element) {
+    //   return Text(element["name"] ?? "",
+    //       style:
+    //           const TextStyle(fontSize: 17, fontWeight: FontWeight.w300));
+    // }) ??
+    // [];
     return Column(
       children: [
         const SizedBox(height: 20),
@@ -48,22 +49,43 @@ class _EventVolunteerListState extends State<EventVolunteerList> {
             ? CircularProgressIndicator()
             : Column(
                 children: [
-                  ...(users.map((e) => Row(
-                        children: [
-                          e,
-                          SizedBox(width: 5),
-                          IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                showConfirmDialog(context,
-                                    title: "Withdraw participant?",
-                                    content:
-                                        "Removes this participant from this event.",
-                                    onConfirm: () {});
-                              }),
-                        ],
-                      ))),
-                  if (users.isEmpty)
+                  ...(users?.map((e) => Row(
+                            children: [
+                              Text(e["name"] ?? ''),
+                              SizedBox(width: 5),
+                              IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () {
+                                    showConfirmDialog(context,
+                                        title: "Withdraw ${e["name"]}?",
+                                        content:
+                                            "Removes this participant from this event. Closing this event will not award points to ${e["name"]}",
+                                        onConfirm: () async {
+                                      final res =
+                                          await adminWithdrawParticipantFromEvent(
+                                              eventId: widget.eventModel.id,
+                                              userId: e["_id"]);
+                                      if (!res) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content: Text(
+                                              "Failed to withdraw ${e['name']}"),
+                                        ));
+                                        return;
+                                      }
+                                      widget.eventModel.usersWithNames
+                                          ?.removeWhere((element) =>
+                                              element["name"] == e["name"]);
+                                      widget.eventModel.users.removeWhere(
+                                          (element) =>
+                                              element["name"] == e["name"]);
+                                      setState(() {});
+                                    });
+                                  }),
+                            ],
+                          )) ??
+                      []),
+                  if (users?.isEmpty ?? true)
                     Text(
                       "No participants yet",
                       style: const TextStyle(

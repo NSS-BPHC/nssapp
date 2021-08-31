@@ -1,8 +1,9 @@
 import 'dart:convert';
+import "package:flutter/foundation.dart";
 
 enum UserRole { Volunteer, Admin, Visitor }
 
-class User {
+class User with ChangeNotifier {
   String _name;
   String _email;
   // String _lastLogin;
@@ -12,6 +13,7 @@ class User {
   String _role;
   int _score;
   List<dynamic>? events;
+  // ignore: non_constant_identifier_names
   final String? BITS_ID;
   User(
       {required String id,
@@ -50,6 +52,7 @@ class User {
   String get id => _id;
 
   /// The BITS ID string
+  // ignore: non_constant_identifier_names
   String get BitsId => BITS_ID ?? "2020QWE1234H";
 
   String get name => _name;
@@ -84,6 +87,7 @@ class User {
         id: json["_id"],
         email: json['email'],
         name: json['name'],
+        phoneNumber: json["phoneNumber"],
         memberSinceDate: json['memberSinceDate'] ?? "2020",
         role: json['role'] ?? "Volunteer",
         BITS_ID: json["BITS_ID"] ?? "2020QWE1234H",
@@ -95,6 +99,7 @@ class User {
         id: json['user']["_id"],
         email: json['user']['email'],
         name: json['user']['name'],
+        phoneNumber: json['user']["phoneNumber"],
         memberSinceDate: json['user']['memberSinceDate'] ?? "2020",
         role: json['user']['role'] ?? "Volunteer",
         BITS_ID: json['user']["BITS_ID"] ?? "2020QWE1234H",

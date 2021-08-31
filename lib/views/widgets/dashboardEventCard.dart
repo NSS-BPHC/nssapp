@@ -140,9 +140,11 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                                 ? Colors.red
                                 : widget.eventModel.hasRegistered(userID)
                                     ? Colors.green
-                                    : widget.eventModel.isInTheFuture
-                                        ? Color(0xff5271ff)
-                                        : Colors.blueGrey,
+                                    : isAdmin
+                                        ? Colors.green
+                                        : widget.eventModel.isInTheFuture
+                                            ? Color(0xff5271ff)
+                                            : Colors.blueGrey,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         child: Padding(
@@ -150,15 +152,16 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                           child: Text(
                             widget.eventModel.hasRegistered(userID) && !isAdmin
                                 ? "Registered"
-                                : widget.eventModel.closed ||
-                                        widget.eventModel.noOfVolunteers <=
-                                            widget.eventModel.users.length
+                                : widget.eventModel.closed
                                     ? "Closed"
-                                    : isAdmin
-                                        ? "Close Event"
-                                        : widget.eventModel.isInTheFuture
-                                            ? "Register"
-                                            : "Completed", //for safety
+                                    : widget.eventModel.noOfVolunteers <=
+                                            widget.eventModel.users.length
+                                        ? "Event full"
+                                        : isAdmin
+                                            ? "Close Event"
+                                            : widget.eventModel.isInTheFuture
+                                                ? "Register"
+                                                : "Completed", //for safety
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 18,

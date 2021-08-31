@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nssapp/services/getApi.dart';
 import 'package:nssapp/utilities/size_config.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/auth/authWrapper.dart';
@@ -38,14 +39,22 @@ class _MyAppState extends State<MyApp> {
     );
     return LayoutBuilder(builder: (context, constraints) {
       SizeConfig().init(constraints);
-      return MaterialApp(
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: widget.loginManager),
+          ChangeNotifierProvider(create: (_) => GetAPIProvider())
+        ],
+        builder: (_, __) => MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
-          // home: AuthWrapper(),
-          home: ChangeNotifierProvider.value(
-            value: widget.loginManager,
-            builder: (context, _) => AuthWrapper(),
-          ));
+          home: AuthWrapper(),
+
+          // home: ChangeNotifierProvider.value(
+          //   value: widget.loginManager,
+          //   builder: (context, _) => AuthWrapper(),
+          // ),
+        ),
+      );
     });
   }
 }

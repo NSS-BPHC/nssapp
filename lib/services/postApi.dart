@@ -20,6 +20,13 @@ Future<bool> createEvent(Map<String, dynamic> event) async {
   return response.statusCode == 201;
 }
 
+Future<bool> adminWithdrawParticipantFromEvent(
+    {required String eventId, required userId}) async {
+  final url = "$BASE_URL/admin/withdraw/$eventId/$userId";
+  final response = await _makeAuthorizedRequestTo(url, delete: true);
+  return response.statusCode == 201;
+}
+
 Future<bool> withdrawFromEvent(String eventId) async {
   final url = "$BASE_URL/register-event/$eventId";
   final response = await _makeAuthorizedRequestTo(

@@ -20,8 +20,8 @@ class GetAPIProvider with ChangeNotifier {
 
   GetAPIProvider() {
     print("_______________");
-    this.getEvents();
-    this.getAnnouncements();
+    // this.getEvents();
+    // this.getAnnouncements();
   }
 
   Future<void> getEvents({bool wasPulledToRefresh = false}) async {

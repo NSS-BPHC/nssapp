@@ -16,6 +16,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<GetAPIProvider>().getEvents();
+    context.read<GetAPIProvider>().getAnnouncements();
+  }
+
   /// Default dashboard screen
   int selectedIndex = 2;
   int index = 0;
@@ -35,10 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ChangeNotifierProvider(
-        create: (context) => GetAPIProvider(),
-        child: widgetOptions.elementAt(selectedIndex),
-      ),
+      body: widgetOptions.elementAt(selectedIndex),
+      // body: ChangeNotifierProvider(
+      //   create: (context) => GetAPIProvider(),
+      //   child: widgetOptions.elementAt(selectedIndex),
+      // ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         unselectedItemColor: Colors.grey[400],

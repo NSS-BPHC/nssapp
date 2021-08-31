@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/data/volunteerData.dart';
 import 'package:nssapp/views/widgets/panelCard.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class VolunteerContactUs extends StatefulWidget {
   const VolunteerContactUs({Key? key}) : super(key: key);
@@ -38,8 +39,13 @@ class _VolunteerContactUsState extends State<VolunteerContactUs> {
           shrinkWrap: true,
           itemCount: volunteersData.length,
           itemBuilder: (context, index) {
-            return PanelCard(
-              volunteerModel: volunteersData[index],
+            return InkWell(
+              onTap: () {
+                launch("tel://${volunteersData[index].phoneNumber}");
+              },
+              child: PanelCard(
+                volunteerModel: volunteersData[index],
+              ),
             );
           },
         ),
