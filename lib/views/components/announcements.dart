@@ -15,6 +15,12 @@ class AnnouncementsComponent extends StatefulWidget {
 class _AnnouncementsComponentState extends State<AnnouncementsComponent> {
   bool viewAll = false;
   @override
+  void initState() {
+    super.initState();
+    // context.read<GetAPIProvider>().getAnnouncements();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final loading = Provider.of<GetAPIProvider>(context).announcementsLoading;
     final announcements = context.watch<GetAPIProvider>().announcements;

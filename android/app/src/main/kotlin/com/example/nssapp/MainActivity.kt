@@ -1,4 +1,4 @@
-package com.example.nssapp
+package com.nssapp.nss
 
 import io.flutter.embedding.android.FlutterActivity
 
