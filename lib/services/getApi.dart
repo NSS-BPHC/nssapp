@@ -80,7 +80,9 @@ class GetAPIProvider with ChangeNotifier {
   Future<void> getAnnouncements({bool wasPulledToRefresh = false}) async {
     announcements = [];
     announcementsLoading = !wasPulledToRefresh;
-    notifyListeners();
+    try {
+      notifyListeners();
+    } on Exception catch (e) {}
     try {
       final response = await http.get(Uri.parse("$BASE_URL/announcements"));
       // print(json.decode(response.body));

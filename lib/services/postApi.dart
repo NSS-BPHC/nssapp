@@ -66,6 +66,11 @@ Future<bool> closeEvent(String eventId) async {
   return response.statusCode == 201;
 }
 
+Future<http.Response> getSuggestions() async {
+  final url = "$BASE_URL/suggestions";
+  return await _makeAuthorizedRequestTo(url, getRequest: true);
+}
+
 Future<http.Response> _makeAuthorizedRequestTo(String url,
     {Map<String, dynamic>? data,
     bool getRequest = false,

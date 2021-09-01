@@ -17,6 +17,12 @@ class UpcomingEventsComponent extends StatefulWidget {
 
 class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
   @override
+  void initState() {
+    super.initState();
+    // context.read<GetAPIProvider>().getEvents();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final bool isAdmin =
         context.watch<LoginManager>().userRole == UserRole.Admin;

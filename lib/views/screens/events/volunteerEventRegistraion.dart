@@ -126,7 +126,8 @@ class _VolunteerEventRegistrationScreenState
                                 SizedBox(width: 5.0),
                                 Text(
                                   //TODO Uhh I should do a better job of rounding off times instead of removing the seconds part with a regexp
-                                  "${widget.eventModel.startTime.replaceFirst(RegExp(r":\d+$"), "")} - ${widget.eventModel.endTime.replaceFirst(RegExp(r":\d+$"), "")}",
+                                  // "${widget.eventModel.startTime.replaceFirst(RegExp(r":\d+$"), "")} - ${widget.eventModel.endTime.replaceFirst(RegExp(r":\d+$"), "")}",
+                                  "${widget.eventModel.startTime} - ${widget.eventModel.endTime}",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,
@@ -192,7 +193,7 @@ class _VolunteerEventRegistrationScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Registrations close on ${widget.eventModel.date} at ${widget.eventModel.startTime.replaceFirst(RegExp(r":\d+$"), "")}',
+                          'Registrations close on ${widget.eventModel.date} at ${widget.eventModel.startTime}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
@@ -200,7 +201,7 @@ class _VolunteerEventRegistrationScreenState
                         ),
                         const SizedBox(height: 10.0),
                         Text(
-                          'Withdrawls close on ${widget.eventModel.date} at ${widget.eventModel.withDrawTime.replaceFirst(RegExp(r":\d+$"), "")}',
+                          'Withdrawls close on ${widget.eventModel.date} at ${widget.eventModel.withDrawTime}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,

@@ -13,23 +13,25 @@ extension EventModelString on String {
   }
 
   DateTime toDateTime() {
-    print(this);
+    // print(this);
     try {
       String regexString = r'(\d+)\/(\d+)\/(\d{2,})';
       RegExp regExp = new RegExp(regexString);
       var matches = regExp.allMatches(this);
 
       var match = matches.elementAt(0);
-      return DateTime.parse(
-          "${match.group(3)}-${match.group(2)?.padLeft(2, "0")}-${match.group(1)} 00:00:00Z");
+      final d =
+          "${match.group(3)?.padLeft(2, "0")}-${match.group(2)?.padLeft(2, "0")}-${match.group(1)?.padLeft(2, "0")} 00:00:00Z";
+      // print(d);
+      return DateTime.parse(d);
     } catch (e) {
-      print("Asdasd");
+      // print("Asdasd");
       String regexString = r'(\d+):(\d+):?(\d{0,2})';
       RegExp regExp = new RegExp(regexString);
       var matches = regExp.allMatches(this);
 
       var match = matches.elementAt(0);
-      print(match.groupCount);
+      // print(match.groupCount);
 
       late final String thirdMatch;
       try {
@@ -41,7 +43,7 @@ extension EventModelString on String {
           "${match.group(1)?.padLeft(2, "0")}:${match.group(2)?.padLeft(2, "0")}:$thirdMatch";
       final today = DateTime.now();
       return DateTime.parse(
-          "${today.year}-${today.hour.toString().padLeft(2, "0")}-${today.day} ${time}Z");
+          "${today.year}-${today.hour.toString().padLeft(2, "0")}-${today.day.toString().padLeft(2, "0")} ${time}Z");
     }
   }
 }

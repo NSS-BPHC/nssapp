@@ -283,7 +283,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
     });
     final toAdd = addDuration(durationController.text);
     print(json.encode(toAdd));
-    final endTimeHours = eventTime!.hour + (toAdd["hours"] ?? 0);
+    final endTimeHours = eventTime!.hour + (toAdd["hour"] ?? 0);
     final endTimeMinutes = eventTime!.minute + (toAdd["minutes"] ?? 0);
     int withdrawHours = eventTime!.hour; //- (toAdd["hours"] ?? 0);
     int withdrawMinutes = eventTime!.minute - (30);
@@ -302,7 +302,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
       "location": locationController.text,
       "organiser": organiserController.text,
       "date":
-          "${firstDate.day}/${firstDate.month.toString().padLeft(2, "0")}/${firstDate.year}",
+          "${firstDate.day.toString().padLeft(2, "0")}/${firstDate.month.toString().padLeft(2, "0")}/${firstDate.year}",
       "score": int.tryParse(scoreController.text) ?? 10,
       "startTime": _getStartTime(eventTime),
       "withDrawTime": "${withdrawHours % 24}:${withdrawMinutes % 60}",
