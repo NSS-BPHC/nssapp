@@ -5,6 +5,7 @@ import 'package:nssapp/services/postApi.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/events/successRegistration.dart';
 import 'package:nssapp/views/widgets/eventVolunteersList.dart';
+import 'package:nssapp/views/widgets/registeredVolunteersList.dart';
 import 'package:provider/provider.dart';
 
 enum RegState { loading, no, yes, canWithdraw, alreadyDone }
@@ -80,7 +81,7 @@ class _VolunteerEventRegistrationScreenState
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 50),
         child: SafeArea(
           child: Stack(
             children: [
@@ -212,11 +213,21 @@ class _VolunteerEventRegistrationScreenState
                     if (widget.isAdmin)
                       EventVolunteerList(eventModel: widget.eventModel),
                     const SizedBox(height: 50.0),
-                  ],
-                ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    if(!widget.isAdmin)
+                      RegisteredVolunteerList(eventModel: widget.eventModel),
+                    const SizedBox(height: 50.0),
+
+
+                 // ],
+            //    ),
+
+
+
+             // ),
+               Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+
                 children: [
                   SizedBox(),
                   Padding(
@@ -227,6 +238,8 @@ class _VolunteerEventRegistrationScreenState
                         InkWell(
                           onTap: _registerSubmit,
                           child: Container(
+                            //width: MediaQuery.of(context).size.width,
+                           margin: EdgeInsets.fromLTRB(12, 5, 12, 5),
                             decoration: BoxDecoration(
                                 color: registrationAvailableLoading ==
                                         RegState.loading
@@ -235,7 +248,7 @@ class _VolunteerEventRegistrationScreenState
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15))),
                             child: Padding(
-                              padding: const EdgeInsets.all(12.0),
+                              padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
                               child: registrationAvailableLoading ==
                                       RegState.loading
                                   ? CircularProgressIndicator()
@@ -268,6 +281,9 @@ class _VolunteerEventRegistrationScreenState
                   ),
                 ],
               ),
+      ],
+                ),
+    ),
             ],
           ),
         ),

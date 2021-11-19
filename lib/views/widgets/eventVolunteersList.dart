@@ -4,6 +4,7 @@ import 'package:nssapp/services/postApi.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/utilities/uiFunctions.dart';
 
+
 class EventVolunteerList extends StatefulWidget {
   final EventModel eventModel;
   const EventVolunteerList({Key? key, required this.eventModel})
@@ -39,6 +40,7 @@ class _EventVolunteerListState extends State<EventVolunteerList> {
     //           const TextStyle(fontSize: 17, fontWeight: FontWeight.w300));
     // }) ??
     // [];
+
     return Column(
       children: [
         const SizedBox(height: 20),
@@ -53,6 +55,7 @@ class _EventVolunteerListState extends State<EventVolunteerList> {
                             children: [
                               Text(e["name"] ?? ''),
                               SizedBox(width: 5),
+
                               IconButton(
                                   icon: Icon(Icons.delete),
                                   onPressed: () {
