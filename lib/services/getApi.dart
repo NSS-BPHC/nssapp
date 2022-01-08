@@ -37,7 +37,7 @@ class GetAPIProvider with ChangeNotifier {
       if (response.statusCode == 200)
         // final decodedRes = json.decode(response.body);
         for (var event in json.decode(response.body)) {
-          print(event);
+          // print(event);
           try {
             eventsData?.add(EventModel.fromJson(event));
           } catch (e) {

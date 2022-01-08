@@ -23,7 +23,7 @@ final List<VolunteerModel> volunteersData = [
     id: '2019A7PS0049H',
   ),
   VolunteerModel(
-    name: "Lakshmi Deepkia Kanneganti",
+    name: "Lakshmi Deepika Kanneganti",
     phoneNumber: "8074837374",
     dateOfJoining: "1-Aug-2021",
     role: "Community Engagement Lead",

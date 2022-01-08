@@ -43,7 +43,6 @@ Future<ApiResponse> login(
     final url = Uri.parse("$BASE_URL/users/login");
     final response =
         await http.post(url, body: {'email': email, "password": password});
-    print(response.body);
     apiResponse.handleLogin(response);
   } on SocketException {
     apiResponse.apiError = "Connection error";

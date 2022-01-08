@@ -28,11 +28,12 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
         context.watch<LoginManager>().userRole == UserRole.Admin;
     final eventsLength =
         context.watch<GetAPIProvider>().eventsData?.length ?? 0;
-    final events1 = context.watch<GetAPIProvider>().eventsData ?? [];
+   final events1 = context.watch<GetAPIProvider>().eventsData ?? [];
     events1.sort(
         (a, b) => a.date.toDateTime().isBefore(b.date.toDateTime()) ? 1 : 0);
     final events = List<EventModel>.from(events1);
     events.removeWhere((element) => !element.isInTheFuture);
+
     return Column(
       children: [
         Padding(
@@ -62,19 +63,20 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
             ],
           ),
         ),
+
         Expanded(
           child: (context.watch<GetAPIProvider>().eventsLoading)
               ? Center(child: CircularProgressIndicator())
               : RefreshIndicator(
                   onRefresh: () async {
-                    print("refresing");
                     await context
                         .read<GetAPIProvider>()
                         .getEvents(wasPulledToRefresh: true);
                   },
+
                   child: eventsLength == 0
-                      ? Center(child: Text("No events"))
-                      : ListView.builder(
+                      ? Center(child: Text("No Upcoming events")):
+                  ListView.builder(
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: (eventsLength <= 3)
@@ -93,11 +95,13 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
                             } catch (e) {
                               return SizedBox();
                             }
+
                           },
                         ),
                 ),
         ),
       ],
+
     );
   }
 }

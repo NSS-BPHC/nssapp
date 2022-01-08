@@ -81,7 +81,6 @@ class User with ChangeNotifier {
 
   // set email(String email) => _email = email;
   factory User.fromJson(Map<String, dynamic> json) {
-    print(jsonEncode(json["user"]?["events"]));
     if (json['user'] == null)
       return User(
         id: json["_id"],

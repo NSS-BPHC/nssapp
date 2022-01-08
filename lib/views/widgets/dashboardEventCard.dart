@@ -5,7 +5,7 @@ import 'package:nssapp/models/userModel.dart';
 import 'package:nssapp/services/getApi.dart';
 import 'package:nssapp/services/postApi.dart';
 import 'package:nssapp/utilities/styling.dart';
-import 'package:nssapp/views/screens/events/volunteerEventRegistraion.dart';
+import 'package:nssapp/views/screens/events/volunteerEventRegistration.dart';
 import 'package:provider/provider.dart';
 
 class DashBoardEventCard extends StatefulWidget {
@@ -257,7 +257,6 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                       setState(() {
                         isLoading = false;
                       });
-                      // print("Mwahaha");
                       ScaffoldMessenger.of(currentContext)
                           .showSnackBar(SnackBar(
                         content: Text("Failed to close event"),

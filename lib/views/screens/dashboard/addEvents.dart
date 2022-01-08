@@ -49,7 +49,7 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
 
   String? getText() {
     if (eventTime == null) {
-      return 'SelectTime';
+      return 'Select Time';
     } else {
       return '${eventTime?.hour}:${eventTime?.minute}';
     }
@@ -282,7 +282,6 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
       submitLoading = true;
     });
     final toAdd = addDuration(durationController.text);
-    print(json.encode(toAdd));
     final endTimeHours = eventTime!.hour + (toAdd["hour"] ?? 0);
     final endTimeMinutes = eventTime!.minute + (toAdd["minutes"] ?? 0);
     int withdrawHours = eventTime!.hour; //- (toAdd["hours"] ?? 0);
