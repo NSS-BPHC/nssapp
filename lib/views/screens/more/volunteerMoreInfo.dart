@@ -175,7 +175,6 @@ class _LogOutButtonState extends State<LogOutButton> {
                 this.loading = true;
               });
               Provider.of<LoginManager>(context, listen: false).logOut();
-              print("logging out");
             },
             child: Container(
               decoration: BoxDecoration(
