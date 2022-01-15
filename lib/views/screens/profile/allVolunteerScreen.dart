@@ -69,12 +69,17 @@ class _ListOfVolunteersState extends State<ListOfVolunteers> {
 
       volunteers = [];
       users?.forEach((user) {
-        volunteers?.add(VolunteerModel(
-            name: user["name"],
-            id: user["BITS_ID"] ?? "2020QWE1234H",
-            phoneNumber: user["phoneNumber"] ?? "1234567890",
-            dateOfJoining: user["dateOfJoining"] ?? "Jan 1 2008",
-            role: user["role"] ?? 'Volunteer'));
+        volunteers?.add(
+          VolunteerModel(
+              eventIds: user["events"],
+              name: user["name"],
+              userId: user["_id"],
+              id: user["BITS_ID"] ?? "2020QWE1234H",
+              phoneNumber: user["phoneNumber"] ?? "1234567890",
+              dateOfJoining: user["dateOfJoining"] ?? "Jan 1 2008",
+              role: user["role"] ?? 'Volunteer',
+              score: user["score"] ?? 0),
+        );
       });
     }
     setState(() {
@@ -84,6 +89,7 @@ class _ListOfVolunteersState extends State<ListOfVolunteers> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size.width;
     return Container(
       child: SafeArea(
         child: Column(
@@ -108,22 +114,25 @@ class _ListOfVolunteersState extends State<ListOfVolunteers> {
                         shrinkWrap: true,
                         itemCount: volunteers?.length ?? 0,
                         itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(
-                              volunteers?[index].name ?? "User $index",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(
-                              volunteers?[index].id ?? "ID",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                          );
+                          return volunteers?[index]
+                                  .toExpansionTile(screenSize) ??
+                              Text("");
+                          // return ListTile(
+                          //   title: Text(
+                          //     volunteers?[index].name ?? "User $index",
+                          //     style: TextStyle(
+                          //         color: Colors.black,
+                          //         fontSize: 18,
+                          //         fontWeight: FontWeight.bold),
+                          //   ),
+                          //   subtitle: Text(
+                          //     volunteers?[index].id ?? "ID",
+                          //     style: TextStyle(
+                          //         color: Colors.black,
+                          //         fontSize: 14,
+                          //         fontWeight: FontWeight.normal),
+                          //   ),
+                          // );
                         },
                       ),
                     ),

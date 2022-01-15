@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/services/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -86,6 +87,24 @@ Future<String> getAndStoreUserData(
   }
 }
 
+/// Get events with details for a particular user.
+/// Used for Admin view volunteer list expansion dropdown
+Future<List<EventModel>> getEventsForOneUser(String id) async {
+  final url = Uri.parse("$BASE_URL/users/$id");
+  final response = await http.get(url);
+  final decoded = json.decode(response.body);
+  print(response.body);
+  var events = decoded["user"]["events"];
+  final List<EventModel> list = [];
+  if (response.statusCode != 200 && response.statusCode != 201) return list;
+  if (events != null) {
+    events.forEach((event) {
+      list.add(EventModel.fromJson(event));
+    });
+  }
+  return list;
+}
+
 /// Get info about users of an event from the event ID
 Future<List<dynamic>?> getEventUsers(String id) async {
   final response = await http.get(Uri.parse("$BASE_URL/events/$id"));
@@ -109,4 +128,11 @@ Future<String?> getAllUsers() async {
   print(response.body);
   if (response.statusCode == 200 || response.statusCode == 201)
     return response.body;
+}
+
+Future<bool> decreaseScoreOfUser(String id, String decBy) async {
+  final response =
+      await http.get(Uri.parse("$BASE_URL/users/decrease-score/$id/$decBy"));
+  if (response.statusCode == 201) return true;
+  return false;
 }

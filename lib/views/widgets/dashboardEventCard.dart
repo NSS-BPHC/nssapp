@@ -180,7 +180,7 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
   }
 
   Future<void> _handleEventClick() async {
-    if (context.read<LoginManager>().isVisitor || widget.eventModel.closed)
+    if (context.read<LoginManager>().isVisitor) // || widget.eventModel.closed)
       return;
     // final isAdmin = context.read<LoginManager>().userRole == UserRole.Admin;
     _registerForEvent();

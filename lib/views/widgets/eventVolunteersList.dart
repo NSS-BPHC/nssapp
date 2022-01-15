@@ -3,7 +3,18 @@ import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/services/postApi.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/utilities/uiFunctions.dart';
+import 'package:nssapp/views/screens/events/volunteerEventRegistration.dart';
+import 'package:provider/provider.dart';
 
+class CustomScore {
+  final String id;
+  String scoreToDecrease;
+
+  CustomScore({required this.id, this.scoreToDecrease = "0"});
+}
+
+/// Shows the admin action buttons as well.
+/// Only meant for admin view
 class EventVolunteerList extends StatefulWidget {
   final EventModel eventModel;
   const EventVolunteerList({Key? key, required this.eventModel})
@@ -49,41 +60,49 @@ class _EventVolunteerListState extends State<EventVolunteerList> {
             ? CircularProgressIndicator()
             : Column(
                 children: [
-                  ...(users?.map((e) => Row(
-                            children: [
-                              Text(e["name"] ?? ''),
-                              SizedBox(width: 5),
-                              IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                    showConfirmDialog(context,
-                                        title: "Withdraw ${e["name"]}?",
-                                        content:
-                                            "Removes this participant from this event. Closing this event will not award points to ${e["name"]}",
-                                        onConfirm: () async {
-                                      final res =
-                                          await adminWithdrawParticipantFromEvent(
-                                              eventId: widget.eventModel.id,
-                                              userId: e["_id"]);
-                                      if (!res) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                          content: Text(
-                                              "Failed to withdraw ${e['name']}"),
-                                        ));
-                                        return;
-                                      }
-                                      widget.eventModel.usersWithNames
-                                          ?.removeWhere((element) =>
-                                              element["name"] == e["name"]);
-                                      widget.eventModel.users.removeWhere(
-                                          (element) =>
-                                              element["name"] == e["name"]);
-                                      setState(() {});
-                                    });
-                                  }),
-                            ],
-                          )) ??
+                  ...(users?.map((e) => _UserCard(
+                                user: e,
+                                eventModel: widget.eventModel,
+                                updateCallback: () {
+                                  setState(() {});
+                                },
+                              )
+                          // (e) => Row(
+                          //   children: [
+                          //     Text(e["name"] ?? ''),
+                          //     SizedBox(width: 5),
+                          //     IconButton(
+                          //         icon: Icon(Icons.delete),
+                          //         onPressed: () {
+                          //           showConfirmDialog(context,
+                          //               title: "Withdraw ${e["name"]}?",
+                          //               content:
+                          //                   "Removes this participant from this event. Closing this event will not award points to ${e["name"]}",
+                          //               onConfirm: () async {
+                          //             final res =
+                          //                 await adminWithdrawParticipantFromEvent(
+                          //                     eventId: widget.eventModel.id,
+                          //                     userId: e["_id"]);
+                          //             if (!res) {
+                          //               ScaffoldMessenger.of(context)
+                          //                   .showSnackBar(SnackBar(
+                          //                 content: Text(
+                          //                     "Failed to withdraw ${e['name']}"),
+                          //               ));
+                          //               return;
+                          //             }
+                          //             widget.eventModel.usersWithNames
+                          //                 ?.removeWhere((element) =>
+                          //                     element["name"] == e["name"]);
+                          //             widget.eventModel.users.removeWhere(
+                          //                 (element) =>
+                          //                     element["name"] == e["name"]);
+                          //             setState(() {});
+                          //           });
+                          //         }),
+                          //   ],
+                          // ),
+                          ) ??
                       []),
                   if (users?.isEmpty ?? true)
                     Text(
@@ -102,5 +121,119 @@ class _EventVolunteerListState extends State<EventVolunteerList> {
     //     ? CircularProgressIndicator()
     //     : Text(widget.eventModel.usersWithNames?[index]["name"] ?? "");
     // });
+  }
+}
+
+class _UserCard extends StatefulWidget {
+  const _UserCard({
+    Key? key,
+    required this.user,
+    required this.eventModel,
+    required this.updateCallback,
+  }) : super(key: key);
+  final Map<String, dynamic> user;
+  final EventModel eventModel;
+  final Function updateCallback;
+  @override
+  __UserCardState createState() => __UserCardState();
+}
+
+class __UserCardState extends State<_UserCard> {
+  int? score = 10;
+  @override
+  Widget build(BuildContext context) {
+    if (score == null) score = widget.eventModel.score;
+    final String name = widget.user["name"] ?? "User";
+    return Card(
+        elevation: 1,
+        // decoration: BoxDecoration(
+        //   border: Border.all(
+        //     color: Colors.blueAccent,
+        //   ),
+        // ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text("$name ($score)"),
+              subtitle: Text(widget.user["BITS_ID"] ?? ""),
+            ),
+            if (!widget.eventModel.closed)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton.icon(
+                    onPressed: () {
+                      showInputDialog(context,
+                          title: "Decrease score",
+                          message: "Enter points to decrease for $name",
+                          onInput: (val) {
+                        print("got callback $val");
+                        // widget.list.add(CustomScore(
+                        //     id: widget.user["_id"], scoreToDecrease: val));
+                        Provider.of<CustomScoreKeeper>(context, listen: false)
+                            .addUser(widget.user["_id"], val);
+                        int newScore = (widget.eventModel.score) -
+                            (int.tryParse(val) ?? 0);
+                        if (newScore > 0) {
+                          setState(() {
+                            this.score = newScore;
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                "You can decrease score max by ${widget.eventModel.score - 1} only."),
+                          ));
+                        }
+                      });
+                    },
+                    icon: Icon(Icons.edit),
+                    label: Text("Edit"),
+                  ),
+                  SizedBox(width: 8),
+                  // Remove button
+                  ElevatedButton.icon(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.redAccent),
+                      // foregroundColor:
+                      //     MaterialStateProperty.all(Colors.redAccent),
+                    ),
+                    onPressed: () {
+                      showConfirmDialog(context,
+                          title: "Withdraw ${widget.user['name']}?",
+                          content:
+                              "Removes this participant from this event. Closing this event will not award points to $name",
+                          onConfirm: () async {
+                        // final res = await adminWithdrawParticipantFromEvent(
+                        //     eventId: widget.eventModel.id,
+                        //     userId: widget.user["_id"]);
+                        final res = true;
+                        if (!res) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Failed to withdraw $name"),
+                          ));
+                          return;
+                        }
+                        try {
+                          widget.eventModel.usersWithNames?.removeWhere(
+                              (element) => element["name"] == name);
+                          widget.updateCallback();
+                          print(widget.eventModel.users);
+                          widget.eventModel.users
+                              .removeWhere((element) => element == name);
+                        } on Exception catch (e) {
+                          Navigator.pop(context);
+                        }
+                      });
+                    },
+                    icon: Icon(Icons.delete),
+                    label: Text("Remove"),
+                  ),
+                ],
+              )
+          ],
+        ));
   }
 }

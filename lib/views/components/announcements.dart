@@ -25,7 +25,7 @@ class _AnnouncementsComponentState extends State<AnnouncementsComponent> {
     final loading = Provider.of<GetAPIProvider>(context).announcementsLoading;
     final announcements = context.watch<GetAPIProvider>().announcements;
     announcements?.sort(
-        (a, b) => a.time.toDateTime().isBefore(b.time.toDateTime()) ? 1 : 0);
+        (a, b) => a.timeAsDateTime.isBefore(b.timeAsDateTime) ? 1 : 0);
     return Padding(
       padding: const EdgeInsets.only(top: 14.0, bottom: 14.0),
       child: Container(
