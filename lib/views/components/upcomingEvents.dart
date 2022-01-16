@@ -30,7 +30,7 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
         context.watch<GetAPIProvider>().eventsData?.length ?? 0;
    final events1 = context.watch<GetAPIProvider>().eventsData ?? [];
     events1.sort(
-        (a, b) => a.date.toDateTime().isBefore(b.date.toDateTime()) ? 1 : 0);
+        (a, b) => a.date.toDateTime(isTime: false).isBefore(b.date.toDateTime(isTime: false)) ? 1 : 0);
     final events = List<EventModel>.from(events1);
     events.removeWhere((element) => !element.isInTheFuture);
 

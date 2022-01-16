@@ -90,14 +90,14 @@ class EventModel with ChangeNotifier {
 
   /// If the event `date` is in the future
   bool get isInTheFuture =>
-      (!this.date.isBeforeRightNow() && !this.startTime.isBeforeRightNow());
+      (!this.date.isBeforeRightNow(isTime: false) && !this.startTime.isBeforeRightNow(isTime: true));
 
   /// Checks if user is in the `users` array
   bool hasRegistered(String userID) => this.users.contains(userID);
 
   /// True if withdrawal time has not passed
   bool get canWithdraw =>
-      this.withDrawTime.toDateTime().isAfter(DateTime.now());
+      this.withDrawTime.toDateTime(isTime: true).isAfter(DateTime.now());
 
   void updateThisWith(Map<String, dynamic> json) {
     id = json["_id"];

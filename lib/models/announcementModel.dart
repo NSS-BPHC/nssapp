@@ -1,4 +1,5 @@
 // ignore: camel_case_types
+import 'package:intl/intl.dart';
 import 'package:nssapp/services/postApi.dart';
 
 class AnnouncementModel {
@@ -16,6 +17,11 @@ class AnnouncementModel {
   Future<bool> delete() async {
     final res = await deleteAnnouncement(this.id);
     return res;
+  }
+
+  DateTime get timeAsDateTime {
+    final format = DateFormat("dd/mm/yyyy HH:mm");
+    return format.parse(this._time);
   }
 
   /// Get a formatted time as string to display

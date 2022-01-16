@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
+import 'package:nssapp/services/api.dart';
 import 'package:nssapp/services/getApi.dart';
-import 'package:nssapp/services/postApi.dart';
+import 'package:nssapp/services/postApi.dart' as post_api;
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/events/successRegistration.dart';
 import 'package:nssapp/views/widgets/eventVolunteersList.dart';
@@ -9,6 +10,18 @@ import 'package:nssapp/views/widgets/registeredVolunteersList.dart';
 import 'package:provider/provider.dart';
 
 enum RegState { loading, no, yes, canWithdraw, alreadyDone }
+
+class CustomScoreKeeper {
+  Map<String, String> customScoreUsers = {};
+  void addUser(String id, String scoreDecreaseBy) {
+    if (scoreDecreaseBy.isEmpty) return;
+    if (scoreDecreaseBy.trim() == "10") {
+      customScoreUsers.remove(id);
+      return;
+    }
+    customScoreUsers[id] = scoreDecreaseBy;
+  }
+}
 
 class VolunteerEventRegistrationScreen extends StatefulWidget {
   final EventModel eventModel;
@@ -30,6 +43,7 @@ class VolunteerEventRegistrationScreen extends StatefulWidget {
 class _VolunteerEventRegistrationScreenState
     extends State<VolunteerEventRegistrationScreen> {
   RegState registrationAvailableLoading = RegState.loading;
+  CustomScoreKeeper customScoreKeeper = CustomScoreKeeper();
   @override
   void initState() {
     super.initState();
@@ -85,205 +99,203 @@ class _VolunteerEventRegistrationScreenState
         child: SafeArea(
           child: Stack(
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.eventModel.title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    EventLocationAndOrganiser(widget: widget),
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(Icons.calendar_today),
-                                SizedBox(width: 5.0),
-                                Text(
-                                  widget.eventModel.date.toString(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                      color: Colors.black),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(Icons.alarm),
-                                SizedBox(width: 5.0),
-                                Text(
-                                  //TODO Uhh I should do a better job of rounding off times instead of removing the seconds part with a regexp
-                                  // "${widget.eventModel.startTime.replaceFirst(RegExp(r":\d+$"), "")} - ${widget.eventModel.endTime.replaceFirst(RegExp(r":\d+$"), "")}",
-                                  "${widget.eventModel.startTime} - ${widget.eventModel.endTime}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                      color: Colors.black),
-                                ),
-                              ],
-                            ),
-                          ],
+              Provider<CustomScoreKeeper>.value(
+                value: this.customScoreKeeper,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.eventModel.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 28,
+                          color: Colors.black,
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 18),
-                          height: 50.0,
-                          width: 120.0,
-                          decoration: BoxDecoration(
-                            color: AppTheme.secondaryColor,
-                            borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      const SizedBox(height: 15),
+                      EventLocationAndOrganiser(widget: widget),
+                      const SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.calendar_today),
+                                  SizedBox(width: 5.0),
+                                  Text(
+                                    widget.eventModel.date.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.alarm),
+                                  SizedBox(width: 5.0),
+                                  Text(
+                                    //TODO Uhh I should do a better job of rounding off times instead of removing the seconds part with a regexp
+                                    // "${widget.eventModel.startTime.replaceFirst(RegExp(r":\d+$"), "")} - ${widget.eventModel.endTime.replaceFirst(RegExp(r":\d+$"), "")}",
+                                    "${widget.eventModel.startTime} - ${widget.eventModel.endTime}",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Icon(
-                                  Icons.people,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  "${widget.eventModel.users.length} / ${widget.eventModel.noOfVolunteers}",
-                                  style: const TextStyle(
+                          Container(
+                            margin: const EdgeInsets.only(top: 18),
+                            height: 50.0,
+                            width: 120.0,
+                            decoration: BoxDecoration(
+                              color: AppTheme.secondaryColor,
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Icon(
+                                    Icons.people,
                                     color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  Text(
+                                    "${widget.eventModel.users.length} / ${widget.eventModel.noOfVolunteers}",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Description :',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        widget.eventModel.description,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                            color: Colors.black),
+                      ),
+                      const SizedBox(height: 30),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Registrations close on ${widget.eventModel.date} at ${widget.eventModel.startTime}',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.black),
+                          ),
+                          const SizedBox(height: 10.0),
+                          Text(
+                            'Withdrawls close on ${widget.eventModel.date} at ${widget.eventModel.withDrawTime}',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.black),
+                          )
+                        ],
+                      ),
+                      if (widget.isAdmin)
+                        EventVolunteerList(
+                          eventModel: widget.eventModel,
+                        ),
+                      if (!widget.isAdmin)
+                        RegisteredVolunteerList(eventModel: widget.eventModel),
+                      const SizedBox(height: 100.0),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: _registerSubmit,
+                                  child: Container(
+                                    //width: MediaQuery.of(context).size.width,
+                                    margin: EdgeInsets.fromLTRB(12, 5, 12, 5),
+                                    decoration: BoxDecoration(
+                                        color: registrationAvailableLoading ==
+                                                RegState.loading
+                                            ? Colors.blueAccent.shade100
+                                            : AppTheme.secondaryColor,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15))),
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          12, 5, 12, 5),
+                                      child: registrationAvailableLoading ==
+                                              RegState.loading
+                                          ? CircularProgressIndicator()
+                                          : Text(
+                                              widget.isAdmin
+                                                  ? widget.eventModel.closed
+                                                      ? "Event Closed"
+                                                      : "Close Event"
+                                                  : registrationAvailableLoading ==
+                                                          RegState.yes
+                                                      ? "Register for Event"
+                                                      : registrationAvailableLoading ==
+                                                              RegState.no
+                                                          ? "Event closed"
+                                                          : registrationAvailableLoading ==
+                                                                  RegState
+                                                                      .alreadyDone
+                                                              ? "Registered"
+                                                              : "Withdraw",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 24,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Description :',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.black),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      widget.eventModel.description,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18,
-                          color: Colors.black),
-                    ),
-                    const SizedBox(height: 30),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Registrations close on ${widget.eventModel.date} at ${widget.eventModel.startTime}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.black),
-                        ),
-                        const SizedBox(height: 10.0),
-                        Text(
-                          'Withdrawls close on ${widget.eventModel.date} at ${widget.eventModel.withDrawTime}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.black),
-                        )
-                      ],
-                    ),
-                    if (widget.isAdmin)
-                      EventVolunteerList(eventModel: widget.eventModel),
-                    const SizedBox(height: 50.0),
-                    if(!widget.isAdmin)
-                      RegisteredVolunteerList(eventModel: widget.eventModel),
-                    const SizedBox(height: 50.0),
-
-
-                 // ],
-            //    ),
-
-
-
-             // ),
-               Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-
-                children: [
-                  SizedBox(),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: _registerSubmit,
-                          child: Container(
-                            //width: MediaQuery.of(context).size.width,
-                           margin: EdgeInsets.fromLTRB(12, 5, 12, 5),
-                            decoration: BoxDecoration(
-                                color: registrationAvailableLoading ==
-                                        RegState.loading
-                                    ? Colors.blueAccent.shade100
-                                    : AppTheme.secondaryColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(12, 5, 12, 5),
-                              child: registrationAvailableLoading ==
-                                      RegState.loading
-                                  ? CircularProgressIndicator()
-                                  : Text(
-                                      widget.isAdmin
-                                          ? widget.eventModel.closed
-                                              ? "Event Closed"
-                                              : "Close Event"
-                                          : registrationAvailableLoading ==
-                                                  RegState.yes
-                                              ? "Register for Event"
-                                              : registrationAvailableLoading ==
-                                                      RegState.no
-                                                  ? "Event closed"
-                                                  : registrationAvailableLoading ==
-                                                          RegState.alreadyDone
-                                                      ? "Registered"
-                                                      : "Withdraw",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 24,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
-      ],
                 ),
-    ),
+              ),
             ],
           ),
         ),
@@ -318,7 +330,7 @@ class _VolunteerEventRegistrationScreenState
     setState(() {
       registrationAvailableLoading = RegState.loading;
     });
-    final res = await registerForEvent(widget.eventModel.id);
+    final res = await post_api.registerForEvent(widget.eventModel.id);
     if (res) {
       widget.eventModel.users.add(widget.userId);
       setState(() {
@@ -340,7 +352,7 @@ class _VolunteerEventRegistrationScreenState
     setState(() {
       registrationAvailableLoading = RegState.loading;
     });
-    final res = await withdrawFromEvent(widget.eventModel.id);
+    final res = await post_api.withdrawFromEvent(widget.eventModel.id);
     // final res = true;
     if (res) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -400,11 +412,12 @@ class _VolunteerEventRegistrationScreenState
                     setState(() {
                       isLoading = true;
                     });
-                    final res = await closeEvent(widget.eventModel.id);
+                    final res = await post_api.closeEvent(widget.eventModel.id);
                     if (!res) {
                       setState(() {
                         isLoading = false;
                       });
+
                       // print("Mwahaha");
                       ScaffoldMessenger.of(currentContext)
                           .showSnackBar(SnackBar(
@@ -416,10 +429,25 @@ class _VolunteerEventRegistrationScreenState
                       Navigator.pop(context);
                       return;
                     }
+
                     // currentContext.read<GetAPIProvider>().getEvents();
                     await widget.eventModel.updateThisWithUserDetails();
                     Navigator.pop(context);
                     Navigator.pop(currentContext, true);
+                    // decrease custom score
+                    final listOfUsers = this.customScoreKeeper.customScoreUsers;
+                    listOfUsers.keys.forEach((id) async {
+                      print("decreasing");
+                      decreaseScoreOfUser(id, listOfUsers[id] ?? "0")
+                          .then((value) {
+                        if (!value) {
+                          ScaffoldMessenger.of(currentContext)
+                              .showSnackBar(SnackBar(
+                            content: Text("Failed to modify score for a user"),
+                          ));
+                        }
+                      });
+                    });
                   },
                 ),
             ],

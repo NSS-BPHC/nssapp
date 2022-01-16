@@ -61,8 +61,11 @@ class __EventsListState extends State<_EventsList> {
   @override
   Widget build(BuildContext context) {
     final events = Provider.of<GetAPIProvider>(context).eventsData;
-    events?.sort(
-        (a, b) => a.date.toDateTime().isBefore(b.date.toDateTime()) ? 1 : 0);
+    events?.sort((a, b) => a.date
+            .toDateTime(isTime: false)
+            .isBefore(b.date.toDateTime(isTime: false))
+        ? 1
+        : 0);
     // final displayedEvents =
     // (events?.length ?? 0) <= 3 ? _eventsPad(events ?? []) : events;
     // print(displayedEvents);

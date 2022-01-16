@@ -281,19 +281,25 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
     setState(() {
       submitLoading = true;
     });
-    final toAdd = addDuration(durationController.text);
-    final endTimeHours = eventTime!.hour + (toAdd["hour"] ?? 0);
-    final endTimeMinutes = eventTime!.minute + (toAdd["minutes"] ?? 0);
-    int withdrawHours = eventTime!.hour; //- (toAdd["hours"] ?? 0);
-    int withdrawMinutes = eventTime!.minute - (30);
-    if (withdrawMinutes < 0) {
-      withdrawMinutes += 60;
-      if (withdrawHours == 1)
-        withdrawHours = 12;
-      else
-        withdrawHours -= 1;
-    }
-    print(withdrawHours);
+    // final toAdd = addDuration(durationController.text);
+    final today = DateTime.now();
+    final eventTimeToDateTime = DateTime(
+        today.year, today.month, today.day, eventTime!.hour, eventTime!.minute);
+    final endTime = eventTimeToDateTime
+        .add(Duration(minutes: int.parse(durationController.text)));
+    final withDrawTime = eventTimeToDateTime.subtract(Duration(minutes: 30));
+    // final endTimeHours = eventTime!.hour + (toAdd["hour"] ?? 0);
+    // final endTimeMinutes = eventTime!.minute + (toAdd["minutes"] ?? 0);
+    // int withdrawHours = eventTime!.hour; //- (toAdd["hours"] ?? 0);
+    // int withdrawMinutes = eventTime!.minute - (30);
+    // if (withdrawMinutes < 0) {
+    //   withdrawMinutes += 60;
+    //   if (withdrawHours == 1)
+    //     withdrawHours = 12;
+    //   else
+    //     withdrawHours -= 1;
+    // }
+    // print(withdrawHours);
     // return;
     bool created = await api.createEvent({
       "title": titleController.text,
@@ -304,8 +310,10 @@ class _AddEventsScreenState extends State<AddEventsScreen> {
           "${firstDate.day.toString().padLeft(2, "0")}/${firstDate.month.toString().padLeft(2, "0")}/${firstDate.year}",
       "score": int.tryParse(scoreController.text) ?? 10,
       "startTime": _getStartTime(eventTime),
-      "withDrawTime": "${withdrawHours % 24}:${withdrawMinutes % 60}",
-      "endTime": "${endTimeHours % 24}:${endTimeMinutes % 60}",
+      "withDrawTime": "${withDrawTime.hour}:${withDrawTime.minute}",
+      "endTime": "${endTime.hour}:${endTime.minute}",
+      // "withDrawTime": "${withdrawHours % 24}:${withdrawMinutes % 60}",
+      // "endTime": "${endTimeHours % 24}:${endTimeMinutes % 60}",
       "noOfVolunteers": int.parse(numberController.text)
     });
 
