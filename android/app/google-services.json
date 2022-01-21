@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "61300629629",
+    "project_id": "nssapp-c5d8f",
+    "storage_bucket": "nssapp-c5d8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61300629629:android:13e7fa332173a09aaa1114",
+        "android_client_info": {
+          "package_name": "com.nssapp.nss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61300629629-gi43plaio5525aob81p7vk85b61ind88.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUMglOp-a2A72q8_6FW8QNUv_0H0aTl1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61300629629-gi43plaio5525aob81p7vk85b61ind88.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

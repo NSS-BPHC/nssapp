@@ -6,6 +6,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:nssapp/models/userModel.dart';
 import 'package:nssapp/services/api.dart' as api;
 import 'package:shared_preferences/shared_preferences.dart';
+import "package:firebase_messaging/firebase_messaging.dart";
 
 //TODO Delete later
 const userData = {
@@ -35,6 +36,7 @@ class LoginManager with ChangeNotifier {
   /// Checks if user has already logged in previously
   /// Loads the user data in `user`
   Future<void> init({bool hardRefresh = false}) async {
+    getMessagingPermission();
     print("init");
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -146,4 +148,22 @@ class LoginManager with ChangeNotifier {
     this.isLoading = false;
     notifyListeners();
   }
+}
+
+void getMessagingPermission() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  messaging.subscribeToTopic("events");
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+  final token = await messaging.getToken();
+  print("Token is:$token");
+
+  print('User granted permission: ${settings.authorizationStatus}');
 }
