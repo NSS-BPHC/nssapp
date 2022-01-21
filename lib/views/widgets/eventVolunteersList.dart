@@ -146,11 +146,6 @@ class __UserCardState extends State<_UserCard> {
     final String name = widget.user["name"] ?? "User";
     return Card(
         elevation: 1,
-        // decoration: BoxDecoration(
-        //   border: Border.all(
-        //     color: Colors.blueAccent,
-        //   ),
-        // ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -166,17 +161,30 @@ class __UserCardState extends State<_UserCard> {
                   OutlinedButton.icon(
                     onPressed: () {
                       showInputDialog(context,
-                          title: "Decrease score",
-                          message: "Enter points to decrease for $name",
+                          title: "Enter score",
+                          message: "Enter points to award $name",
                           onInput: (val) {
-                        print("got callback $val");
                         // widget.list.add(CustomScore(
                         //     id: widget.user["_id"], scoreToDecrease: val));
-                        Provider.of<CustomScoreKeeper>(context, listen: false)
-                            .addUser(widget.user["_id"], val);
-                        int newScore = (widget.eventModel.score) -
-                            (int.tryParse(val) ?? 0);
-                        if (newScore > 0) {
+                        int? parsed = int.tryParse(val);
+                        if (parsed == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Input not entered, invalid or 0"),
+                          ));
+                          return;
+                        }
+                        int newScore = parsed;
+                        // int newScore = (widget.eventModel.score) -
+                        // (int.tryParse(val) ?? 0);
+                        // int newScore =
+                        //     int.tryParse(val) ?? widget.eventModel.score;
+                        if (newScore > 0 &&
+                            newScore <= widget.eventModel.score) {
+                          Provider.of<CustomScoreKeeper>(context, listen: false)
+                              .addUser(
+                                  widget.user["_id"],
+                                  (widget.eventModel.score - newScore)
+                                      .toString());
                           setState(() {
                             this.score = newScore;
                           });

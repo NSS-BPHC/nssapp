@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/events/giveFeedBack.dart';
+import 'package:nssapp/views/widgets/registeredVolunteersList.dart';
 
 class EventDescription extends StatefulWidget {
   final EventModel eventModel;
@@ -123,7 +124,6 @@ class _EventDescriptionState extends State<EventDescription> {
                               Icon(Icons.alarm),
                               SizedBox(width: 5.0),
                               Text(
-                                //TODO Uhh I should do a better job of rounding off times instead of removing the seconds part with a regexp
                                 // "${widget.eventModel.startTime.replaceFirst(RegExp(r":\d+$"), "")} - ${widget.eventModel.endTime.replaceFirst(RegExp(r":\d+$"), "")}",
                                 "${widget.eventModel.startTime} - ${widget.eventModel.endTime}",
                                 style: const TextStyle(
@@ -186,6 +186,7 @@ class _EventDescriptionState extends State<EventDescription> {
                     ],
                   ),
                   SizedBox(height: 50.0),
+                  RegisteredVolunteerList(eventModel: widget.eventModel),
                 ],
               ),
               Column(

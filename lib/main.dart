@@ -5,13 +5,17 @@ import 'package:nssapp/utilities/size_config.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/views/screens/auth/authWrapper.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'models/loginManager.dart';
 
 void main() async {
   // App starts here
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // LoginManager handles login and logout
   // by the Provider package
   LoginManager loginManager = new LoginManager();
