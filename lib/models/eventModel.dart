@@ -89,22 +89,30 @@ class EventModel with ChangeNotifier {
       };
 
   /// If the event `date` is in the future
-  ///
   bool get isInTheFuture {
-    String dateForParsing = "";
-
-    // this.date is of the format : DD/MM/YYYY
-    // DateTime.parse takes in input of the format : YYYY-MM-DD
-
-    // Conversion from DD/MM/YYYY to YYYY-MM-DD
-    dateForParsing += this.date.substring(6, this.date.length);
-    dateForParsing += '-';
-    dateForParsing += this.date[3] + this.date[4];
-    dateForParsing += '-';
-    dateForParsing += this.date[0] + this.date[1];
-
-    return DateTime.parse(dateForParsing).isAfter(DateTime.now());
+    // This date must be today or after today
+    // If the date is today, the startTime must also
+    // be after now.
+    return this.date.isAfterRightNow(isTime: false) &&
+        this.startTime.isAfterRightNow(isTime: true);
   }
+  // bool get isInTheFuture {
+  /// This implementation only does half the job
+  /// by only checking
+  //   String dateForParsing = "";
+
+  //   // this.date is of the format : DD/MM/YYYY
+  //   // DateTime.parse takes in input of the format : YYYY-MM-DD
+
+  //   // Conversion from DD/MM/YYYY to YYYY-MM-DD
+  //   dateForParsing += this.date.substring(6, this.date.length);
+  //   dateForParsing += '-';
+  //   dateForParsing += this.date[3] + this.date[4];
+  //   dateForParsing += '-';
+  //   dateForParsing += this.date[0] + this.date[1];
+
+  //   return DateTime.parse(dateForParsing).isAfter(DateTime.now());
+  // }
 
   // bool get isInTheFuture =>
   //     (!this.date.isBeforeRightNow(isTime: false) && !this.startTime.isBeforeRightNow(isTime: true));

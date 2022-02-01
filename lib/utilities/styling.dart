@@ -34,7 +34,7 @@ class AppTheme {
   );
 
   static final TextStyle _headline1 = TextStyle(
-    color: textWhiteColor,
+    color: textBlackColor,
     fontSize: 4 * SizeConfig.textMultiplier,
     fontFamily: 'Helvetica',
     letterSpacing: 1.5,

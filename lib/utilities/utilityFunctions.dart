@@ -4,8 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 extension EventModelString on String {
+  /// Use [isAfterRightNow] instead
+  ///
   /// [isTime] should be true if this string is of the
   /// format HH:mm
+  @Deprecated("Use isAfterRightNow instead")
   bool isBeforeRightNow({required bool isTime}) {
     final now = DateTime.now(); // DateTime.parse("$otherDate 00:00:00Z");
 
@@ -17,9 +20,24 @@ extension EventModelString on String {
 
   /// [isTime] should be true if this string is of the
   /// format HH:mm
+  bool isAfterRightNow({required bool isTime}) {
+    final now = DateTime.now();
+
+    final justBeforeTodayMidnight = DateTime(now.year, now.month, now.day)
+        .subtract(const Duration(minutes: 1));
+    final thisDate = toDateTime(isTime: isTime);
+    if (isTime) {
+      return now.isBefore(thisDate);
+    } else {
+      return justBeforeTodayMidnight.isBefore(thisDate);
+    }
+  }
+
+  /// [isTime] should be true if this string is of the
+  /// format HH:mm
   DateTime toDateTime({required bool isTime}) {
-    print("comparing $this, " + (isTime ? "is time" : "is not time"));
-    late final String formatOfDate = "dd/mm/yyyy HH:mm";
+//     print("comparing $this, " + (isTime ? "is time" : "is not time"));
+    late final String formatOfDate = "dd/MM/yyyy HH:mm";
     String date = this;
     if (isTime) {
       // formatOfDate = "dd/mm/yyyy HH:mm";
