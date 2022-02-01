@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nssapp/data/eventsData.dart';
 import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/models/loginManager.dart';
 import 'package:nssapp/models/userModel.dart';

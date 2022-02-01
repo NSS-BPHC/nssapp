@@ -51,6 +51,7 @@ class _EventVolunteerListState extends State<EventVolunteerList> {
     // }) ??
     // [];
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 20),
         Text("Participants",

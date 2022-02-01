@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nssapp/data/eventsData.dart';
 import 'package:nssapp/models/eventModel.dart';
 import 'package:nssapp/utilities/utilityFunctions.dart';
 import 'package:nssapp/models/loginManager.dart';
@@ -28,10 +27,15 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
         context.watch<LoginManager>().userRole == UserRole.Admin;
     final eventsLength =
         context.watch<GetAPIProvider>().eventsData?.length ?? 0;
-   final events1 = context.watch<GetAPIProvider>().eventsData ?? [];
-    events1.sort(
-        (a, b) => a.date.toDateTime(isTime: false).isBefore(b.date.toDateTime(isTime: false)) ? 1 : 0);
+    final events1 = context.watch<GetAPIProvider>().eventsData ?? [];
+    events1.sort((a, b) => a.date
+            .toDateTime(isTime: false)
+            .isBefore(b.date.toDateTime(isTime: false))
+        ? 1
+        : 0);
+
     final events = List<EventModel>.from(events1);
+    print(events[0].date.toString());
     events.removeWhere((element) => !element.isInTheFuture);
 
     return Column(
@@ -63,7 +67,6 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
             ],
           ),
         ),
-
         Expanded(
           child: (context.watch<GetAPIProvider>().eventsLoading)
               ? Center(child: CircularProgressIndicator())
@@ -73,10 +76,9 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
                         .read<GetAPIProvider>()
                         .getEvents(wasPulledToRefresh: true);
                   },
-
                   child: eventsLength == 0
-                      ? Center(child: Text("No Upcoming events")):
-                  ListView.builder(
+                      ? Center(child: Text("No Upcoming events"))
+                      : ListView.builder(
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: (eventsLength <= 3)
@@ -95,13 +97,11 @@ class _UpcomingEventsComponentState extends State<UpcomingEventsComponent> {
                             } catch (e) {
                               return SizedBox();
                             }
-
                           },
                         ),
                 ),
         ),
       ],
-
     );
   }
 }

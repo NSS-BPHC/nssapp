@@ -106,7 +106,7 @@ class _AllEventCardState extends State<AllEventCard> {
                     Row(
                       children: [
                         Text(
-                          "10:00 am",
+                          widget.eventModel.startTime,
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontStyle: FontStyle.italic,
@@ -122,7 +122,7 @@ class _AllEventCardState extends State<AllEventCard> {
                               color: Colors.black),
                         ),
                         Text(
-                          "05:00 pm",
+                          widget.eventModel.endTime,
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontStyle: FontStyle.italic,

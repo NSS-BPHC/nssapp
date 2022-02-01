@@ -503,7 +503,7 @@ class EventLocationAndOrganiser extends StatelessWidget {
                     text: widget.eventModel.organiser,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 24,
+                      fontSize: 20,
                       color: Colors.black,
                     ),
                   ),

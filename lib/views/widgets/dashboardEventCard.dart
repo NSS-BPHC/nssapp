@@ -33,7 +33,7 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
             borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(22.0),
+            padding: const EdgeInsets.all(24.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,6 +47,7 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                     color: Colors.black,
                   ),
                 ),
+                SizedBox(height: 8.0),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -68,7 +69,7 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                           ],
                         ),
                         Text(
-                          widget.eventModel.date.toString(),
+                          widget.eventModel.date,
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: 14,
@@ -76,6 +77,7 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 8.0),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       textBaseline: TextBaseline.alphabetic,
@@ -100,6 +102,7 @@ class _DashBoardEventCardState extends State<DashBoardEventCard> {
                     ),
                   ],
                 ),
+                SizedBox(height: 8.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

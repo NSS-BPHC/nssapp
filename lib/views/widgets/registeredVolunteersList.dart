@@ -4,14 +4,14 @@ import 'package:nssapp/services/postApi.dart';
 import 'package:nssapp/utilities/styling.dart';
 import 'package:nssapp/utilities/uiFunctions.dart';
 
-
 class RegisteredVolunteerList extends StatefulWidget {
   final EventModel eventModel;
   const RegisteredVolunteerList({Key? key, required this.eventModel})
       : super(key: key);
 
   @override
-  _RegisteredVolunteerListState createState() => _RegisteredVolunteerListState();
+  _RegisteredVolunteerListState createState() =>
+      _RegisteredVolunteerListState();
 }
 
 class _RegisteredVolunteerListState extends State<RegisteredVolunteerList> {
@@ -37,6 +37,7 @@ class _RegisteredVolunteerListState extends State<RegisteredVolunteerList> {
     final users = widget.eventModel.usersWithNames;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 20),
         Text("Participants",
@@ -45,26 +46,24 @@ class _RegisteredVolunteerListState extends State<RegisteredVolunteerList> {
         (isLoading
             ? CircularProgressIndicator()
             : Column(
-          children: [
-            ...(users?.map((e) => Row(
-              children: [
-                Text(e["name"] ?? ''),
-                SizedBox(width: 5),
-
-
-              ],
-            )) ??
-                []),
-            if (users?.isEmpty ?? true)
-              Text(
-                "No participants yet",
-                style: const TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w300,
-                ),
-              )
-          ],
-        )),
+                children: [
+                  ...(users?.map((e) => Row(
+                            children: [
+                              Text(e["name"] ?? ''),
+                              SizedBox(width: 5),
+                            ],
+                          )) ??
+                      []),
+                  if (users?.isEmpty ?? true)
+                    Text(
+                      "No participants yet",
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    )
+                ],
+              )),
       ],
     );
   }

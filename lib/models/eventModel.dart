@@ -89,8 +89,25 @@ class EventModel with ChangeNotifier {
       };
 
   /// If the event `date` is in the future
-  bool get isInTheFuture =>
-      (!this.date.isBeforeRightNow(isTime: false) && !this.startTime.isBeforeRightNow(isTime: true));
+  ///
+  bool get isInTheFuture {
+    String dateForParsing = "";
+
+    // this.date is of the format : DD/MM/YYYY
+    // DateTime.parse takes in input of the format : YYYY-MM-DD
+
+    // Conversion from DD/MM/YYYY to YYYY-MM-DD
+    dateForParsing += this.date.substring(6, this.date.length);
+    dateForParsing += '-';
+    dateForParsing += this.date[3] + this.date[4];
+    dateForParsing += '-';
+    dateForParsing += this.date[0] + this.date[1];
+
+    return DateTime.parse(dateForParsing).isAfter(DateTime.now());
+  }
+
+  // bool get isInTheFuture =>
+  //     (!this.date.isBeforeRightNow(isTime: false) && !this.startTime.isBeforeRightNow(isTime: true));
 
   /// Checks if user is in the `users` array
   bool hasRegistered(String userID) => this.users.contains(userID);
