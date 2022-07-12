@@ -10,6 +10,7 @@ Application for the NSS Event Registration and Marks Allotment
 
 - [@saiankit](https://www.github.com/saiankit)
 - [@Rohithkumargattu979](https://www.github.com/Rohithkumargattu979)
+- [@Akshat-Oke](https://github.com/Akshat-Oke)
 
 
 
